@@ -44,7 +44,6 @@ class TimeSuite:
         self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar
         self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius
         self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius
-        self.mixingRatio = np.array([9, 10, 11, 12, 13, 14]); #dimensionless
         self.ds = index_xarray_data()
         self.slice = self.ds.isel(isobaric=0)
 
@@ -76,8 +75,5 @@ class TimeSuite:
     def time_lcl_grid(self):
         """Benchmark LCL calculation on a grid."""
         lcl(self.slice.isobaric, self.slice.temperature, self.slice.dewpoint)
-        
-    def time_virtual_temperature(self): 
-        """Benchmark mixing ratio from relative humidity calculation."""
-        virtual_temperature(self.t[0], self.mixingRatio[0] * units("g/kg")); 
+ 
 
