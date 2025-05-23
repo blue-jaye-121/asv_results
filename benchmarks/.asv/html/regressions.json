@@ -1,1 +1,1 @@
-{"regressions": []}
+{"regressions": [["benchmarks.TimeSuite.time_cape_cin", "graphs\\arch-arm64\\branch-HEAD\\cpu-Apple M2 Pro\\machine-letterman\\matplotlib\\num_cpu-12\\numpy\\os-macOS Sequoia 15.2\\pandas\\pint\\pooch\\pyproj\\python-3.12\\ram-32GB\\scipy\\traitlets\\xarray\\benchmarks.TimeSuite.time_cape_cin.json", {"arch": "arm64", "cpu": "Apple M2 Pro", "machine": "letterman", "num_cpu": "12", "os": "macOS Sequoia 15.2"}, null, 0.0033287136247963645, 0.0029073437490296783, [[6377, 6635, 0.0029073437490296783, 0.003325223999127047]]]]}

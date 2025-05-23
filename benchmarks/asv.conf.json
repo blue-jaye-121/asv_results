@@ -16,16 +16,16 @@
     // The Python project's subdirectory in your repo.  If missing or
     // the empty string, the project is assumed to be located at the root
     // of the repository.
-    // "repo_subdir": "src/metpy",
+    //"repo_subdir": "benchmarks",
 
     // Customizable commands for building the project.
     // See asv.conf.json documentation.
     // To build the package using pyproject.toml (PEP518), uncomment the following lines
-//     "build_command": [
-//         "python -m pip install build",
-//         "python -m build",
-//         "python -mpip wheel -w {build_cache_dir} {build_dir}"
-//     ],
+     "build_command": [
+         "python -m pip install build",
+         "python -m build",
+         "python -mpip wheel -w {build_cache_dir} {build_dir}"
+    ],
     // To build the package using setuptools and a setup.py file, uncomment the following lines
     // "build_command": [
     //     "python setup.py build",
@@ -34,19 +34,19 @@
 
     // Customizable commands for installing and uninstalling the project.
     // See asv.conf.json documentation.
-     "install_command": ["in-dir={env_dir} python -mpip install {build_dir}"],
+    "install_command": ["in-dir={env_dir} python -mpip install {build_dir}"],
      "uninstall_command": ["return-code=any python -mpip uninstall -y {project}"],
 
     // List of branches to benchmark. If not provided, defaults to "main"
     // (for git) or "default" (for mercurial).
-     "branches": ["HEAD"], // for git
+    "branches": ["HEAD"], // for git
     // "branches": ["default"],    // for mercurial
 
     // The DVCS being used.  If not set, it will be automatically
     // determined from "repo" by looking at the protocol in the URL
     // (if remote), or by looking for special directories, such as
     // ".git" (if local).
-     "dvcs": "git",
+     // "dvcs": "git",
 
     // The tool to use to create environments.  May be "conda",
     // "virtualenv", "mamba" (above 3.8)
@@ -54,7 +54,7 @@
     // If missing or the empty string, the tool will be automatically
     // determined by looking for tools on the PATH environment
     // variable.
-      "environment_type": "virtualenv",
+      "environment_type": "conda",
 
     // timeout in seconds for installing any dependencies in environment
     // defaults to 10 min
@@ -65,11 +65,11 @@
 
     // The Pythons you'd like to test against.  If not provided, defaults
     // to the current version of Python used to run `asv`.
-    // "pythons": ["3.8", "3.12"],
+    //"pythons": ["3.8", "3.12"],
 
     // The list of conda channel names to be searched for benchmark
     // dependency packages in the specified order
-    // "conda_channels": ["conda-forge"],
+    "conda_channels": ["conda-forge"],
 
     // A conda environment file that is used for environment creation.
     // "conda_environment_file": "environment.yml",
