@@ -1,6 +1,6 @@
 {
     "benchmarks.TimeSuite.time_cape_cin": {
-        "code": "class TimeSuite:\n    def time_cape_cin(self):\n        \"\"\"Benchmark cape_cin.\"\"\"\n        parcel_prof = parcel_profile(self.p, self.t[0], self.td[0])\n        cape_cin(self.p, self.t, self.td, parcel_prof)\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "code": "class TimeSuite:\n    def time_cape_cin(self):\n        \"\"\"Benchmark cape_cin.\"\"\"\n        parcel_prof = parcel_profile(self.p, self.t[0], self.td[0])\n        cape_cin(self.p, self.t, self.td, parcel_prof)\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.mixingRatio = np.array([9, 10, 11, 12, 13, 14]); #dimensionless\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "benchmarks.TimeSuite.time_cape_cin",
         "number": 0,
@@ -11,11 +11,11 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "e55fc7e895498d06b6755257ab522e6e0feb03f671ed9bab620939ed709abace",
+        "version": "bf8d8ef5f3098bcf7ee8d60351ce65b01db49d90aa4623f574488df5a43c6bdf",
         "warmup_time": -1
     },
     "benchmarks.TimeSuite.time_el": {
-        "code": "class TimeSuite:\n    def time_el(self):\n        \"\"\"Benchmark el..\"\"\"\n        el(self.p, self.t, self.td)\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "code": "class TimeSuite:\n    def time_el(self):\n        \"\"\"Benchmark el..\"\"\"\n        el(self.p, self.t, self.td)\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.mixingRatio = np.array([9, 10, 11, 12, 13, 14]); #dimensionless\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "benchmarks.TimeSuite.time_el",
         "number": 0,
@@ -26,11 +26,11 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "d1e87e3c3e48d9e41a43e0bdea7340b98be5038faf56d605c0efe97d55ae5390",
+        "version": "91109f7d4893e6e1b7ac29c8e943e025d371f630bb0ea15897d9dce77cb2ba27",
         "warmup_time": -1
     },
     "benchmarks.TimeSuite.time_lcl": {
-        "code": "class TimeSuite:\n    def time_lcl(self):\n        \"\"\"Benchmark LCL calculation.\"\"\"\n        lcl(self.p[0], self.t[0], self.td[0])\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "code": "class TimeSuite:\n    def time_lcl(self):\n        \"\"\"Benchmark LCL calculation.\"\"\"\n        lcl(self.p[0], self.t[0], self.td[0])\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.mixingRatio = np.array([9, 10, 11, 12, 13, 14]); #dimensionless\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "benchmarks.TimeSuite.time_lcl",
         "number": 0,
@@ -41,11 +41,11 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "5dd51d5beec84f51a364250699d3a4f99b79633b1a9c0b02a1869b72116843e1",
+        "version": "1587a026c2b2f590646d6f718a63f9a125c80c6166c615323fb324a862ba990f",
         "warmup_time": -1
     },
     "benchmarks.TimeSuite.time_lcl_grid": {
-        "code": "class TimeSuite:\n    def time_lcl_grid(self):\n        \"\"\"Benchmark LCL calculation on a grid.\"\"\"\n        lcl(self.slice.isobaric, self.slice.temperature, self.slice.dewpoint)\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "code": "class TimeSuite:\n    def time_lcl_grid(self):\n        \"\"\"Benchmark LCL calculation on a grid.\"\"\"\n        lcl(self.slice.isobaric, self.slice.temperature, self.slice.dewpoint)\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.mixingRatio = np.array([9, 10, 11, 12, 13, 14]); #dimensionless\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "benchmarks.TimeSuite.time_lcl_grid",
         "number": 0,
@@ -56,11 +56,11 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "4a277b8e374c51dfe7585b217bd1fd4b75792f7304c9f938452b4cc4df285866",
+        "version": "7325c5c877734d8c6e976fb06ece89704a17d93e20a8153227e046d703d70059",
         "warmup_time": -1
     },
     "benchmarks.TimeSuite.time_moist_lapse": {
-        "code": "class TimeSuite:\n    def time_moist_lapse(self):\n        \"\"\"Benchmark moist lapse calculation.\"\"\"\n        moist_lapse(self.p, self.t[0])\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "code": "class TimeSuite:\n    def time_moist_lapse(self):\n        \"\"\"Benchmark moist lapse calculation.\"\"\"\n        moist_lapse(self.p, self.t[0])\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.mixingRatio = np.array([9, 10, 11, 12, 13, 14]); #dimensionless\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "benchmarks.TimeSuite.time_moist_lapse",
         "number": 0,
@@ -71,11 +71,11 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "ab80a4e4a6cbb3ad53fe49016a3c7a42a40106534cd4375cafd2eca6fb23020c",
+        "version": "2b6de618f7b4fdea57a39604325cefafd423019fba21e373102e5e4944518cbf",
         "warmup_time": -1
     },
     "benchmarks.TimeSuite.time_saturation_vapor_pressure": {
-        "code": "class TimeSuite:\n    def time_saturation_vapor_pressure(self):\n        \"\"\"Benchmark saturation vapor pressure calculation.\"\"\"\n        saturation_vapor_pressure(self.t[0])\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "code": "class TimeSuite:\n    def time_saturation_vapor_pressure(self):\n        \"\"\"Benchmark saturation vapor pressure calculation.\"\"\"\n        saturation_vapor_pressure(self.t[0])\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.mixingRatio = np.array([9, 10, 11, 12, 13, 14]); #dimensionless\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "benchmarks.TimeSuite.time_saturation_vapor_pressure",
         "number": 0,
@@ -86,11 +86,11 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "875e3612f980ee64fb9fbbdf19e2e7047a270b387c8a196923a19e973960dbf0",
+        "version": "d66361f59ab71943ee1f6fcd2949f6a4990de69261d23bf0b8bf93de6293ec39",
         "warmup_time": -1
     },
     "benchmarks.TimeSuite.time_saturation_vapor_pressure_grid": {
-        "code": "class TimeSuite:\n    def time_saturation_vapor_pressure_grid(self):\n        \"\"\"Benchmark saturation vapor pressure on a grid.\"\"\"\n        saturation_vapor_pressure(self.slice.temperature)\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "code": "class TimeSuite:\n    def time_saturation_vapor_pressure_grid(self):\n        \"\"\"Benchmark saturation vapor pressure on a grid.\"\"\"\n        saturation_vapor_pressure(self.slice.temperature)\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.mixingRatio = np.array([9, 10, 11, 12, 13, 14]); #dimensionless\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "benchmarks.TimeSuite.time_saturation_vapor_pressure_grid",
         "number": 0,
@@ -101,7 +101,22 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "907976f448bd5ac61107abced0671001f1ee20048d926409684ead4f2538c213",
+        "version": "5e5813807d0efe72ca9574ebf74696faf1ab6a1226b899f3c074810bcc8e4c56",
+        "warmup_time": -1
+    },
+    "benchmarks.TimeSuite.time_virtual_temperature": {
+        "code": "class TimeSuite:\n    def time_virtual_temperature(self):\n        \"\"\"Benchmark mixing ratio from relative humidity calculation.\"\"\"\n        virtual_temperature(self.t[0], self.mixingRatio[0] * units(\"g/kg\"));\n\n    def setup(self):\n        self.p = np.array([959., 779.2, 751.3, 724.3, 700., 269.]) * units.mbar\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38.]) * units.celsius\n        self.td = np.array([19., -11.2, -10.8, -10.4, -10., -53.2]) * units.celsius\n        self.mixingRatio = np.array([9, 10, 11, 12, 13, 14]); #dimensionless\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "min_run_count": 2,
+        "name": "benchmarks.TimeSuite.time_virtual_temperature",
+        "number": 0,
+        "param_names": [],
+        "params": [],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "68adde830052a4c09d00d2f95a755c978a8f5e5872775a6194d43074d19eae92",
         "warmup_time": -1
     },
     "version": 2
