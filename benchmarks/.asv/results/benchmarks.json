@@ -105,7 +105,7 @@
         "warmup_time": -1
     },
     "jaye_benchmarks.TimeSuite.time_virtual_temperature": {
-        "code": "class TimeSuite:\n    def time_virtual_temperature(self):\n        \"\"\"Benchmark virtualtemperature for one value.\"\"\"\n        virtual_temperature(self.t[0], self.mixingRatio[0] * units(\"g/kg\"));\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius",
+        "code": "class TimeSuite:\n    def time_virtual_temperature(self):\n        \"\"\"Benchmark virtual temperature for one value.\"\"\"\n        virtual_temperature(self.t[0], self.mixingRatio[0] * units(\"g/kg\"));\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "jaye_benchmarks.TimeSuite.time_virtual_temperature",
         "number": 0,
@@ -116,13 +116,13 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "b8de4e71e4a94f4234e185481b464697a50bd5f55342f3446555b880db2fb971",
+        "version": "a0f3412b88ce942ffe1915d10bcd21aa2ad377253207eca71371688784d89eaa",
         "warmup_time": -1
     },
-    "jaye_benchmarks.TimeSuite.time_virtual_temperature_10_values": {
-        "code": "class TimeSuite:\n    def time_virtual_temperature_10_values(self):\n        \"\"\"Benchmark mixing ratio for 10 values in an array\"\"\"\n        virtual_temperature(self.t, self.mixingRatio * units(\"g/kg\"));\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius",
+    "jaye_benchmarks.TimeSuite.time_virtual_temperature_100_values": {
+        "code": "class TimeSuite:\n    def time_virtual_temperature_100_values(self):\n        \"\"\"Benchmarking the virtual temperature for 100 array values\"\"\"\n        virtual_temperature(self.randomT, self.randomMixingRatio * units(\"g/kg\"));\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
-        "name": "jaye_benchmarks.TimeSuite.time_virtual_temperature_10_values",
+        "name": "jaye_benchmarks.TimeSuite.time_virtual_temperature_100_values",
         "number": 0,
         "param_names": [],
         "params": [],
@@ -131,7 +131,22 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "64810bfbafee1a8098559f272219ba505e130afd5537463c1f147eb61c24c718",
+        "version": "816cc809e8808efe6211f851b4eb6f32b79c40b7a10fd817a0c025532c13e4dd",
+        "warmup_time": -1
+    },
+    "jaye_benchmarks.TimeSuite.time_virtual_temperature_grid": {
+        "code": "class TimeSuite:\n    def time_virtual_temperature_grid(self):\n        \"\"\"Benchmark virtual temperature on a grid\"\"\"\n        virtual_temperature(self.slice.temperature, self.slice.mixingRatio * units(\"g/kg\"));\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "min_run_count": 2,
+        "name": "jaye_benchmarks.TimeSuite.time_virtual_temperature_grid",
+        "number": 0,
+        "param_names": [],
+        "params": [],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "bfbba9b3586fef0a3a267bc2950684af1b6cd333449a2ec235c698aa0955b125",
         "warmup_time": -1
     },
     "version": 2
