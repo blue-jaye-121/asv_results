@@ -47,6 +47,6 @@ runs:
 
     - name: Upload coverage
       if: ${{ always() && inputs.upload-coverage == 'true' }}
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v5
       with:
         name: ${{ inputs.key }}
