@@ -54,7 +54,7 @@
     // If missing or the empty string, the tool will be automatically
     // determined by looking for tools on the PATH environment
     // variable.
-      "environment_type": "conda",
+    "environment_type": "conda",
 
     // timeout in seconds for installing any dependencies in environment
     // defaults to 10 min
@@ -178,7 +178,7 @@
     // `asv` will cache results of the recent builds in each
     // environment, making them faster to install next time.  This is
     // the number of builds to keep, per environment.
-     "build_cache_size": 2
+     "build_cache_size": 52
 
     // The commits after which the regression search in `asv publish`
     // should start looking for regressions. Dictionary whose keys are
