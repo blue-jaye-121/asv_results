@@ -2,7 +2,7 @@ import numpy as np
 import xarray as xr
 
 from metpy.calc import (virtual_temperature, dewpoint, relative_humidity_from_mixing_ratio, 
-                        dewpoint_from_relative_humidity, moist_lapse, precipitable_water)
+                        dewpoint_from_relative_humidity, moist_lapse, precipitable_water, wet_bulb_temperature, scale_height); 
 from metpy.units import units
 
 def index_xarray_data():
@@ -76,4 +76,13 @@ class TimeSuite:
         
     def time_precipitable_water(self): 
         """Benchmarking precipitable water calculation"""
-        precipitable_water(self.pressure, self.randomTd); 
+        precipitable_water(self.pressure, self.randomTd);
+        
+    def time_wet_bulb_temperature_grid(self):
+        """Benchmarking wet bulb temperature calculation"""
+        wet_bulb_temperature(self.pressure[0], self.t[0], self.randomTd[0]); 
+        
+        
+    def time_scale_height(self): 
+        """Benchmarking the calculation for the scale height of a layer"""
+        scale_height(self.t[0], self.t[5]); 
