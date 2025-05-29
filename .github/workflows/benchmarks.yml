@@ -21,4 +21,4 @@ jobs:
           - uses: actions/upload-artifact@v4
             with:
               name: asv-results
-              path: benchmarks/.asv/html
+              path: benchmarks/asv/html
