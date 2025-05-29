@@ -26,13 +26,12 @@ jobs:
             working-directory: ./benchmarks
           - run: git config user.name "github-actions"
           - run: git config user.email "actions@github.com"
-
           - name: Commit ASV HTML to main
-            run: | 
-            git add: asv/html
-            if: ! git diff --cached --quiet; then
-            git commit: -m "Update ASV benchmark HTML"
-            git push: origin main
-          else
-            echo "No changes to commit."
-          fi
+            run: |
+              git add asv/html
+              if ! git diff --cached --quiet; then
+              git commit -m "Update ASV benchmark HTML"
+              git push origin main
+              else
+              echo "No changes to commit."
+              fi
