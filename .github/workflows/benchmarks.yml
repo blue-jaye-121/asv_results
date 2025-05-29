@@ -18,10 +18,12 @@ jobs:
           - uses: actions/checkout@v3
             with:
               fetch-depth: 0  # Fetch full history
-              run: |
-                git fetch --prune --unshallow
-                git fetch --tags
-                git fetch origin +refs/heads/*:refs/remotes/origin/*
+          - name: Fetch full git history
+            run: |
+              git fetch --unshallow || true
+              git fetch --all --tags --prune
+              git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+              git fetch origin
           - run: git fetch origin $GITHUB_BASE_REF:base $GITHUB_REF:pr
           - run: pip install asv virtualenv
           - run: python -m asv machine --yes
