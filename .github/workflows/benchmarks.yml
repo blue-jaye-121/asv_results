@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults: 
       run: 
-        working-directory: ../../benchmarks
+        working-directory: ./benchmarks
     steps:
           - uses: actions/setup-python@v2
             with:
