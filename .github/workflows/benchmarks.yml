@@ -15,11 +15,11 @@ jobs:
               fetch-depth: 0  # Fetch full history
           - run: git fetch origin $GITHUB_BASE_REF:base $GITHUB_REF:pr
           - run: pip install asv virtualenv
-          - run: asv machine --yes
-          - run: asv run
+          - run: python -m asv machine --yes
+          - run: python -m asv run
           - run: cat .asv/benchmarks.json
           - run: ls -R results
-          - run: asv publish
+          - run: python -m asv publish
           - run: ls -la html  # Debug: check if anything was generated
           - uses: actions/upload-artifact@v4
             with:
