@@ -18,6 +18,7 @@ jobs:
           - run: asv machine --yes
           - run: asv run
           - run: asv publish
+          - run: ls -la html  # Debug: check if anything was generated
           - uses: actions/upload-artifact@v4
             with:
               name: asv-results
