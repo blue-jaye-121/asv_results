@@ -1,12 +1,14 @@
-    name: benchmark
-    on: push
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-python@v2
-        with:
-          python-version: "3.13"
-      - uses: actions/checkout@v3
-      - run: git fetch origin $GITHUB_BASE_REF:base $GITHUB_REF:pr
-      - run: pip install asv virtualenv
-      - run: asv machine --yes
-      - run: asv continuous base pr --strict -e
+name: benchmark
+on: push
+runs-on: ubuntu-latest
+jobs: 
+    benchmarking: 
+        steps:
+          - uses: actions/setup-python@v2
+            with:
+              python-version: "3.13"
+          - uses: actions/checkout@v3
+          - run: git fetch origin $GITHUB_BASE_REF:base $GITHUB_REF:pr
+          - run: pip install asv virtualenv
+          - run: asv machine --yes
+          - run: asv continuous base pr --strict -e
