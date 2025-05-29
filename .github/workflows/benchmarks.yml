@@ -1,7 +1,7 @@
 name: benchmark
 on: push
-runs-on: ubuntu-latest
 jobs: 
+runs-on: ubuntu-latest
     benchmarking: 
         steps:
           - uses: actions/setup-python@v2
