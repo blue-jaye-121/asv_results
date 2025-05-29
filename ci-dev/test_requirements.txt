@@ -1,5 +1,9 @@
 packaging==25.0
 pytest==8.3.5
 pytest-mpl==0.17.0
+<<<<<<< HEAD:ci/test_requirements.txt
+netCDF4==1.7.2
+=======
+>>>>>>> unidata_main:ci/dev/test_requirements.txt
 coverage==7.8.2
 vcrpy==7.0.0
