@@ -17,7 +17,8 @@ jobs:
           - run: pip install asv virtualenv
           - run: python -m asv machine --yes
           - run: python -m asv run
-          - run: python -m asv publish
+          - run: python -m asv publish --verbose
+            working-directory: ./benchmarks
           - uses: actions/upload-artifact@v4
             with:
               name: asv-results
