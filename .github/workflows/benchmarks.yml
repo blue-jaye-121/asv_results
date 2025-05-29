@@ -17,9 +17,7 @@ jobs:
           - run: pip install asv virtualenv
           - run: python -m asv machine --yes
           - run: python -m asv run
-          - run: ls -R .asv/results
           - run: python -m asv publish
-          - run: ls -la html  # Debug: check if anything was generated
           - uses: actions/upload-artifact@v4
             with:
               name: asv-results
