@@ -17,7 +17,6 @@ jobs:
           - run: pip install asv virtualenv
           - run: python -m asv machine --yes
           - run: python -m asv run
-          - run: cat .asv/benchmarks.json
           - run: ls -R results
           - run: python -m asv publish
           - run: ls -la html  # Debug: check if anything was generated
