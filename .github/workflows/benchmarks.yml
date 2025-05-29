@@ -11,6 +11,8 @@ jobs:
             with:
               python-version: "3.13"
           - uses: actions/checkout@v3
+            with:
+              fetch-depth: 0  # Fetch full history
           - run: git fetch origin $GITHUB_BASE_REF:base $GITHUB_REF:pr
           - run: pip install asv virtualenv
           - run: asv machine --yes
