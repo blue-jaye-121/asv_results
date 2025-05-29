@@ -16,3 +16,7 @@ jobs:
           - run: asv machine --yes
           - run: asv run
           - run: asv publish
+          - uses: actions/upload-artifact@v3
+            with:
+              name: asv-results
+              path: benchmarks/.asv/html
