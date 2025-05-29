@@ -1,0 +1,58 @@
+# pack-refs with: peeled fully-peeled sorted 
+eb97f8a20e4665d77fe28a86159ffb7ebce27371 refs/heads/1.1.x
+eb97f8a20e4665d77fe28a86159ffb7ebce27371 refs/heads/1.10.x
+eb97f8a20e4665d77fe28a86159ffb7ebce27371 refs/heads/1.5.x
+6902eb5bbbeb7d840bc5c79f323bb5ee1250eff4 refs/heads/analytic-lcl
+4e7f36202795d80e6ea5a1037f95287a3fe49b0f refs/heads/analytic-satvap
+ab7b666ceed8f4753b0b6531e996759aa4cc130b refs/heads/benchmarks
+1ff0e944e2f6d51fa4b33c4ba15a7c36c474ba51 refs/heads/bunkers-wca
+33f9c3658540804e1190a36d8e0479e929d3c21f refs/heads/dependabot-pip-ci-pydata-sphinx-theme-0.13.3
+b3fe3104cc269103c66c41a06ae4a7a6b55ccaa2 refs/heads/docs-show-source
+1d6fea6164f839386583a04cd764747ded9e98fc refs/heads/feature-scallop
+96b6552b80cc4b8ea02bd93039e0e3e4017a0071 refs/heads/fix-link
+1308496b227ca9664bfec35add53fee7e1a6634d refs/heads/gh-pages
+eebc353895582bca6295b2dd6f1ea94ab1a9f88a refs/heads/ghp2
+341fa446c861e100329272db4fbe884905ed3da7 refs/heads/link-metpy-cookbook
+4cb995e2284ca32868269271b70b5bf07fd4bad4 refs/heads/main
+2ab2992ab8eec3521ec4a3a3bfe083986396ff8d refs/heads/miller-pdf
+d209f35b22f6511f1a9af73347093a275ebfc6e8 refs/heads/nathan-scallop
+83e541f1c5d631fa661ac411ee91013fcb777d9a refs/heads/parcel-profile-duplicate
+5a6a5bf6a01eb563c4b8e3aa0c68d0e29885f279 refs/heads/ruff-docs
+f963218fe79bc4509e4092e100fa74fcac957a45 refs/heads/spherical-calculations
+43dd04fb3ff93adbe2ef7da8b35154f54a10cba8 refs/heads/update-linkcheck
+0fe46ed820ca3dc1cbbc1ac7ef28a5dcb7760e35 refs/heads/version-compare
+ec080c9c1526fddb259e043aa0da897d4d5bf98e refs/tags/theAttic
+^ab6c1dce403f7403c3ceb588536e8dac44208c63
+caa9c53725a8f6ac2681d931a0fcfe274ed346ef refs/tags/v0.1.0
+^b3ef1226fe06881448f1f1cf7fe308e6f8187c05
+adde621ce5102c175a64f46cbf3af0b9511ae61f refs/tags/v0.1.1
+^ac1fa42d9852eb0140cbdf42e2223b839ba13fde
+cee9d4de5bc37a4cd2efc381f0a08f3a53d00940 refs/tags/v0.10.0
+cdfad571efa697b7c081e405aeab3bc1ce8ced70 refs/tags/v0.10.2
+a31af2335dfd3d28b6fff91ae21a86e2b565fa70 refs/tags/v0.11.0
+8c1ca0ab748a253cc254317638bc080cfe323a3c refs/tags/v0.11.1
+0653de86b35b4c44ac7e6d47385d9b34cc822b76 refs/tags/v0.12.0
+abad235b1e61f1048cf67c3fde06f4388e33bbbf refs/tags/v0.12.1
+776bacd1df2f8b98ebd475143da13dddd202fd06 refs/tags/v0.12.2
+d0ddeb41fdded9af0aa5d69f5759a35a2758b42b refs/tags/v0.2.0
+^5b4b97a6b9ef97f35fac6643b1d9caa395dbff55
+db120ecf9d6094c3c0c3f2778d5cd4a4c776c773 refs/tags/v0.2.1
+363e313c36c0165991b07a219783774c97a38af8 refs/tags/v0.3.0
+421fcbc3f82fc104a2f48ea4d3b7b387cd945999 refs/tags/v0.3.1
+81c28f9b3547d0e08ce5d240354c69aa73f8b041 refs/tags/v0.4.0
+fd6f68542e1c1dbdb2ca9e68d24a1fc21a925649 refs/tags/v0.4.1
+63a5224ce980cb44086685fe01eeaaed9998a698 refs/tags/v0.4.2
+c2c19a3014bfb5f0d6b95bbbf9c8f9caadb17366 refs/tags/v0.4.3
+2b685023351a89168a7e06c3858ff3493af670e7 refs/tags/v0.5.0
+91ddb99935d9d0358b6b697bc1a0eabe9c96b145 refs/tags/v0.5.1
+c5249c22782ca628fa328bbc28d98017dd868555 refs/tags/v0.6.0
+d29088091fce085f52892539412e54c9eb02ab2e refs/tags/v0.6.1
+ba13b4c307791de6bfd69386959fe3da4efdeeeb refs/tags/v0.7.0
+987935135ac4770bd39c2902d48643866f29ef7e refs/tags/v0.8.0
+f47ebee7ce199b9d11d9db8fdf5cd258fd663052 refs/tags/v0.9.0
+e4161106b5e060f525c58549f24efddd63aa35b6 refs/tags/v0.9.1
+d0d44e898de3f5fb3d360152c06c5000e4bdba55 refs/tags/v0.9.2
+bdc596470c925cdf91eec6df40deb5f638d002ee refs/tags/v1.0.0
+852e2cef374da385c0f1d0393bf5ae349dbd3bb7 refs/tags/v1.0.0rc1
+f8d2fcdb46bdfaf978f2b5d59a0d79ae185a1bb3 refs/tags/v1.0.0rc2
+fabdf834f8717052c761e6b41a96fa064d9d2edb refs/tags/v1.0.1
