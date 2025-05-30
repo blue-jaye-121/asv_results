@@ -28,7 +28,7 @@ jobs:
           - run: git fetch origin $GITHUB_BASE_REF:base $GITHUB_REF:pr
           - run: pip install asv virtualenv
           - run: python -m asv machine --yes
-          - run: python -m asv run `git log --merges v1.6.0..v1.7.0 --pretty=format:"%H %an %cn %s" | grep -v -i "dependabot" | grep -v -E "github-actions\[bot\]|dependabot\[bot\]" | awk '{print $1}'`
+          - run: python -m asv run `git log --merges v1.6.0..v1.7.0 --pretty=format:"%H %an %cn %s" | grep -v -i "dependabot" | grep -v -E "github-actions\[bot\]|dependabot\[bot\]"`
           - run: python -m asv publish
             working-directory: ./benchmarks
           - run: git config user.name "github-actions"
