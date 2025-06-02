@@ -116,10 +116,6 @@ class TimeSuite:
         """Benchmarking ageostrophic wind calculation"""
         ageostrophic_wind(self.ds.z_dim, self.ds.uwind, self.ds.vwind); 
     
-    def time_curvature_vorticity(self): 
-        """benchmarking the curvature vorticity calculation"""
-        curvature_vorticity(self.ds.uwind, self.ds.vwind); 
-        
     def time_frontogenesis(self):
         """Benchmarking the calculation of frontogenesis of a t field"""
         frontogenesis(self.ds.theta, self.ds.uwind, self.ds.vwind); 
