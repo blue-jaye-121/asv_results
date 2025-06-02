@@ -1,12 +1,58 @@
 import numpy as np
 import xarray as xr
 
-from metpy.calc import wind_components, absolute_vorticity; 
+from metpy.calc import (wind_components, absolute_vorticity, advection, 
+pressure_to_height_std, ageostrophic_wind, curvature_vorticity,
+potential_temperature, frontogenesis, potential_vorticity_barotropic,
+ q_vector, total_deformation, vorticity) 
 from metpy.units import units
-from metpy.cbook import example_data
 
+def createXArray():
+    """Create a sample xarray Dataset with 2D variables."""
+    """Originally from cbook, modified by sjnorman"""
+    
+    # make data based on Matplotlib example data for wind barbs
+    x, y = np.meshgrid(np.linspace(-3, 3, 100), np.linspace(-3, 3, 100))
+    z = (1 - x / 2 + x**5 + y**3) * np.exp(-x**2 - y**2)
+    
+    # make u and v out of the z equation
+    u = -np.diff(z[:, 1:], axis=0) * 100 + 10
+    v = np.diff(z[1:, :], axis=1) * 100 + 10
+    
+    # make t as colder air to the north
+    t = (np.linspace(15, 5, 99) * np.ones((99, 99))).T
+    
+    # Make lat/lon data over the mid-latitudes
+    lats = np.linspace(30, 40, 99)
+    lons = np.linspace(360 - 100, 360 - 90, 99)
+    
+    #Making it so the dimensions are the same
+    z = np.delete(z, 99, axis=1); 
+    z = np.delete(z, 99, axis=0); 
+    
+    theta = potential_temperature(1000 * units.hPa, t * units.degC); 
+    
+    # place data into an xarray dataset object
+    lat = xr.DataArray(lats, attrs={'standard_name': 'latitude', 'units': 'degrees_north'})
+    lon = xr.DataArray(lons, attrs={'standard_name': 'longitude', 'units': 'degrees_east'})
+    uwind = xr.DataArray(u, coords=(lat, lon), dims=['lat', 'lon'],
+                         attrs={'standard_name': 'u-component_of_wind', 'units': 'm s-1'})
+    vwind = xr.DataArray(v, coords=(lat, lon), dims=['lat', 'lon'],
+                         attrs={'standard_name': 'u-component_of_wind', 'units': 'm s-1'})
+    temperature = xr.DataArray(t, coords=(lat, lon), dims=['lat', 'lon'],
+                               attrs={'standard_name': 'temperature', 'units': 'degC'})
+    z_dim = xr.DataArray(z, coords = (lat, lon), dims=['lat', 'lon'], 
+                         attrs={'standard_name': 'z dimension', 'units': 'km'})
+    theta = xr.DataArray(theta, coords = (lat, lon), dims=['lat', 'lon'],
+                         attrs={'standard_name' : 'Potential temperature', 'units' : 'degC'})
+    return xr.Dataset({'uwind': uwind,
+                       'vwind': vwind,
+                       'temperature': temperature, 
+                       'z_dim':z_dim, 
+                       'theta':theta})
 
 class TimeSuite: 
+    
     
     
     def setup(self): 
@@ -27,6 +73,7 @@ class TimeSuite:
                                       -59.9, -60.3, -59.8, -59.4, -57.9, -57.5, -56.5, -55.5, -55.3, -54.5, -52, 
                                       -51.9, -52.3, -52.9, -52.9, -49.9, -49.5, -49.9, -50.1, -43.7, -43.7, -43.7, 
                                       -43.7, -42.9] * units.degC; 
+        
         self.dewpoint_denver05282019 = [5.7, 4.6, 3.1, 1.6, 0.7, -0.1, -1.9, -5.8, -5.9, -6, -6.1, -8.6, -10.1, -8.9, -10.6,
                                    -10.6, -10.4, -16.7, -16.7, -16.6, -18, -22.7, -27.1, -30.3, -30.3, -30.1, -31.7, 
                                    -36.1, -37.8, -40.1, -41.9, -38.7, -49.3, -49.5, -51, -52.5, -62.3, -62.7, -62.9, 
@@ -52,9 +99,43 @@ class TimeSuite:
         
         self.u, self.v = wind_components(self.windspd_denver05282019, self.winddir_denver05282019); 
         
-        self.ds = example_data()
-        self.slice = self.ds.isel()
+        self.height_denver05282019 = pressure_to_height_std(self.pressure_denver05282019) * units.km;
         
+        self.ds = createXArray(); 
+        self.slice = self.ds.isel()
+    
     def time_absolute_vorticity(self): 
         """benchmarking absolute momentum calculation"""
         absolute_vorticity(self.slice.uwind, self.slice.vwind); 
+        
+    def time_advection(self): 
+        """Benchmarking the advection calculation"""
+        advection(self.ds.temperature, self.ds.uwind, self.ds.vwind);
+        
+    def time_ageostrophic_wind(self): 
+        """Benchmarking ageostrophic wind calculation"""
+        ageostrophic_wind(self.ds.z_dim, self.ds.uwind, self.ds.vwind); 
+    
+    def time_curvature_vorticity(self): 
+        """benchmarking the curvature vorticity calculation"""
+        curvature_vorticity(self.ds.uwind, self.ds.vwind); 
+        
+    def time_frontogenesis(self):
+        """Benchmarking the calculation of frontogenesis of a t field"""
+        frontogenesis(self.ds.theta, self.ds.uwind, self.ds.vwind); 
+    
+    def time_potential_vorticity_barotropic(self):
+        """Benchmarking the barotropic potential vorticity calculation"""
+        potential_vorticity_barotropic(self.ds.z_dim, self.ds.uwind, self.ds.vwind); 
+        
+    def time_q_vector(self): 
+        """Benchmarking q vector calculation"""
+        q_vector(self.ds.uwind, self.ds.vwind, self.ds.temperature, 1000 * units.hPa); 
+        
+    def time_total_deformation(self): 
+        """Benchmarking total deformation calculation"""
+        total_deformation(self.ds.uwind, self.ds.vwind); 
+        
+    def time_vorticity(self): 
+        """Benchmarking vorticity calculation"""
+        vorticity(self.ds.uwind, self.ds.vwind); 
