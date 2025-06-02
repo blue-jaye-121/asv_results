@@ -2,7 +2,7 @@ import numpy as np
 import xarray as xr
 
 from metpy.calc import (wind_components, absolute_vorticity, advection, 
-pressure_to_height_std, ageostrophic_wind, curvature_vorticity,
+pressure_to_height_std, ageostrophic_wind,
 potential_temperature, frontogenesis, potential_vorticity_barotropic,
  q_vector, total_deformation, vorticity) 
 from metpy.units import units
