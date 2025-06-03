@@ -1,7 +1,7 @@
 import numpy as np
 import xarray as xr
 
-from metpy.calc import mpcalc 
+import metpy.calc as mpcalc
 from metpy.units import units
 
 def createXArray():
