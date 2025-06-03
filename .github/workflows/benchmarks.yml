@@ -42,14 +42,14 @@ jobs:
               path: .
           - run: pip install asv virtualenv
           - run: python -m asv machine --yes
-          - run: python -m asv run HASHFILE:no_bot_merge_commits.txt
+          - run: python -m asv run #HASHFILE:no_bot_merge_commits.txt
           - run: python -m asv publish
             working-directory: ./benchmarks
           - run: git config user.name "github-actions"
           - run: git config user.email "actions@github.com"
           - name: Commit and push ASV HTML
             run: |
-              git add benchmarks/asv/html
+              git add ./asv/html
               git commit -m "[Github-Actions[bot]] Update ASV benchmark HTML"
               git push origin main
   deploy:
