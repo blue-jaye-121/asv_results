@@ -47,12 +47,11 @@ jobs:
             working-directory: ./benchmarks
           - run: git config user.name "github-actions"
           - run: git config user.email "actions@github.com"
-          - name: Upload ASV HTML as artifact
-            uses: actions/upload-artifact@v4
-            with:
-              name: asv-html
-              path: benchmarks/asv/html
-
+          - name: Commit and push ASV HTML
+            run: |
+              git add benchmarks/asv/html
+              git commit -m "[Github-Actions[bot]] Update ASV benchmark HTML"
+              git push origin main
   deploy:
     needs: benchmark
     environment:
@@ -60,18 +59,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Download ASV HTML artifact
-        uses: actions/download-artifact@v4
-        with: 
-          name: asv-html
-          path: ./public
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Upload Page artificats
+      - name: Upload Page artifacts
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: './public'
+          path: './benchmarks/asv/html'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
