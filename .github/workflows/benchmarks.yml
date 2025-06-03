@@ -70,6 +70,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: Wait 
+        run: sleep 30s
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
