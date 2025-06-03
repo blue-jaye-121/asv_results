@@ -149,7 +149,7 @@ assign units.
  .. code-block:: none
 
 
-    <matplotlib.image.FigureImage object at 0x7f127f40f4d0>
+    <matplotlib.image.FigureImage object at 0x7fe96dc06ad0>
 
 
 
