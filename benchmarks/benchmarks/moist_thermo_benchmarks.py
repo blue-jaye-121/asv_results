@@ -1,8 +1,7 @@
 import numpy as np
 import xarray as xr
 
-from metpy.calc import (virtual_temperature, dewpoint, relative_humidity_from_mixing_ratio, 
-                        dewpoint_from_relative_humidity, moist_lapse, precipitable_water, wet_bulb_temperature, scale_height); 
+import metpy.calc as mpcalc;  
 from metpy.units import units
 
 def index_xarray_data():
@@ -37,7 +36,8 @@ def index_xarray_data():
                        coords={'isobaric': pressure, 'time': ['2020-01-01T00:00Z']}); 
 
 class TimeSuite: 
-    
+    #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
+    version = "2025.06.03"; 
     
     def setup(self): 
         self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless
@@ -51,38 +51,38 @@ class TimeSuite:
         
     def time_virtual_temperature(self): 
         """Benchmark virtual temperature for one value."""
-        virtual_temperature(self.t[0], self.mixingRatio[0] * units("g/kg"));
+        mpcalc.virtual_temperature(self.t[0], self.mixingRatio[0] * units("g/kg"));
         
         
     def time_virtual_temperature_100_values(self): 
         """Benchmarking the virtual temperature for 100 array values"""
-        virtual_temperature(self.randomT, self.randomMixingRatio * units("g/kg")); 
+        mpcalc.virtual_temperature(self.randomT, self.randomMixingRatio * units("g/kg")); 
     
     def time_virtual_temperature_grid(self): 
         """Benchmark virtual temperature on a grid"""
-        virtual_temperature(self.slice.temperature, self.slice.mixingRatio * units("g/kg")); 
+        mpcalc.virtual_temperature(self.slice.temperature, self.slice.mixingRatio * units("g/kg")); 
         
     def time_dewpoint_grid(self): 
         """Benchmarking dewpoint from vapor pressure on a grid"""
-        dewpoint(self.slice.vaporPressure); 
+        mpcalc.dewpoint(self.slice.vaporPressure); 
         
     def time_rh_from_mixing_ratio_grid(self):
         """Benchmarking relative humidity from mixing ratio on a grid"""
-        relative_humidity_from_mixing_ratio(self.slice.pressure, self.slice.temperature, self.slice.mixingRatio); 
+        mpcalc.relative_humidity_from_mixing_ratio(self.slice.pressure, self.slice.temperature, self.slice.mixingRatio); 
     
     def time_dewpoint_from_rh_grid(self):
         """Benchmarking relative humidity from calculated rh on a grid"""
-        dewpoint_from_relative_humidity(self.slice.temperature, self.slice.relativeHumidity);
+        mpcalc.dewpoint_from_relative_humidity(self.slice.temperature, self.slice.relativeHumidity);
         
     def time_precipitable_water(self): 
         """Benchmarking precipitable water calculation"""
-        precipitable_water(self.pressure, self.randomTd);
+        mpcalc.precipitable_water(self.pressure, self.randomTd);
         
     def time_wet_bulb_temperature_grid(self):
         """Benchmarking wet bulb temperature calculation"""
-        wet_bulb_temperature(self.pressure[0], self.t[0], self.randomTd[0]); 
+        mpcalc.wet_bulb_temperature(self.pressure[0], self.t[0], self.randomTd[0]); 
         
         
     def time_scale_height(self): 
         """Benchmarking the calculation for the scale height of a layer"""
-        scale_height(self.t[0], self.t[5]); 
+        mpcalc.scale_height(self.t[0], self.t[5]); 

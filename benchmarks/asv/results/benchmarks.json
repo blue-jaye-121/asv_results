@@ -120,7 +120,7 @@
         "warmup_time": -1
     },
     "dry_thermo_benchmarks.TimeSuite.time_density_grid": {
-        "code": "class TimeSuite:\n    def time_density_grid(self):\n        \"\"\"Benchmarking density calculation on a grid\"\"\"\n        density(self.slice.pressure, self.slice.temperature, self.slice.mixingRatio);\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.pressure = np.linspace(1000, 1, 100) * units.hPa;\n        self.height = np.linspace(0, 10000, 10000) * units.m;\n        self.randomTd = np.random.uniform(low = 0.0, high = 20.0, size=100) * units.degC\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "code": "class TimeSuite:\n    def time_density_grid(self):\n        \"\"\"Benchmarking density calculation on a grid\"\"\"\n        mpcalc.density(self.slice.pressure, self.slice.temperature, self.slice.mixingRatio);\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.pressure = np.linspace(1000, 1, 100) * units.hPa;\n        self.height = np.linspace(0, 10000, 10000) * units.m;\n        self.randomTd = np.random.uniform(low = 0.0, high = 20.0, size=100) * units.degC\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "dry_thermo_benchmarks.TimeSuite.time_density_grid",
         "number": 0,
@@ -131,11 +131,11 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "04e7b64f944994987d70071e70adf8a433c2d7446a6bc502d4c73296507c41d7",
+        "version": "2025.06.03",
         "warmup_time": -1
     },
     "dry_thermo_benchmarks.TimeSuite.time_dry_lapse": {
-        "code": "class TimeSuite:\n    def time_dry_lapse(self):\n        \"\"\"Benchmarking the dry lapse calculation\"\"\"\n        dry_lapse(self.pressure, self.randomT[0]);\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.pressure = np.linspace(1000, 1, 100) * units.hPa;\n        self.height = np.linspace(0, 10000, 10000) * units.m;\n        self.randomTd = np.random.uniform(low = 0.0, high = 20.0, size=100) * units.degC\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "code": "class TimeSuite:\n    def time_dry_lapse(self):\n        \"\"\"Benchmarking the dry lapse calculation\"\"\"\n        mpcalc.dry_lapse(self.pressure, self.randomT[0]);\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.pressure = np.linspace(1000, 1, 100) * units.hPa;\n        self.height = np.linspace(0, 10000, 10000) * units.m;\n        self.randomTd = np.random.uniform(low = 0.0, high = 20.0, size=100) * units.degC\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "dry_thermo_benchmarks.TimeSuite.time_dry_lapse",
         "number": 0,
@@ -146,11 +146,11 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "019d5eedacf7c318bd9ac820f05c1622e3f36706bc2866dbf9fff8173aa9dc30",
+        "version": "2025.06.03",
         "warmup_time": -1
     },
     "dry_thermo_benchmarks.TimeSuite.time_height_to_geopotential": {
-        "code": "class TimeSuite:\n    def time_height_to_geopotential(self):\n        \"\"\"Benchmarking the height to geopotenial calculation with 10000 steps\"\"\"\n        height_to_geopotential(self.height);\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.pressure = np.linspace(1000, 1, 100) * units.hPa;\n        self.height = np.linspace(0, 10000, 10000) * units.m;\n        self.randomTd = np.random.uniform(low = 0.0, high = 20.0, size=100) * units.degC\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "code": "class TimeSuite:\n    def time_height_to_geopotential(self):\n        \"\"\"Benchmarking the height to geopotenial calculation with 10000 steps\"\"\"\n        mpcalc.height_to_geopotential(self.height);\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.pressure = np.linspace(1000, 1, 100) * units.hPa;\n        self.height = np.linspace(0, 10000, 10000) * units.m;\n        self.randomTd = np.random.uniform(low = 0.0, high = 20.0, size=100) * units.degC\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "dry_thermo_benchmarks.TimeSuite.time_height_to_geopotential",
         "number": 0,
@@ -161,11 +161,11 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "42b03e8b5c10c48f8fdb53198c252154c8f0be3e3e658878d955fcce168e13bd",
+        "version": "2025.06.03",
         "warmup_time": -1
     },
     "dry_thermo_benchmarks.TimeSuite.time_potential_temperature_grid": {
-        "code": "class TimeSuite:\n    def time_potential_temperature_grid(self):\n        \"\"\"Benchmarking the potential temperature calculation on a grid\"\"\"\n        potential_temperature(self.slice.pressure, self.slice.temperature);\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.pressure = np.linspace(1000, 1, 100) * units.hPa;\n        self.height = np.linspace(0, 10000, 10000) * units.m;\n        self.randomTd = np.random.uniform(low = 0.0, high = 20.0, size=100) * units.degC\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "code": "class TimeSuite:\n    def time_potential_temperature_grid(self):\n        \"\"\"Benchmarking the potential temperature calculation on a grid\"\"\"\n        mpcalc.potential_temperature(self.slice.pressure, self.slice.temperature);\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.pressure = np.linspace(1000, 1, 100) * units.hPa;\n        self.height = np.linspace(0, 10000, 10000) * units.m;\n        self.randomTd = np.random.uniform(low = 0.0, high = 20.0, size=100) * units.degC\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "dry_thermo_benchmarks.TimeSuite.time_potential_temperature_grid",
         "number": 0,
@@ -176,11 +176,11 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "536e9e27e74038dbea1c1e40fdf0ce43ec6c3e9a407f0241c38fb11f03ddae46",
+        "version": "2025.06.03",
         "warmup_time": -1
     },
     "dry_thermo_benchmarks.TimeSuite.time_static_stability_grid": {
-        "code": "class TimeSuite:\n    def time_static_stability_grid(self):\n        \"\"\"Benchmarking static stability calculation on a grid\"\"\"\n        static_stability(self.pressure, self.randomT);\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.pressure = np.linspace(1000, 1, 100) * units.hPa;\n        self.height = np.linspace(0, 10000, 10000) * units.m;\n        self.randomTd = np.random.uniform(low = 0.0, high = 20.0, size=100) * units.degC\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "code": "class TimeSuite:\n    def time_static_stability_grid(self):\n        \"\"\"Benchmarking static stability calculation on a grid\"\"\"\n        mpcalc.static_stability(self.pressure, self.randomT);\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.pressure = np.linspace(1000, 1, 100) * units.hPa;\n        self.height = np.linspace(0, 10000, 10000) * units.m;\n        self.randomTd = np.random.uniform(low = 0.0, high = 20.0, size=100) * units.degC\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "dry_thermo_benchmarks.TimeSuite.time_static_stability_grid",
         "number": 0,
@@ -191,11 +191,11 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "e62d01fe9c29b7c7ae7d4866cbeed9b74acc2a6ec492406344898988486a4f08",
+        "version": "2025.06.03",
         "warmup_time": -1
     },
     "dry_thermo_benchmarks.TimeSuite.time_thickness_hydrostatic": {
-        "code": "class TimeSuite:\n    def time_thickness_hydrostatic(self):\n        \"\"\"Benchmarking hydrostatic thickness calculation\"\"\"\n        thickness_hydrostatic(self.pressure, self.randomT, self.randomMixingRatio);\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.pressure = np.linspace(1000, 1, 100) * units.hPa;\n        self.height = np.linspace(0, 10000, 10000) * units.m;\n        self.randomTd = np.random.uniform(low = 0.0, high = 20.0, size=100) * units.degC\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
+        "code": "class TimeSuite:\n    def time_thickness_hydrostatic(self):\n        \"\"\"Benchmarking hydrostatic thickness calculation\"\"\"\n        mpcalc.thickness_hydrostatic(self.pressure, self.randomT, self.randomMixingRatio);\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.pressure = np.linspace(1000, 1, 100) * units.hPa;\n        self.height = np.linspace(0, 10000, 10000) * units.m;\n        self.randomTd = np.random.uniform(low = 0.0, high = 20.0, size=100) * units.degC\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
         "name": "dry_thermo_benchmarks.TimeSuite.time_thickness_hydrostatic",
         "number": 0,
@@ -206,7 +206,7 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "6aea544dd3e7df486923c98ff05888f47bb5c3a6d32e193d2f2db5f5fe191db4",
+        "version": "2025.06.03",
         "warmup_time": -1
     },
     "dyn_kin_benchmarks.TimeSuite.time_absolute_vorticity": {

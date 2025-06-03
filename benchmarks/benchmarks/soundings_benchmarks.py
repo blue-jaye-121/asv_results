@@ -1,7 +1,7 @@
 import numpy as np
 import xarray as xr
 
-from metpy.calc import bulk_shear, ccl, parcel_profile_with_lcl, wind_components, most_unstable_parcel; 
+import metpy.calc as mpcalc; 
 from metpy.units import units
 
 def index_xarray_data():
@@ -36,7 +36,8 @@ def index_xarray_data():
                        coords={'isobaric': pressure, 'time': ['2020-01-01T00:00Z']}); 
 
 class TimeSuite: 
-    
+    #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
+    version = "2025.06.03"; 
     
     def setup(self): 
         self.pressure_denver05282019 = [831, 809, 779.2, 750.7, 734, 722.9, 700, 669.8, 669, 645, 644.4, 619.8, 606,
@@ -79,26 +80,26 @@ class TimeSuite:
             9.6, 9.3, 12.3, 12.4, 4.1, 4.1, 2.6, 1.0, 2.6, 4.1, 4.6, 0.5, 1.0, 5.2, 5.7, 6.0, 10.3, 9.3, 7.7, 10.3,
             10.8, 7.2, 7.2, 6.2, 8.8, 8.3, 5.7, 9.8, 11.1, 14.9, 14.8, 13.9, 13.4, 11.8, 11.3, 7.2, 7.2, 7.2] * (units.m / units.s);
         
-        self.u, self.v = wind_components(self.windspd_denver05282019, self.winddir_denver05282019); 
+        self.u, self.v = mpcalc.wind_components(self.windspd_denver05282019, self.winddir_denver05282019); 
         
         self.ds = index_xarray_data()
         self.slice = self.ds.isel(isobaric=0)
         
     def time_bulk_shear(self): 
         """Benchmarking calculating the bulk shear of a profile"""
-        bulk_shear(self.pressure_denver05282019, self.u, self.v); 
+        mpcalc.bulk_shear(self.pressure_denver05282019, self.u, self.v); 
         
     def time_ccl(self): 
         """Benchmarking calculating the convective condensation level of a profile"""
-        ccl(self.pressure_denver05282019, self.temperature_denver05282019, self.dewpoint_denver05282019); 
+        mpcalc.ccl(self.pressure_denver05282019, self.temperature_denver05282019, self.dewpoint_denver05282019); 
         
     def time_parcel_profile_with_lcl(self): 
         """Benchmarking the atmospheric parcel profile with the lcl"""
-        parcel_profile_with_lcl(self.pressure_denver05282019, self.temperature_denver05282019, self.dewpoint_denver05282019);
+        mpcalc.parcel_profile_with_lcl(self.pressure_denver05282019, self.temperature_denver05282019, self.dewpoint_denver05282019);
         
     def time_most_unstable_parcel(self): 
         """Benchmarking the calculation to find the most unstable parcel"""
-        most_unstable_parcel(self.pressure_denver05282019, self.temperature_denver05282019, self.dewpoint_denver05282019); 
+        mpcalc.most_unstable_parcel(self.pressure_denver05282019, self.temperature_denver05282019, self.dewpoint_denver05282019); 
     
         
         

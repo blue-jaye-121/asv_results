@@ -1,7 +1,7 @@
 import numpy as np
 import xarray as xr
 
-from metpy.calc import (brunt_vaisala_frequency, potential_temperature) 
+from metpy.calc import mpcalc 
 from metpy.units import units
 
 def createXArray():
@@ -27,7 +27,7 @@ def createXArray():
     z = np.delete(z, 99, axis=1); 
     z = np.delete(z, 99, axis=0); 
     
-    theta = potential_temperature(1000 * units.hPa, t * units.degC); 
+    theta = mpcalc.potential_temperature(1000 * units.hPa, t * units.degC); 
     
     # place data into an xarray dataset object
     lat = xr.DataArray(lats, attrs={'standard_name': 'latitude', 'units': 'degrees_north'})
@@ -49,7 +49,8 @@ def createXArray():
                        'theta':theta})
 
 class TimeSuite: 
-    
+    #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
+    version = "2025.06.03"; 
     
     
     def setup(self): 
@@ -58,5 +59,5 @@ class TimeSuite:
     
     def time_brunt_vaisala_frequency(self):
         """Benchmarking the brunt vaisala frequency calculation"""
-        brunt_vaisala_frequency(self.ds.z_dim, self.ds.theta); 
+        mpcalc.brunt_vaisala_frequency(self.ds.z_dim, self.ds.theta); 
         

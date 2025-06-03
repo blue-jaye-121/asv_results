@@ -1,10 +1,7 @@
 import numpy as np
 import xarray as xr
 
-from metpy.calc import (wind_components, absolute_vorticity, advection, 
-pressure_to_height_std, ageostrophic_wind,
-potential_temperature, frontogenesis, potential_vorticity_barotropic,
- q_vector, total_deformation, vorticity) 
+import metpy.calc as mpcalc
 from metpy.units import units
 
 def createXArray():
@@ -30,7 +27,7 @@ def createXArray():
     z = np.delete(z, 99, axis=1); 
     z = np.delete(z, 99, axis=0); 
     
-    theta = potential_temperature(1000 * units.hPa, t * units.degC); 
+    theta = mpcalc.potential_temperature(1000 * units.hPa, t * units.degC); 
     
     # place data into an xarray dataset object
     lat = xr.DataArray(lats, attrs={'standard_name': 'latitude', 'units': 'degrees_north'})
@@ -52,7 +49,8 @@ def createXArray():
                        'theta':theta})
 
 class TimeSuite: 
-    
+    #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
+    version = "2025.06.03"; 
     
     
     def setup(self): 
@@ -97,41 +95,41 @@ class TimeSuite:
             9.6, 9.3, 12.3, 12.4, 4.1, 4.1, 2.6, 1.0, 2.6, 4.1, 4.6, 0.5, 1.0, 5.2, 5.7, 6.0, 10.3, 9.3, 7.7, 10.3,
             10.8, 7.2, 7.2, 6.2, 8.8, 8.3, 5.7, 9.8, 11.1, 14.9, 14.8, 13.9, 13.4, 11.8, 11.3, 7.2, 7.2, 7.2] * (units.m / units.s);
         
-        self.u, self.v = wind_components(self.windspd_denver05282019, self.winddir_denver05282019); 
+        self.u, self.v = mpcalc.wind_components(self.windspd_denver05282019, self.winddir_denver05282019); 
         
-        self.height_denver05282019 = pressure_to_height_std(self.pressure_denver05282019) * units.km;
+        self.height_denver05282019 = mpcalc.pressure_to_height_std(self.pressure_denver05282019) * units.km;
         
         self.ds = createXArray(); 
         self.slice = self.ds.isel()
     
     def time_absolute_vorticity(self): 
         """benchmarking absolute momentum calculation"""
-        absolute_vorticity(self.slice.uwind, self.slice.vwind); 
+        mpcalc.absolute_vorticity(self.slice.uwind, self.slice.vwind); 
         
     def time_advection(self): 
         """Benchmarking the advection calculation"""
-        advection(self.ds.temperature, self.ds.uwind, self.ds.vwind);
+        mpcalc.advection(self.ds.temperature, self.ds.uwind, self.ds.vwind);
         
     def time_ageostrophic_wind(self): 
         """Benchmarking ageostrophic wind calculation"""
-        ageostrophic_wind(self.ds.z_dim, self.ds.uwind, self.ds.vwind); 
+        mpcalc.ageostrophic_wind(self.ds.z_dim, self.ds.uwind, self.ds.vwind); 
     
     def time_frontogenesis(self):
         """Benchmarking the calculation of frontogenesis of a t field"""
-        frontogenesis(self.ds.theta, self.ds.uwind, self.ds.vwind); 
+        mpcalc.frontogenesis(self.ds.theta, self.ds.uwind, self.ds.vwind); 
     
     def time_potential_vorticity_barotropic(self):
         """Benchmarking the barotropic potential vorticity calculation"""
-        potential_vorticity_barotropic(self.ds.z_dim, self.ds.uwind, self.ds.vwind); 
+        mpcalc.potential_vorticity_barotropic(self.ds.z_dim, self.ds.uwind, self.ds.vwind); 
         
     def time_q_vector(self): 
         """Benchmarking q vector calculation"""
-        q_vector(self.ds.uwind, self.ds.vwind, self.ds.temperature, 1000 * units.hPa); 
+        mpcalc.q_vector(self.ds.uwind, self.ds.vwind, self.ds.temperature, 1000 * units.hPa); 
         
     def time_total_deformation(self): 
         """Benchmarking total deformation calculation"""
-        total_deformation(self.ds.uwind, self.ds.vwind); 
+        mpcalc.total_deformation(self.ds.uwind, self.ds.vwind); 
         
     def time_vorticity(self): 
         """Benchmarking vorticity calculation"""
-        vorticity(self.ds.uwind, self.ds.vwind); 
+        mpcalc.vorticity(self.ds.uwind, self.ds.vwind); 

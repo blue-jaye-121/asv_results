@@ -1,7 +1,7 @@
 import numpy as np
 import xarray as xr
 
-from metpy.calc import density, height_to_geopotential, potential_temperature, static_stability, thickness_hydrostatic, dry_lapse
+import metpy.calc as mpcalc; 
 from metpy.units import units
 
 def index_xarray_data():
@@ -35,7 +35,9 @@ def index_xarray_data():
                         'pressure': pressure, 'relativeHumidity': rh, 'dewpoint':dewpoint},
                        coords={'isobaric': pressure, 'time': ['2020-01-01T00:00Z']});
  
-class TimeSuite: 
+class TimeSuite:
+        #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
+    version = "2025.06.03"; 
     
     
     def setup(self): 
@@ -51,24 +53,24 @@ class TimeSuite:
         
     def time_density_grid(self): 
         """Benchmarking density calculation on a grid"""
-        density(self.slice.pressure, self.slice.temperature, self.slice.mixingRatio); 
+        mpcalc.density(self.slice.pressure, self.slice.temperature, self.slice.mixingRatio); 
         
     def time_height_to_geopotential(self): 
         """Benchmarking the height to geopotenial calculation with 10000 steps"""
-        height_to_geopotential(self.height); 
+        mpcalc.height_to_geopotential(self.height); 
         
     def time_potential_temperature_grid(self):
         """Benchmarking the potential temperature calculation on a grid"""
-        potential_temperature(self.slice.pressure, self.slice.temperature); 
+        mpcalc.potential_temperature(self.slice.pressure, self.slice.temperature); 
         
     def time_static_stability_grid(self): 
         """Benchmarking static stability calculation on a grid"""
-        static_stability(self.pressure, self.randomT); 
+        mpcalc.static_stability(self.pressure, self.randomT); 
         
     def time_thickness_hydrostatic(self): 
         """Benchmarking hydrostatic thickness calculation"""
-        thickness_hydrostatic(self.pressure, self.randomT, self.randomMixingRatio); 
+        mpcalc.thickness_hydrostatic(self.pressure, self.randomT, self.randomMixingRatio); 
         
     def time_dry_lapse(self):
         """Benchmarking the dry lapse calculation"""
-        dry_lapse(self.pressure, self.randomT[0]); 
+        mpcalc.dry_lapse(self.pressure, self.randomT[0]); 
