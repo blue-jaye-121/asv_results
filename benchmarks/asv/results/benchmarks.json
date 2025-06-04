@@ -105,7 +105,7 @@
         "warmup_time": -1
     },
     "bound_layer_turbulence_benchmarks.TimeSuite.time_brunt_vaisala_frequency": {
-        "code": "class TimeSuite:\n    def time_brunt_vaisala_frequency(self):\n        \"\"\"Benchmarking the brunt vaisala frequency calculation\"\"\"\n        mpcalc.brunt_vaisala_frequency(self.ds.height, self.ds.theta);\n\n    def setup(self):\n        self.ds = createXArray();\n        self.slice = self.ds.isel(pressure = 0)",
+        "code": "class TimeSuite:\n    def time_brunt_vaisala_frequency(self):\n        \"\"\"Benchmarking the brunt vaisala frequency calculation\"\"\"\n        mpcalc.brunt_vaisala_frequency(self.ds.height, self.ds.theta);\n\n    def setup(self):\n        self.ds = createXArray();\n        self.slice = self.ds.isel(pressure = 1000)",
         "min_run_count": 2,
         "name": "bound_layer_turbulence_benchmarks.TimeSuite.time_brunt_vaisala_frequency",
         "number": 0,
@@ -120,7 +120,7 @@
         "warmup_time": -1
     },
     "bound_layer_turbulence_benchmarks.TimeSuite.time_gradient_richardson_number": {
-        "code": "class TimeSuite:\n    def time_gradient_richardson_number(self):\n        \"\"\"Benchmarking the gradient richardson number calculation\"\"\"\n        mpcalc.gradient_richardson_number(self.ds.height, self.ds.theta, self.ds.uwind, self.ds.vwind);\n\n    def setup(self):\n        self.ds = createXArray();\n        self.slice = self.ds.isel(pressure = 0)",
+        "code": "class TimeSuite:\n    def time_gradient_richardson_number(self):\n        \"\"\"Benchmarking the gradient richardson number calculation\"\"\"\n        mpcalc.gradient_richardson_number(self.ds.height, self.ds.theta, self.ds.uwind, self.ds.vwind);\n\n    def setup(self):\n        self.ds = createXArray();\n        self.slice = self.ds.isel(pressure = 1000)",
         "min_run_count": 2,
         "name": "bound_layer_turbulence_benchmarks.TimeSuite.time_gradient_richardson_number",
         "number": 0,
@@ -135,7 +135,7 @@
         "warmup_time": -1
     },
     "bound_layer_turbulence_benchmarks.TimeSuite.time_tke": {
-        "code": "class TimeSuite:\n    def time_tke(self):\n        \"\"\"Benchmarking the turbulence kinetic energy calculation\"\"\"\n        mpcalc.tke(self.ds.uwind, self.ds.vwind, self.ds.wwind);\n\n    def setup(self):\n        self.ds = createXArray();\n        self.slice = self.ds.isel(pressure = 0)",
+        "code": "class TimeSuite:\n    def time_tke(self):\n        \"\"\"Benchmarking the turbulence kinetic energy calculation\"\"\"\n        mpcalc.tke(self.slice.uwind, self.slice.vwind, self.slice.wwind);\n\n    def setup(self):\n        self.ds = createXArray();\n        self.slice = self.ds.isel(pressure = 1000)",
         "min_run_count": 2,
         "name": "bound_layer_turbulence_benchmarks.TimeSuite.time_tke",
         "number": 0,
