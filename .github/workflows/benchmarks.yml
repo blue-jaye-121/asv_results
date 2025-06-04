@@ -21,7 +21,7 @@ concurrency:
 jobs:
   benchmark:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 60
     defaults: 
       run: 
         working-directory: ./benchmarks
