@@ -104,36 +104,6 @@
         "version": "907976f448bd5ac61107abced0671001f1ee20048d926409684ead4f2538c213",
         "warmup_time": -1
     },
-    "bound_layer_turbulence_benchmarks.TimeSuite.time_brunt_vaisala_frequency": {
-        "code": "class TimeSuite:\n    def time_brunt_vaisala_frequency(self):\n        \"\"\"Benchmarking the brunt vaisala frequency calculation\"\"\"\n        mpcalc.brunt_vaisala_frequency(self.ds.height, self.ds.theta);\n\n    def setup(self):\n        self.ds = createXArray();\n        self.slice = self.ds.isel(pressure = 0)",
-        "min_run_count": 2,
-        "name": "bound_layer_turbulence_benchmarks.TimeSuite.time_brunt_vaisala_frequency",
-        "number": 0,
-        "param_names": [],
-        "params": [],
-        "repeat": 0,
-        "rounds": 2,
-        "sample_time": 0.01,
-        "type": "time",
-        "unit": "seconds",
-        "version": "2025.06.03",
-        "warmup_time": -1
-    },
-    "bound_layer_turbulence_benchmarks.TimeSuite.time_gradient_richardson_number": {
-        "code": "class TimeSuite:\n    def time_gradient_richardson_number(self):\n        \"\"\"Benchmarking the gradient richardson number calculation\"\"\"\n        mpcalc.gradient_richardson_number(self.ds.height, self.ds.theta, self.ds.uwind, self.ds.vwind);\n\n    def setup(self):\n        self.ds = createXArray();\n        self.slice = self.ds.isel(pressure = 0)",
-        "min_run_count": 2,
-        "name": "bound_layer_turbulence_benchmarks.TimeSuite.time_gradient_richardson_number",
-        "number": 0,
-        "param_names": [],
-        "params": [],
-        "repeat": 0,
-        "rounds": 2,
-        "sample_time": 0.01,
-        "type": "time",
-        "unit": "seconds",
-        "version": "2025.06.03",
-        "warmup_time": -1
-    },
     "dry_thermo_benchmarks.TimeSuite.time_density_grid": {
         "code": "class TimeSuite:\n    def time_density_grid(self):\n        \"\"\"Benchmarking density calculation on a grid\"\"\"\n        mpcalc.density(self.slice.pressure, self.slice.temperature, self.slice.mixingRatio);\n\n    def setup(self):\n        self.mixingRatio = np.array([8, 7, 9, 10, 11, 12, 13, 14, 15, 16]); #dimensionless\n        self.t = np.array([22.2, 14.6, 12., 9.4, 7., -38., 13.3, 12.7, 2.3, 23.4]) * units.celsius\n        self.randomT = np.random.uniform(low=0.0, high=24.0, size=100) * units.celsius;\n        self.randomMixingRatio = np.random.uniform(low = 0.0, high = 40.0, size=100); #dimensionless\n        self.pressure = np.linspace(1000, 1, 100) * units.hPa;\n        self.height = np.linspace(0, 10000, 10000) * units.m;\n        self.randomTd = np.random.uniform(low = 0.0, high = 20.0, size=100) * units.degC\n        self.ds = index_xarray_data()\n        self.slice = self.ds.isel(isobaric=0)",
         "min_run_count": 2,
