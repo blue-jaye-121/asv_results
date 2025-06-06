@@ -123,7 +123,7 @@ class TimeSuite:
     #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
     version = "2025.06.06";
     
-    def setup(self): 
+    def setup_cache(self): #Caches the setup because the dataset is intensive to make
         self.ds = makeXArray(); 
         self.timeSlice = self.ds.isel(time = 0)
         self.pressureSlice = self.ds.isel(pressure = 0)
