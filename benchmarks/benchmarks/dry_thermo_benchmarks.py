@@ -147,12 +147,12 @@ class TimeSuite:
     
     def setup(self):     
         self.ds = makeXArray()
-        self.pressureSlice = self.ds.isel(isobaric=0, time = 0)
+        self.pressureSlice = self.ds.isel(pressure=0, time = 0)
         self.timeSlice = self.ds.isel(time = 0)
         
     def time_density_grid(self): 
         """Benchmarking density calculation on a grid"""
-        mpcalc.density(self.pressureSlice.pressure, self.pressureSlice.temperature, self.pressureSlice.mixingRatio); 
+        mpcalc.density(self.pressureSlice.pressure, self.pressureSlice.temperature, self.pressureSlice.mixing_ratio); 
         
     def time_height_to_geopotential(self): 
         """Benchmarking the height to geopotenial calculation with 10000 steps"""
