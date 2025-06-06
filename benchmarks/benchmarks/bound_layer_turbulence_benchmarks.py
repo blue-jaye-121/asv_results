@@ -120,6 +120,8 @@ def makeXArray():
 
 class TimeSuite: 
     """Time benchmark class"""
+    #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
+    version = "2025.06.06";
     
     def setup(self): 
         self.ds = makeXArray(); 
