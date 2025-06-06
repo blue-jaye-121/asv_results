@@ -48,7 +48,7 @@ jobs:
               path: .
           - run: pip install asv virtualenv
           - run: python -m asv machine --yes
-          - run: python -m asv run 3128d2748b145196ad5beb043b4eeb8604cddd45^! #HASHFILE:no_bot_merge_commits.txt
+          - run: python -m asv run HASHFILE:no_bot_merge_commits.txt
           - run: python -m asv publish
             working-directory: ./benchmarks
           - run: git config user.name "github-actions"
