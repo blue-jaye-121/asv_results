@@ -10,7 +10,8 @@ class TimeSuite:
     
     def setup_cache(self):
        base_path = os.path.dirname(__file__) # path to current file
-       file_path = os.path.join(base_path, "..", "data_array.nc"); 
+       file_path = os.path.join(base_path, "..", "data_array_compressed.nc");
+       file_path = os.path.abspath(file_path)
        ds = xr.open_dataset(file_path)
        return ds; 
    
@@ -26,18 +27,18 @@ class TimeSuite:
         """Benchmarking the height to geopotenial calculation on a 3d cube"""
         mpcalc.height_to_geopotential(self.timeSlice.height); 
         
-    def time_potential_temperature(self):
+    def time_potential_temperature(self, timeSlice):
         """Benchmarking the potential temperature calculation on a 3d cube"""
         mpcalc.potential_temperature(self.timeSlice.pressure, self.timeSlice.temperature); 
         
-    def time_static_stability(self): 
+    def time_static_stability(self, timeSlice): 
         """Benchmarking static stability calculation on a 3d cube"""
         mpcalc.static_stability(self.timeSlice.pressure, self.timeSlice.temperature); 
         
-    def time_thickness_hydrostatic(self): 
+    def time_thickness_hydrostatic(self, timeSlice): 
         """Benchmarking hydrostatic thickness calculation on a 3d cube"""
         mpcalc.thickness_hydrostatic(self.timeSlice.pressure, self.timeSlice.temperature, self.timeSlice.mixing_ratio); 
         
-    def time_dry_lapse(self):
+    def time_dry_lapse(self, timeSlice):
         """Benchmarking the dry lapse calculation on a 3d cube"""
         mpcalc.dry_lapse(self.timeSlice.pressure, self.timeSlice.temperature); 

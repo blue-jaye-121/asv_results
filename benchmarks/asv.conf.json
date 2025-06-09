@@ -113,7 +113,9 @@
           "traitlets": [
           ],
           "xarray": [
-          ]
+          ], 
+          "netcdf4": [
+          ], 
         }
       },
   // Combinations of libraries/python versions can be excluded/included
