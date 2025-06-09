@@ -11,7 +11,7 @@ from metpy.units import units
 # Make lat/lon data over the mid-latitudes
 lats = np.linspace(30, 40, 50)
 lons = np.linspace(360 - 100, 360 - 90, 50)
-pressure = np.linspace(250, 1000, 50) * units.hPa
+pressure = np.linspace(1000, 250, 50) * units.hPa
 p_3d = pressure[:, np.newaxis, np.newaxis]
 
 times = pd.date_range("2024/01/01", "2024/06/01" ,freq='M');
@@ -88,14 +88,14 @@ t_4d = t_4d * units.K;
 
 
 #Generate potential temperature
-theta_4d = mpcalc.potential_temperature(p, t_4d);
+theta_4d = mpcalc.potential_temperature(p, t_4d[::-1, :, :, :])
 
 #Generate mixing ratio
 surface_w = .015 #dimensionless
 top_w = .001 #dimensionless (kg/kg)
 
 #constants for mixing ratio calculation
-a = (surface_w - top_w) / (pressure[49] - pressure[0])
+a = (surface_w - top_w) / (pressure[0] - pressure[49])
 b = surface_w - a * pressure[49]
 
 w_profile = a * pressure + b; 
@@ -174,6 +174,7 @@ ds = xr.Dataset({'uwind': uwind,
                    'vapor_pressure':vapor_pressure,
                    'dewpoint':dewpoint, 
                    'relative_humidity':relative_humidity})
+
 
 
 # Step 1: Initialize encoding dict for data variables
