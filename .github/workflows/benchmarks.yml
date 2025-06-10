@@ -40,7 +40,7 @@ jobs:
               git fetch origin
           - run: git fetch origin $GITHUB_BASE_REF:base $GITHUB_REF:pr
           - name: Update .txt file of commits
-            run: generate_hashes.sh
+            run: bash generate_hashes.sh
           - uses: actions/upload-artifact@v4
             with:
               name: no_bot_merge_commits.txt
