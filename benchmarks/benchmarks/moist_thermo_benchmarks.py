@@ -19,7 +19,8 @@ class TimeSuite:
        self.pressureSlice = ds.isel(pressure = 0, time = 0)
        self.timeSlice = ds.isel(time = 0)
        self.upperSlice = ds.isel(pressure = 49, time = 0)
-        
+       self.profileSlice = ds.isel(time = 0, lat = 25, lon = 25)
+    
     def time_virtual_temperature(self, timeSlice): 
         """Benchmark virtual temperature on a 3d cube."""
         mpcalc.virtual_temperature(self.timeSlice.temperature, self.timeSlice.mixing_ratio);
@@ -44,7 +45,14 @@ class TimeSuite:
         """Benchmarking wet bulb temperature calculation on on a cube"""
         mpcalc.wet_bulb_temperature(self.pressureSlice.pressure, self.pressureSlice.temperature, self.pressureSlice.dewpoint); 
         
-        
     def time_scale_height(self, pressureSlice): 
         """Benchmarking the calculation for the scale height of a layer for 2 surfaces"""
         mpcalc.scale_height(self.upperSlice.temperature, self.pressureSlice.temperature); 
+        
+    def time_moist_lapse(self, profileSlice): 
+        """Benchmarking the calculation for the moist lapse rate for one profile"""
+        mpcalc.moist_lapse(self.profileSlice.pressure, self.profileSlice.temperature[0]); 
+        
+    def time_saturation_vapor_pressure(self, timeSlice): 
+        """Benchmarking the saturation vapor pressure calculation for a 3d cube"""
+        mpcalc.saturation_vapor_pressure(self.timeSlice.temperature); 

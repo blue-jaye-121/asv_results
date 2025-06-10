@@ -34,7 +34,7 @@ class TimeSuite:
         mpcalc.parcel_profile(self.profileSlice.pressure, self.profileSlice.temperature[0], self.profileSlice.dewpoint[0]);
         
     def time_most_unstable_parcel(self, profileSlice): 
-        """Benchmarking the calculation to find the most unstable parcel"""
+        """Benchmarking the calculation to find the most unstable parcel for one profile"""
         mpcalc.most_unstable_parcel(self.profileSlice.pressure, self.profileSlice.temperature, self.profileSlice.dewpoint); 
         
     def time_cape_cin(self, profileSlice): 
