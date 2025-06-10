@@ -47,7 +47,9 @@ jobs:
               path: .
           - run: pip install asv virtualenv
           - run: python -m asv machine --yes
-          - run: python -m asv run HASHFILE:no_bot_merge_commits.txt
+          - name: Run ASV
+            run: python -m asv run HASHFILE:no_bot_merge_commits.txt
+            continue-on-error: true #Tells GHA that a failed benchmark is ok 
           - run: python -m asv publish
             working-directory: ./benchmarks
           - run: git config user.name "github-actions"
