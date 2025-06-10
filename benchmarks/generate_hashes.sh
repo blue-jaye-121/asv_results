@@ -19,7 +19,7 @@ git for-each-ref --sort=version:refname \
   --format='%(refname:short) %(objectname)' refs/tags | \
   grep -E '^v[1-9][0-9]*\..*' |
   awk '{print $2}' >> ../no_bot_merge_commits.txt
-
+  
 cd ..
 
 # --- CLEANUP ---

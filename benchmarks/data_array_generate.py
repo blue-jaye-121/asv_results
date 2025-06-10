@@ -59,6 +59,9 @@ for i, tm in enumerate(times):
     w_4d[:, :, :, i] = w_3d * np.random.uniform(-2, 2);
     
 
+windspeed = mpcalc.wind_speed(u_4d * units('m/s'), v_4d * units('m/s')); 
+    
+
 #setting up for annual temperature cycle    
 days = np.arange(len(times)); 
 annual_cycle = np.sin(2 * np.pi * days / len(times)); 
@@ -163,6 +166,8 @@ dewpoint = xr.DataArray(td_4d, coords=coords, dims = ['pressure', 'lat', 'lon', 
                         attrs = {'standard name': 'dewpoint', 'units' : 'K'})
 relative_humidity = xr.DataArray(rh, coords = coords, dims = ['pressure', 'lat', 'lon', 'time'],
                                  attrs = {'standard name' : 'relative humidity', 'units' : '%'})
+windspeed = xr.DataArray(windspeed, coords=coords, dims = ['pressure', 'lat', 'lon', 'time'], 
+                         attrs={'standard_name': 'windspeed', 'units': 'm s-1'})
 
 ds = xr.Dataset({'uwind': uwind,
                    'vwind': vwind,
@@ -173,7 +178,8 @@ ds = xr.Dataset({'uwind': uwind,
                    'mixing_ratio':mixing_ratio,
                    'vapor_pressure':vapor_pressure,
                    'dewpoint':dewpoint, 
-                   'relative_humidity':relative_humidity})
+                   'relative_humidity':relative_humidity,
+                   'windspeed':windspeed})
 
 
 
