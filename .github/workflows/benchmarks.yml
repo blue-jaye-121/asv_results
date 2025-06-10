@@ -2,7 +2,7 @@ name: benchmark
 on:
   push:
     branches:
-      - main
+      - main  #any push to main branch triggers this workflow
     paths-ignore:
       - 'benchmarks/asv/html/**' #THIS MAKES IT SO THE PUSH AT THE END DOES NOT RETRIGGER
   workflow_dispatch:
@@ -20,44 +20,44 @@ concurrency:
 
 jobs:
   benchmark:
-    runs-on: ubuntu-latest
-    timeout-minutes: 120
+    runs-on: ubuntu-latest  
+    timeout-minutes: 120  #times out after 2 hours
     defaults: 
       run: 
-        working-directory: ./benchmarks
+        working-directory: ./benchmarks #sets the default working directory to ./benchmarks 
     steps:
-          - uses: actions/setup-python@v5
+          - uses: actions/setup-python@v5  #sets up python with version 3.12
             with:
               python-version: "3.12"
-          - uses: actions/checkout@v4
+          - uses: actions/checkout@v4  #checks out repository
             with:
               fetch-depth: 0  # Fetch full history
-          - name: Fetch full git history
+          - name: Fetch full git history #fetches repository, including tags, for benchmarking data
             run: |
               git fetch --unshallow || true
               git fetch --all --tags --prune
               git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
               git fetch origin
           - run: git fetch origin $GITHUB_BASE_REF:base $GITHUB_REF:pr
-          - name: Update .txt file of commits
+          - name: Update .txt file of commits  #run the generate_hashes.sh bash script to generate the no_bot_merge_commits.txt
             run: bash generate_hashes.sh
           - uses: actions/upload-artifact@v4
             with:
-              name: no_bot_merge_commits.txt
+              name: no_bot_merge_commits.txt  # upload the updated no_bot_merge_commits.txt file to ./benchmarks
               path: .
-          - run: pip install asv virtualenv
-          - run: python -m asv machine --yes
+          - run: pip install asv virtualenv  #install asv
+          - run: python -m asv machine --yes  #setup the asv machine settings with device-given defaults
           - name: Run ASV
-            run: python -m asv run HASHFILE:no_bot_merge_commits.txt
-            continue-on-error: true #Tells GHA that a failed benchmark is ok 
-          - run: python -m asv publish
+            run: python -m asv run HASHFILE:no_bot_merge_commits.txt  # run ASV on the commits in the hashfile
+            continue-on-error: true #Tells GHA that a failed benchmark is ok, continue to run
+          - run: python -m asv publish #Publish asv html files to ./benchmarks NOTE: results are not saved to repo
             working-directory: ./benchmarks
-          - run: git config user.name "github-actions"
+          - run: git config user.name "github-actions" #Set user name to github-actions and email to actions@github.com
           - run: git config user.email "actions@github.com"
-          - name: Commit ASV HTML to main
+          - name: Commit ASV HTML to main #commit the html files to the main branch if they are changed
             run: |
               git add asv/html
-              if ! git diff --cached --quiet; then
+              if ! git diff --cached --quiet; then 
               git commit -m "[GitHub-Actions[bot]] Update ASV benchmark HTML"
               git push origin main
               else
@@ -65,23 +65,23 @@ jobs:
               fi
 
   deploy:
-    needs: benchmark
-    environment:
+    needs: benchmark #requires benchmark to finish running before deploy runs
+    environment:  #sets environment to github_pages 
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
+    - name: Checkout #checks out main repo
       uses: actions/checkout@v4
       with:
-        ref: main  # Checkout the branch instead of the SHA of the original push
+        ref: main  # Checkout the main branch instead of the hash of the original push
         fetch-depth: 0  # Fetch full history
-    - name: Setup Pages
+    - name: Setup Pages 
       uses: actions/configure-pages@v5
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        # Upload entire repository
+        # Upload html files only to page
         path: './benchmarks/asv/html'
     - name: Deploy to GitHub Pages
       id: deployment
