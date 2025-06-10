@@ -21,7 +21,7 @@ concurrency:
 jobs:
   benchmark:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
     defaults: 
       run: 
         working-directory: ./benchmarks
@@ -40,8 +40,7 @@ jobs:
               git fetch origin
           - run: git fetch origin $GITHUB_BASE_REF:base $GITHUB_REF:pr
           - name: Update .txt file of commits
-            run: mkdir -p path/to/artifact
-              | git log --merges v1.6.0..v1.7.0 --pretty=format:"%H %an %cn %s" | grep -v -i "dependabot" | grep -v -E "github-actions\[bot\]|dependabot\[bot\]" | awk '{print $1}' > no_bot_merge_commits.txt
+            run: generate_hashes.sh
           - uses: actions/upload-artifact@v4
             with:
               name: no_bot_merge_commits.txt
