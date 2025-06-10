@@ -49,9 +49,9 @@ class TimeSuite:
         """Benchmarking the calculation for the scale height of a layer for 2 surfaces"""
         mpcalc.scale_height(self.upperSlice.temperature, self.pressureSlice.temperature); 
         
-    def time_moist_lapse(self, profileSlice): 
-        """Benchmarking the calculation for the moist lapse rate for one profile"""
-        mpcalc.moist_lapse(self.profileSlice.pressure, self.profileSlice.temperature[0]); 
+    # def time_moist_lapse(self, profileSlice): 
+    #     """Benchmarking the calculation for the moist lapse rate for one profile"""
+    #     mpcalc.moist_lapse(profileSlice.pressure, profileSlice.temperature[0]);  
         
     def time_saturation_vapor_pressure(self, timeSlice): 
         """Benchmarking the saturation vapor pressure calculation for a 3d cube"""
