@@ -55,7 +55,7 @@ jobs:
               if [ -d "results_asv_results/results" ]; then
                 rm -r results_asv_results/results
               fi
-              cp -r ./results/ results_asv_results/
+              cp -r ./asv/results/ results_asv_results/
               cd results_asv_results
               git config --local user.email "github-actions@github.com"
               git config --local user.name "GitHub Actions [boy]"
