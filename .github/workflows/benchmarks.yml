@@ -44,6 +44,7 @@ jobs:
             uses: actions/checkout@v4
             with:
               repository: blue-jaye-121/results_asv_results
+              token: ${{ secrets.GITHUB_TOKEN }}
               persist-credentials: false
               fetch-depth: 0
               ref: main
