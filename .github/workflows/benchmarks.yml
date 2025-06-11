@@ -30,7 +30,7 @@ jobs:
             with:
               python-version: "3.12"
           - name: Checkout asv_results
-          - uses: actions/checkout@v4  #checks out repository
+            uses: actions/checkout@v4  #checks out repository
             with:
               fetch-depth: 0  # Fetch full history
           - name: Fetch full git history #fetches repository, including tags, for benchmarking data
