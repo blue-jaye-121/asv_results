@@ -47,6 +47,7 @@ jobs:
               repository: blue-jaye-121/results_asv_results
               persist-credentials: false
               fetch-depth: 0
+              token: ${{ secrets.ASV_PAT }}
               ref: main
               path: results_asv_results
           - name: Debug checkout folder
