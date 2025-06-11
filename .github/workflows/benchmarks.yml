@@ -29,6 +29,7 @@ jobs:
           - uses: actions/setup-python@v5  #sets up python with version 3.12
             with:
               python-version: "3.12"
+          - name: Checkout asv_results
           - uses: actions/checkout@v4  #checks out repository
             with:
               fetch-depth: 0  # Fetch full history
@@ -39,6 +40,15 @@ jobs:
               git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
               git fetch origin
           - run: git fetch origin $GITHUB_BASE_REF:base $GITHUB_REF:pr
+          - name: Checkout results_asv_results
+            uses: actions/checkout@v4
+            with:
+              repository: blue-jaye-121/results_asv_results
+              persist-credentials: false
+              fetch-depth: 0
+              ref: main
+              path: results_asv_results
+
           - name: Update .txt file of commits  #run the generate_hashes.sh bash script to generate the no_bot_merge_commits.txt
             run: bash generate_hashes.sh
           - uses: actions/upload-artifact@v4
