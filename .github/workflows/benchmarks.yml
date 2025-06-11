@@ -49,6 +49,8 @@ jobs:
               fetch-depth: 0
               ref: main
               path: results_asv_results
+          - name: Debug checkout folder
+            run: ls -la results_asv_results
 
           - name: Update .txt file of commits  #run the generate_hashes.sh bash script to generate the no_bot_merge_commits.txt
             run: bash generate_hashes.sh
