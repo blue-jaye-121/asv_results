@@ -44,7 +44,7 @@ jobs:
             uses: actions/checkout@v4
             with:
               repository: blue-jaye-121/results_asv_results
-              token: ${{ secrets.GITHUB_TOKEN }}
+              token: ${{ secrets.ASV_PAT }}
               persist-credentials: false
               fetch-depth: 0
               ref: main
@@ -81,7 +81,7 @@ jobs:
             if: github.ref == 'refs/heads/main' && github.repository == 'blue-jaye-121/asv_results'
             uses: ad-m/github-push-action@77c5b412c50b723d2a4fbc6d71fb5723bcd439aa # master
             with:
-              github_token: ${{ secrets.COMP_ASV_PAT }}
+              github_token: ${{ secrets.ASV_PAT }}
               branch: main
               force: true
               repository: blue-jaye-121/results_asv_results
