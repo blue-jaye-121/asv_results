@@ -24,6 +24,7 @@ jobs:
     timeout-minutes: 120  #times out after 2 hours
     defaults: 
       run: 
+        shell: bash -el {0}
         working-directory: ./benchmarks #sets the default working directory to ./benchmarks 
     steps:
           - uses: actions/setup-python@v5  #sets up python with version 3.12
@@ -44,7 +45,6 @@ jobs:
             uses: actions/checkout@v4
             with:
               repository: blue-jaye-121/results_asv_results
-              token: ${{ secrets.ASV_PAT }}
               persist-credentials: false
               fetch-depth: 0
               ref: main
