@@ -51,7 +51,7 @@ jobs:
               ref: main
               path: results_asv_results
           - name: Debug checkout folder
-            run: ls -la results_asv_results
+            run: ls -la ../results_asv_results
 
           - name: Update .txt file of commits  #run the generate_hashes.sh bash script to generate the no_bot_merge_commits.txt
             run: bash generate_hashes.sh
@@ -68,11 +68,11 @@ jobs:
             run: ls -la ./asv/results
           - name: Commit and push benchmark results to results_asv_results
             run: |
-              if [ -d "results_asv_results/results" ]; then
-                rm -r results_asv_results/results
+              if [ -d "../results_asv_results/results" ]; then
+                rm -r ../results_asv_results/results
               fi
-              cp -r ./asv/results/ results_asv_results/results
-              cd results_asv_results
+              cp -r ./asv/results/ ../results_asv_results/results
+              cd ../results_asv_results
               git config --local user.email "github-actions@github.com"
               git config --local user.name "GitHub Actions [boy]"
               git add results
@@ -86,5 +86,5 @@ jobs:
               branch: main
               force: true
               repository: blue-jaye-121/results_asv_results
-              directory: results_asv_results
+              directory: ../results_asv_results
 
