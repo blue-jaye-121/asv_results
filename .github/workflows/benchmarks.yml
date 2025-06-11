@@ -24,7 +24,6 @@ jobs:
     timeout-minutes: 120  #times out after 2 hours
     defaults: 
       run: 
-        shell: bash -el {0}
         working-directory: ./benchmarks #sets the default working directory to ./benchmarks 
     steps:
           - uses: actions/setup-python@v5  #sets up python with version 3.12
@@ -62,10 +61,8 @@ jobs:
           - run: pip install asv virtualenv  #install asv
           - run: python -m asv machine --yes  #setup the asv machine settings with device-given defaults
           - name: Run ASV
-            run: python -m asv run 0fa6c12e535053bbb0de04172819048e6e7984ee^! #HASHFILE:no_bot_merge_commits.txt  # run ASV on the commits in the hashfile
+            run: python -m asv run HASHFILE:no_bot_merge_commits.txt  # run ASV on the commits in the hashfile
             continue-on-error: true #Tells GHA that a failed benchmark is ok, continue to run
-          - name: Debug list benchmark directory
-            run: ls -la ./asv/results
           - name: Commit and push benchmark results to results_asv_results
             run: |
               if [ -d "../results_asv_results/results" ]; then
