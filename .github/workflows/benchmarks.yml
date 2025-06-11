@@ -86,5 +86,5 @@ jobs:
               branch: main
               force: true
               repository: blue-jaye-121/results_asv_results
-              directory: ../results_asv_results
+              directory: results_asv_results
 
