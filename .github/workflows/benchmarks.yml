@@ -50,39 +50,27 @@ jobs:
           - name: Run ASV
             run: python -m asv run HASHFILE:no_bot_merge_commits.txt  # run ASV on the commits in the hashfile
             continue-on-error: true #Tells GHA that a failed benchmark is ok, continue to run
-          - run: python -m asv publish #Publish asv html files to ./benchmarks NOTE: results are not saved to repo
-            working-directory: ./benchmarks
-          - run: git config user.name "github-actions" #Set user name to github-actions and email to actions@github.com
-          - run: git config user.email "actions@github.com"
-          - name: Commit ASV HTML to main #commit the html files to the main branch if they are changed
-            run: |
-              git add asv/html
-              if ! git diff --cached --quiet; then 
-              git commit -m "[GitHub-Actions[bot]] Update ASV benchmark HTML"
-              git push origin main
-              else
-              echo "No changes to commit."
-              fi
 
-  deploy:
-    needs: benchmark #requires benchmark to finish running before deploy runs
-    environment:  #sets environment to github_pages 
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout #checks out main repo
-      uses: actions/checkout@v4
-      with:
-        ref: main  # Checkout the main branch instead of the hash of the original push
-        fetch-depth: 0  # Fetch full history
-    - name: Setup Pages 
-      uses: actions/configure-pages@v5
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        # Upload html files only to page
-        path: './benchmarks/asv/html'
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+              
+          - name: Commit and push benchmark results to results_asv_results
+            run: |
+              if [ -d "results_asv_results/results" ]; then
+                rm -r results_asv_results/results
+              fi
+              cp -r benchmarks/results/ results_asv_results/
+              cd results_asv_results
+              git config --local user.email "github-actions@github.com"
+              git config --local user.name "GitHub Actions [boy]"
+              git add results
+              git commit -m "Update benchmark results"
+        
+          - name: Push to results_asv_results
+            if: github.ref == 'refs/heads/main' && github.repository == 'blue-jaye-121/asv_results'
+            uses: ad-m/github-push-action@77c5b412c50b723d2a4fbc6d71fb5723bcd439aa # master
+            with:
+              github_token: ${{ secrets.COMP_ASV_PAT }}
+              branch: main
+              force: true
+              repository: blue-jaye-121/results_asv_results
+              directory: results_asv_results
+
