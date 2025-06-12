@@ -62,7 +62,9 @@ jobs:
               if [ -d "results_asv_results/results" ]; then
               cp -r ../results_asv_results/results ./asv/results
               fi
-
+          - name: DEBUG check contents of asv/results after copyin
+            run: |
+              ls -l ./asv/results
 
           - name: Update .txt file of commits  #run the generate_hashes.sh bash script to generate the no_bot_merge_commits.txt
             run: bash generate_hashes.sh
