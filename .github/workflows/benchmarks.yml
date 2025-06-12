@@ -60,7 +60,7 @@ jobs:
           - name: Copy existing results
             run: |
               if [ -d "../results_asv_results/results" ]; then
-              cp -r ../results_asv_results/results ./asv/results
+              cp -r ../results_asv_results/results/* ./asv/results
               fi
           - name: DEBUG check contents of asv/results after copyin
             run: |
