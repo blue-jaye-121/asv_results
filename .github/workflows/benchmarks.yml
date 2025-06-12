@@ -56,6 +56,7 @@ jobs:
               ls -l ../results_asv_results
               echo "Listing ../results_asv_results/results"
               ls -l ../results_asv_results/results || echo "No results directory found"
+              ls -l ./asv/results
           - name: Copy existing results
             run: |
               if [ -d "results_asv_results/results" ]; then
