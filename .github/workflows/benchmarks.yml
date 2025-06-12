@@ -49,6 +49,13 @@ jobs:
               token: ${{ secrets.ASV_PAT }}
               ref: main
               path: results_asv_results
+
+          - name: DEBUG Check contents of results_asv_results
+            run: |
+              echo "Listing ../results_asv_results"
+              ls -l ../results_asv_results
+              echo "Listing ../results_asv_results/results"
+              ls -l ../results_asv_results/results || echo "No results directory found"
           - name: Copy existing results
             run: |
               if [ -d "results_asv_results/results" ]; then
