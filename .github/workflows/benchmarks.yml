@@ -49,23 +49,11 @@ jobs:
               token: ${{ secrets.ASV_PAT }}
               ref: main
               path: results_asv_results
-
-          - name: DEBUG Check contents of results_asv_results
-            run: |
-              echo "Listing ../results_asv_results"
-              ls -l ../results_asv_results
-              echo "Listing ../results_asv_results/results"
-              ls -l ../results_asv_results/results || echo "No results directory found"
-              ls -l ./asv/results
-          - name: Copy existing results
-            run: |
-              if [ -d "../results_asv_results/results" ]; then
-              cp -r ../results_asv_results/results/* ./asv/results
-              fi
-          - name: DEBUG check contents of asv/results after copyin
-            run: |
-              ls -l ./asv/results
-
+         # - name: Copy existing results
+         #   run: |
+         #     if [ -d "../results_asv_results/results" ]; then
+         #     cp -r ../results_asv_results/results/* ./asv/results
+         #     fi
           - name: Update .txt file of commits  #run the generate_hashes.sh bash script to generate the no_bot_merge_commits.txt
             run: bash generate_hashes.sh
           - uses: actions/upload-artifact@v4
