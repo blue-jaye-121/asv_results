@@ -43,4 +43,3 @@ class TimeSuite:
         """Benchmarking the zoom xarray function"""
         mpcalc.zoom_xarray(self.pressureSlice.temperature, zoom = 3.0);
         
-        

@@ -2,9 +2,9 @@
 REPO_URL="https://github.com/Unidata/MetPy.git" #metpy repo to clone from
 CLONE_DIR="temp_repo" #temporary repo to clone to 
 
-# --- SHALLOW CLONE ---
+# clone metpy and fetch tags
 git clone --depth=100 --no-tags "$REPO_URL" "$CLONE_DIR" #shallow clone metpy repo
-cd "$CLONE_DIR" || exit 1 #change directories to temporary repo
+cd "$CLONE_DIR" || exit 1 #change directories to temporary repo, if this fails exit
 git fetch --tags #fetch metpy tags
 
 # Set the range: from last v1.6.x to present (all 1.7.x merge commits) - no commits authored by or mentioning dependabot or github-actions
@@ -20,7 +20,6 @@ git for-each-ref --sort=version:refname \
   grep -E '^v[1-9][0-9]*\..*' |
   awk '{print $2}' >> ../no_bot_merge_commits.txt #append these results to same file 
   
-cd ..
+cd .. #leave temp_repo
 
-# --- CLEANUP ---
 rm -rf "$CLONE_DIR" #clean up by removing temporary repo

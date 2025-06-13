@@ -60,7 +60,7 @@ for i, tm in enumerate(times):
     
 
 windspeed = mpcalc.wind_speed(u_4d * units('m/s'), v_4d * units('m/s')); 
-    
+winddir = mpcalc.wind_direction(u_4d * units('m/s'), v_4d * units('m/s')); 
 
 #setting up for annual temperature cycle    
 days = np.arange(len(times)); 
@@ -136,6 +136,18 @@ td_4d = np.minimum(td_4d, t_4d)
 #Generate relative humidity from dewpoint
 rh = mpcalc.relative_humidity_from_dewpoint(t_4d, td_4d); 
 
+#Generate sigma values
+sigma_3d = (p_3d - (250 * units.hPa)) / ((1000 * units.hPa) - (250 * units.hPa))
+
+sigma_4d = np.zeros((50, 50, 50, len(times)))
+for i, tm in enumerate(times):
+    sigma_4d[:, :, :, i] = sigma_3d[:, :, :]; 
+    
+geopotential_3d = mpcalc.height_to_geopotential(height);
+
+geopotential_4d = np.zeros((50, 50, 50, len(times)))
+for i, tm in enumerate(times):
+    geopotential_4d[:, :, :, i] = geopotential_3d[:, :, :]
 
 # place data into an xarray dataset object
 lat_da = xr.DataArray(lats, dims = 'lat', attrs={'standard_name': 'latitude', 'units': 'degrees_north'})
@@ -168,7 +180,12 @@ relative_humidity = xr.DataArray(rh, coords = coords, dims = ['pressure', 'lat',
                                  attrs = {'standard name' : 'relative humidity', 'units' : '%'})
 windspeed = xr.DataArray(windspeed, coords=coords, dims = ['pressure', 'lat', 'lon', 'time'], 
                          attrs={'standard_name': 'windspeed', 'units': 'm s-1'})
-
+winddir = xr.DataArray(winddir, coords=coords, dims=['pressure', 'lat', 'lon', 'time'],
+                       attrs={'standard_name': 'wind direction', 'units': 'degrees'}); 
+sigma = xr.DataArray(sigma_4d, coords=coords, dims=['pressure', 'lat', 'lon', 'time'],
+                     attrs={'standard_name': 'sigma', 'units' : 'dimensionless'})
+geopotential = xr.DataArray(geopotential_4d, coords=coords, dims=['pressure', 'lat', 'lon', 'time'], 
+                            attrs={'standard_name' : 'geopotential', 'units' : 'm2 s-2'})
 ds = xr.Dataset({'uwind': uwind,
                    'vwind': vwind,
                    'wwind': wwind,
@@ -179,7 +196,11 @@ ds = xr.Dataset({'uwind': uwind,
                    'vapor_pressure':vapor_pressure,
                    'dewpoint':dewpoint, 
                    'relative_humidity':relative_humidity,
-                   'windspeed':windspeed}) 
+                   'windspeed':windspeed,
+                   'winddir':winddir,
+                   'sigma':sigma,
+                   'geopotential':geopotential}) 
+
 
 # Step 1: Initialize encoding dict for data variables
 encoding = {

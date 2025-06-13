@@ -81,3 +81,11 @@ class TimeSuite:
     def time_montgomery_streamfunction(self, pressureSlice):
         """Benchmarking the montgomery streamfunction calculation on a 2d grid"""
         mpcalc.montgomery_streamfunction(self.pressureSlice.height, self.pressureSlice.temperature);
+        
+    def time_wind_direction(self, timeSlice): 
+        """Benchmarking the wind direction calculation on a 3d cube"""
+        mpcalc.wind_direction(self.timeSlice.uwind, self.timeSlice.vwind); 
+        
+    def time_wind_components(self, timeSlice):
+        """Benchmarking the wind components calculation on a 3d cube"""
+        mpcalc.wind_components(self.timeSlice.windspeed, self.timeSlice.winddir)

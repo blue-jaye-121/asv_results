@@ -2,6 +2,7 @@ import os
 import xarray as xr
 
 import metpy.calc as mpcalc; 
+from metpy.units import units; 
  
 class TimeSuite:
     #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
@@ -25,3 +26,8 @@ class TimeSuite:
     def time_pressure_to_height_std(self, timeSlice): 
         """Benchmarking the pressure to height calculation in a standard atmosphere on a 3d cube"""
         mpcalc.pressure_to_height_std(self.timeSlice.pressure)
+        
+    def time_altimeter_to_sea_level_pressure(self, timeSlice):
+        """Benchmarking altimeter to slp on a 3d cube"""
+        mpcalc.altimeter_to_sea_level_pressure(self.timeSlice.pressure.values * units('hPa'), self.timeSlice.height.values * units('km'),
+                                               self.timeSlice.temperature * units('K')); 

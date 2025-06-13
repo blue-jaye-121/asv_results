@@ -2,6 +2,7 @@ import os
 import xarray as xr
 
 import metpy.calc as mpcalc; 
+from metpy.units import units; 
 
  
 class TimeSuite:
@@ -42,3 +43,20 @@ class TimeSuite:
     def time_dry_lapse(self, timeSlice):
         """Benchmarking the dry lapse calculation on a 3d cube"""
         mpcalc.dry_lapse(self.timeSlice.pressure, self.timeSlice.temperature); 
+        
+    def time_sigma_to_pressure(self, timeSlice):
+        """Benchmarking the sigma to pressure calculation on a 3d cube"""
+        mpcalc.sigma_to_pressure(self.timeSlice.sigma, self.timeSlice.pressure[0], self.timeSlice.pressure[49])
+        
+    def time_geopotential_to_height(self, timeSlice): 
+        """Benchmarking the geopotential to height calculation on a 3d cube"""
+        mpcalc.geopotential_to_height(self.timeSlice.geopotential); 
+        
+    def time_add_pressure_to_height(self, timeSlice): 
+        """Benchmarking adding pressure to height on a 3d cube"""
+        mpcalc.add_pressure_to_height(self.timeSlice.height, self.timeSlice.pressure)
+        
+    def time_add_height_to_pressure(self, timeSlice): 
+        """Benchmarking adding height to pressure on a 3d cube"""
+        mpcalc.add_height_to_pressure(self.timeSlice.pressure.values * units('hPa'), 
+                                      self.timeSlice.height.values * units('km')); 
