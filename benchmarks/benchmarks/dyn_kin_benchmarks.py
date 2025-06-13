@@ -7,7 +7,7 @@ from metpy.units import units
 
 class TimeSuite: 
     #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
-    version = "2025.06.10"; 
+    version = "2025.06.12"; 
     
     
     def setup_cache(self):
@@ -20,6 +20,7 @@ class TimeSuite:
     def setup(self, ds):
        self.pressureSlice = ds.isel(pressure = 0, time = 0)
        self.timeSlice = ds.isel(time = 0)
+       self.profileSlice = ds.isel(time = 0, lat = 0, lon = 0)
        
     
     def time_absolute_vorticity(self, pressureSlice): 
@@ -54,3 +55,29 @@ class TimeSuite:
     def time_vorticity(self, pressureSlice): 
         """Benchmarking vorticity calculation on a 2d slice"""
         mpcalc.vorticity(self.pressureSlice.uwind, self.pressureSlice.vwind); 
+        
+    def time_shear_vorticity(self, pressureSlice):
+        """Benchmarking shear vorticity on a 2d slice"""
+        mpcalc.shear_vorticity(self.pressureSlice.uwind, self.pressureSlice.vwind); 
+        
+    # def time_absolute_momentum(self, pressureSlice): 
+    #     """Benchmarking absolute momentum calculation on a 3d cube"""
+    #     mpcalc.absolute_momentum(self.timeSlice.uwind, self.timeSlice.vwind); 
+    
+    def time_potential_vorticity_baroclinic(self, timeSlice):
+        """Benchmarking potential vorticity baroclinic on a 3d cube"""
+        mpcalc.potential_vorticity_baroclinic(self.timeSlice.theta, self.timeSlice.pressure, 
+                                              self.timeSlice.uwind, self.timeSlice.vwind); 
+        
+    def time_inertal_advective_wind(self, timeSlice):
+        """Benchmarking inertal advective wind calculation on a 3d cube"""
+        mpcalc.inertial_advective_wind(self.timeSlice.uwind, self.timeSlice.vwind,
+                                       self.timeSlice.uwind, self.timeSlice.vwind)
+        
+    def time_curvature_vorticity(self, timeSlice): 
+        """Benchmarking the curvature vorticity calculation on a 3d cube"""
+        mpcalc.curvature_vorticity(self.timeSlice.uwind, self.timeSlice.vwind); 
+        
+    def time_montgomery_streamfunction(self, pressureSlice):
+        """Benchmarking the montgomery streamfunction calculation on a 2d grid"""
+        mpcalc.montgomery_streamfunction(self.pressureSlice.height, self.pressureSlice.temperature);

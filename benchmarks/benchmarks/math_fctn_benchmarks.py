@@ -13,6 +13,7 @@ class TimeSuite:
        file_path = os.path.join(base_path, "..", "data_array_compressed.nc");
        file_path = os.path.abspath(file_path)
        ds = xr.open_dataset(file_path)
+       ds = ds.metpy.parse_cf().squeeze()
        return ds; 
    
     def setup(self, ds):
@@ -34,3 +35,13 @@ class TimeSuite:
     def time_vector_derivative(self, pressureSlice): 
         """Benchmarking calculating the vector derivative of wind on a 2d slice"""
         mpcalc.vector_derivative(self.pressureSlice.uwind, self.pressureSlice.vwind); 
+        
+    # def time_tangential_component(self, timeSlice):
+    #     """Benchmarking calculation of the tangential component of wind on a 2d slice"""
+    #     mpcalc.tangential_component(self.pressureSlice.uwind, self.pressureSlice.vwind); 
+    
+    # def time_cross_section_components(self, timeSlice):
+    #     """Benchmarking the cross section components of a 2d wind grid"""
+    #     mpcalc.cross_section_components(self.pressureSlice.uwind, self.pressureSlice.vwind)
+    
+    

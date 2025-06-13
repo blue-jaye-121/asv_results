@@ -38,3 +38,9 @@ class TimeSuite:
     def time_smooth_n_point(self, pressureSlice): 
         """Benchmarking the 5 point smoothing of a 2d grid"""
         mpcalc.smooth_n_point(self.pressureSlice.relative_humidity); 
+
+    def time_zoom_xarray(self, pressureSlice):
+        """Benchmarking the zoom xarray function"""
+        mpcalc.zoom_xarray(self.pressureSlice.temperature, zoom = 3.0);
+        
+        

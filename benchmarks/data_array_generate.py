@@ -35,11 +35,11 @@ w = np.full([50, 50], 1)
 
 u_3d = np.zeros((len(pressure), 50, 50))
 for i, p in enumerate(pressure):
-    u_3d[i, :, :] = u * (1000 - p.magnitude)**.3
+    u_3d[i, :, :] = u * (1002 - p.magnitude)**.3 #1002 ensures the entire lower layer isn't 0
     
 v_3d = np.zeros((len(pressure), 50, 50))
 for i, p in enumerate(pressure): 
-    v_3d[i, :, :] = v * (1000 - p.magnitude)**.3
+    v_3d[i, :, :] = v * (1002 - p.magnitude)**.3
     
 w_3d = np.zeros((len(pressure), 50, 50))
 for i, p in enumerate(pressure): 
@@ -179,9 +179,7 @@ ds = xr.Dataset({'uwind': uwind,
                    'vapor_pressure':vapor_pressure,
                    'dewpoint':dewpoint, 
                    'relative_humidity':relative_humidity,
-                   'windspeed':windspeed})
-
-
+                   'windspeed':windspeed}) 
 
 # Step 1: Initialize encoding dict for data variables
 encoding = {

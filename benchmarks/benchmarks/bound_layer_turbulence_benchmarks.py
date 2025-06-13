@@ -3,6 +3,7 @@ import xarray as xr
 
 
 import metpy.calc as mpcalc; 
+from metpy.units import units; 
 
 
 class TimeSuite: 
@@ -28,3 +29,7 @@ class TimeSuite:
         """Benchmark Gradient Richardson Number on a grid"""
         mpcalc.gradient_richardson_number(self.timeSlice.height, self.timeSlice.theta,
                                          self.timeSlice.uwind, self.timeSlice.vwind)
+        
+    def time_tke(self, ds): 
+        """Benchmarking turbulent kinetic energy calculation"""
+        mpcalc.tke(ds.uwind.values * units('m/s'), ds.vwind.values* units('m/s'), ds.wwind.values * units('m/s'))

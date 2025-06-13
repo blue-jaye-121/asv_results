@@ -2,10 +2,11 @@ import os
 import xarray as xr
 
 import metpy.calc as mpcalc; 
+from metpy.units import units; 
 
 class TimeSuite: 
     #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
-    version = "2025.06.09"; 
+    version = "2025.06.13"; 
     
     def setup_cache(self):
        base_path = os.path.dirname(__file__) # path to current file
@@ -49,6 +50,8 @@ class TimeSuite:
         """Benchmarks el calculation on one profile"""
         mpcalc.el(self.profileSlice.pressure, self.profileSlice.temperature, self.profileSlice.dewpoint); 
         
-        
+    def time_storm_relative_helicity(self, profileSlice):
+        """Benchmarks storm relative helicity over one profile"""
+        mpcalc.storm_relative_helicity(self.profileSlice.height, self.profileSlice.uwind, self.profileSlice.vwind, depth = 1 * units('km'))
         
     
