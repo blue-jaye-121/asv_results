@@ -54,4 +54,22 @@ class TimeSuite:
         """Benchmarks storm relative helicity over one profile"""
         mpcalc.storm_relative_helicity(self.profileSlice.height, self.profileSlice.uwind, self.profileSlice.vwind, depth = 1 * units('km'))
         
+    # def time_supercell_composite(self, profileSlice):
+    #     """Benchmarks supercell composite calculation"""
+    #     mpcalc.supercell_composite(2500 * units('J/kg')
     
+    def time_critical_angle(self, profileSlice):
+        """Benchmarking critical angle on one profile"""
+        mpcalc.critical_angle(self.profileSlice.pressure, self.profileSlice.uwind, 
+                              self.profileSlice.vwind, self.profileSlice.height,
+                              0 * units('m/s'), 0 * units('m/s')); 
+        
+    def time_bunkers_storm_motion(self, profileSlice):
+        """Benchmarking bunkers storm motion on one profile"""
+        mpcalc.bunkers_storm_motion(self.profileSlice.pressure, self.profileSlice.uwind,
+                                    self.profileSlice.vwind, self.profileSlice.height)
+        
+    def time_corfidi_storm_motion(self, profileSlice):
+        """Benchmarking corfidi storm motion on one profile"""
+        mpcalc.corfidi_storm_motion(self.profileSlice.pressure, self.profileSlice.uwind,
+                                    self.profileSlice.vwind);
