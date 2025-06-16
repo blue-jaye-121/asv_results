@@ -42,7 +42,7 @@ class TimeSuite:
         mpcalc.precipitable_water(self.timeSlice.pressure, self.timeSlice.dewpoint[0][0]);
         
     def time_wet_bulb_temperature(self, pressureSlice):
-        """Benchmarking wet bulb temperature calculation on on a cube"""
+        """Benchmarking wet bulb temperature calculation on on a slice"""
         mpcalc.wet_bulb_temperature(self.pressureSlice.pressure, self.pressureSlice.temperature, self.pressureSlice.dewpoint); 
         
     def time_scale_height(self, pressureSlice): 
@@ -56,3 +56,28 @@ class TimeSuite:
     def time_saturation_vapor_pressure(self, timeSlice): 
         """Benchmarking the saturation vapor pressure calculation for a 3d cube"""
         mpcalc.saturation_vapor_pressure(self.timeSlice.temperature); 
+        
+    def time_water_latent_heat_vaporization(self, timeSlice):
+        """Benchmarking the vaporization latent heat calculation on a 3d cube"""
+        mpcalc.water_latent_heat_vaporization(self.timeSlice.temperature); 
+        
+    def time_water_latent_heat_sublimation(self, timeSlice):
+        """Benchmarking the sublimation latent heat calcultion on a 3d cube"""
+        mpcalc.water_latent_heat_sublimation(self.timeSlice.temperature); 
+        
+    def time_water_latent_heat_melting(self, timeSlice):
+        """Benchmarking the melting latent heat calculation on a 3d cube"""
+        mpcalc.water_latent_heat_melting(self.timeSlice.temperature); 
+        
+    def time_specific_humidity_from_dewpoint(self, timeSlice):
+        """Benchmarking specific humidity from dewpoint calculation on a 3d cube"""
+        mpcalc.specific_humidity_from_dewpoint(self.timeSlice.pressure, self.timeSlice.temperature); 
+        
+    def time_relative_humidity_from_dewpoint(self, timeSlice):
+        """Benchmarking relative humidity from dewpoint calculation on a 3d cube"""
+        mpcalc.relative_humidity_from_dewpoint(self.timeSlice.temperature, self.timeSlice.dewpoint); 
+        
+    def time_moist_static_energy(self, timeSlice):
+        """Benchmarking moist static energy calculation on a 3d cube"""
+        mpcalc.moist_static_energy(self.timeSlice.height, self.timeSlice.temperature, self.timeSlice.specific_humidity); 
+        

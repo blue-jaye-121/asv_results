@@ -143,11 +143,15 @@ sigma_4d = np.zeros((50, 50, 50, len(times)))
 for i, tm in enumerate(times):
     sigma_4d[:, :, :, i] = sigma_3d[:, :, :]; 
     
+#Generate geopotential values
 geopotential_3d = mpcalc.height_to_geopotential(height);
 
 geopotential_4d = np.zeros((50, 50, 50, len(times)))
 for i, tm in enumerate(times):
     geopotential_4d[:, :, :, i] = geopotential_3d[:, :, :]
+    
+#generate specific humidity values
+q = mpcalc.specific_humidity_from_mixing_ratio(mixingRatio_4d); 
 
 # place data into an xarray dataset object
 lat_da = xr.DataArray(lats, dims = 'lat', attrs={'standard_name': 'latitude', 'units': 'degrees_north'})
@@ -186,6 +190,8 @@ sigma = xr.DataArray(sigma_4d, coords=coords, dims=['pressure', 'lat', 'lon', 't
                      attrs={'standard_name': 'sigma', 'units' : 'dimensionless'})
 geopotential = xr.DataArray(geopotential_4d, coords=coords, dims=['pressure', 'lat', 'lon', 'time'], 
                             attrs={'standard_name' : 'geopotential', 'units' : 'm2 s-2'})
+specific_humidity = xr.DataArray(q, coords=coords, dims=['pressure', 'lat', 'lon', 'time'],
+                                 attrs={'standard_name':'specific humidity', 'units':'dimensionless'})
 ds = xr.Dataset({'uwind': uwind,
                    'vwind': vwind,
                    'wwind': wwind,
@@ -199,7 +205,8 @@ ds = xr.Dataset({'uwind': uwind,
                    'windspeed':windspeed,
                    'winddir':winddir,
                    'sigma':sigma,
-                   'geopotential':geopotential}) 
+                   'geopotential':geopotential,
+                   'specific_humidity':specific_humidity}) 
 
 
 # Step 1: Initialize encoding dict for data variables

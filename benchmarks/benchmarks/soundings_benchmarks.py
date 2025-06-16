@@ -52,11 +52,17 @@ class TimeSuite:
         
     def time_storm_relative_helicity(self, profileSlice):
         """Benchmarks storm relative helicity over one profile"""
+        mpcalc.storm_relative_helicity(self.profileSlice.height, self.profileSlice.uwind,
+                                       self.profileSlice.vwind, 1 * units('km'))
+        
+    def time_vertical_totals(self, timeSlice):
+        """Benchmarking vertical totals for many profiles"""
+        mpcalc.vertical_totals(self.timeSlice.pressure, self.timeSlice.temperature); 
         mpcalc.storm_relative_helicity(self.profileSlice.height, self.profileSlice.uwind, self.profileSlice.vwind, depth = 1 * units('km'))
         
-    # def time_supercell_composite(self, profileSlice):
-    #     """Benchmarks supercell composite calculation"""
-    #     mpcalc.supercell_composite(2500 * units('J/kg')
+    def time_supercell_composite(self, profileSlice):
+        """Benchmarks supercell composite calculation for one calculation"""
+        mpcalc.supercell_composite(2500 * units('J/kg'), 125 * units('m^2/s^2'), 50 * units.knot)
     
     def time_critical_angle(self, profileSlice):
         """Benchmarking critical angle on one profile"""
@@ -73,3 +79,8 @@ class TimeSuite:
         """Benchmarking corfidi storm motion on one profile"""
         mpcalc.corfidi_storm_motion(self.profileSlice.pressure, self.profileSlice.uwind,
                                     self.profileSlice.vwind);
+        
+    def time_sweat_index(self, timeSlice):
+        """Benchmarking SWEAT index on many profiles"""
+        mpcalc.sweat_index(self.timeSlice.pressure, self.timeSlice.temperature, self.timeSlice.dewpoint,
+                           self.timeSlice.windspeed, self.timeSlice.winddir); 
