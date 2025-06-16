@@ -6,7 +6,7 @@ from metpy.units import units;
 
 class TimeSuite: 
     #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
-    version = "2025.06.13"; 
+    version = "2025.06.16"; 
     
     def setup_cache(self):
        base_path = os.path.dirname(__file__) # path to current file
@@ -84,3 +84,36 @@ class TimeSuite:
         """Benchmarking SWEAT index on many profiles"""
         mpcalc.sweat_index(self.timeSlice.pressure, self.timeSlice.temperature, self.timeSlice.dewpoint,
                            self.timeSlice.windspeed, self.timeSlice.winddir); 
+        
+    def time_most_unstable_cape_cin(self, profileSlice):
+        """Benchmarking most unstable cape cin calculation on one profile"""
+        mpcalc.most_unstable_cape_cin(self.profileSlice.pressure, self.profileSlice.temperature,
+                                      self.profileSlice.dewpoint); 
+        
+    def time_surface_based_cape_cin(self, profileSlice):
+        """Benchmarking surface based cape cin calculation on one profile"""
+        mpcalc.surface_based_cape_cin(self.profileSlice.pressure, self.profileSlice.temperature, 
+                                      self.profileSlice.dewpoint); 
+        
+    def time_lifted_index(self, profileSlice):
+        """Benchmarking lifted index calculation on one profile"""
+        mpcalc.lifted_index(self.profileSlice.pressure, self.profileSlice.temperature,
+                            self.parcelProfile); 
+        
+    def time_k_index(self, timeSlice):
+        """Benchmarking k index calculation on many profiles"""
+        mpcalc.k_index(self.timeSlice.pressure, self.timeSlice.temperature, self.timeSlice.dewpoint); 
+        
+    def time_mixed_layer_cape_cin(self, profileSlice):
+        """Benchmarking mixed layer cape cin calculation for one profile"""
+        mpcalc.mixed_layer_cape_cin(self.profileSlice.pressure, self.profileSlice.temperature,
+                                    self.profileSlice.dewpoint); 
+        
+    def time_cross_totals(self, timeSlice):
+        """Benchmarking cross totals calculation on many profiles"""
+        mpcalc.cross_totals(self.timeSlice.pressure, self.timeSlice.temperature,
+                            self.timeSlice.dewpoint)
+        
+    def time_downdraft_cape(self, profileSlice):
+        """Benchmarking downdraft cape calculation on one profile"""
+        mpcalc.downdraft_cape(self.profileSlice.pressure, self.profileSlice.temperature, self.profileSlice.dewpoint); 

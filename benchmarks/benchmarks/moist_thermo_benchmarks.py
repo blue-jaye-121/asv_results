@@ -6,7 +6,7 @@ import metpy.calc as mpcalc;
 
 class TimeSuite: 
     #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
-    version = "2025.06.09"; 
+    version = "2025.06.16"; 
     
     def setup_cache(self):
        base_path = os.path.dirname(__file__) # path to current file
@@ -81,3 +81,49 @@ class TimeSuite:
         """Benchmarking moist static energy calculation on a 3d cube"""
         mpcalc.moist_static_energy(self.timeSlice.height, self.timeSlice.temperature, self.timeSlice.specific_humidity); 
         
+    def time_dewpoint_from_specific_humidity(self, timeSlice):
+        """Benchmarking dewpoint from specific humidity calculation on a 3d cube"""
+        mpcalc.dewpoint_from_specific_humidity(self.timeSlice.pressure, self.timeSlice.temperature, 
+                                               self.timeSlice.specific_humidity); 
+        
+    def time_moist_air_specific_heat_pressure(self, timeSlice):
+        """Benchmarking moist air specific heat pressure calculation on a 3d cube"""
+        mpcalc.moist_air_specific_heat_pressure(self.timeSlice.specific_humidity);
+        
+    def time_moist_air_poisson_exponent(self, timeSlice):
+        """Benchmarking moist air poisson exponent calculation on a cube"""
+        mpcalc.moist_air_poisson_exponent(self.timeSlice.specific_humidity); 
+        
+    def time_relative_humidity_wet_psychrometric(self, timeSlice):
+        """Benchmarking the relative humidity from psychometric calculation on a cube"""
+        mpcalc.relative_humidity_wet_psychrometric(self.timeSlice.pressure, self.timeSlice.temperature,
+                                                   self.timeSlice.wet_bulb_temperature); 
+        
+    def time_thickness_hydrostatic_from_relative_humidity(self, profileSlice):
+        """Benchmarking thickness hydrostatic calculation from relative humidity on one profile"""
+        mpcalc.thickness_hydrostatic_from_relative_humidity(self.profileSlice.pressure, self.profileSlice.temperature,
+                                                            self.profileSlice.relative_humidity); 
+        
+    def time_relative_humidity_from_specific_humidity(self, timeSlice): 
+        """Benchmarking relative humidity from specific humidity calculation on a 3d cube"""
+        mpcalc.relative_humidity_from_specific_humidity(self.timeSlice.pressure, self.timeSlice.temperature,
+                                                        self.timeSlice.specific_humidity); 
+        
+    def time_wet_bulb_potential_temperature(self, timeSlice):
+        """Benchmarking the wet bulb potential temperature calculation on a 3d cube"""
+        mpcalc.wet_bulb_potential_temperature(self.timeSlice.pressure, self.timeSlice.temperature, 
+                                              self.timeSlice.dewpoint); 
+        
+    def time_vertical_velocity_pressure(self, timeSlice): 
+        """Benchmarking vertical velocity wrt pressure calculation on a 3d cube"""
+        mpcalc.vertical_velocity_pressure(self.timeSlice.wwind, self.timeSlice.pressure, self.timeSlice.temperature, 
+                                          self.timeSlice.mixing_ratio); 
+        
+    def time_vertical_velocity(self, timeSlice):
+        """Benchmarking vertical velocity calculation on a 3d cube"""
+        mpcalc.vertical_velocity(self.timeSlice.omega, self.timeSlice.pressure, self.timeSlice.temperature, 
+                                 self.timeSlice.mixing_ratio); 
+        
+    def time_saturation_equivalent_potential_temperature(self, timeSlice):
+        """Benchmarking saturation equivalent potential temperature on 3d cube"""
+        mpcalc.saturation_equivalent_potential_temperature(self.timeSlice.pressure, self.timeSlice.temperature); 

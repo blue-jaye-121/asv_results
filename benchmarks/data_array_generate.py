@@ -153,6 +153,14 @@ for i, tm in enumerate(times):
 #generate specific humidity values
 q = mpcalc.specific_humidity_from_mixing_ratio(mixingRatio_4d); 
 
+#generate wet bulb temperature
+wet_bulb_4d = np.zeros((50, 50, 50, len(times)))
+for i, tm in enumerate(times):
+    wet_bulb_4d[:, :, :, i] = mpcalc.wet_bulb_temperature(p_3d[:, :, :], t_4d[:, :, :, i], td_4d[:, :, :, i]) 
+    
+#generate omega
+omega_4d = mpcalc.vertical_velocity_pressure(w_4d * units('m/s'), p_3d, t_4d, mixingRatio_4d)
+    
 # place data into an xarray dataset object
 lat_da = xr.DataArray(lats, dims = 'lat', attrs={'standard_name': 'latitude', 'units': 'degrees_north'})
 lon_da = xr.DataArray(lons, dims = 'lon',  attrs={'standard_name': 'longitude', 'units': 'degrees_east'})
@@ -192,6 +200,11 @@ geopotential = xr.DataArray(geopotential_4d, coords=coords, dims=['pressure', 'l
                             attrs={'standard_name' : 'geopotential', 'units' : 'm2 s-2'})
 specific_humidity = xr.DataArray(q, coords=coords, dims=['pressure', 'lat', 'lon', 'time'],
                                  attrs={'standard_name':'specific humidity', 'units':'dimensionless'})
+wet_bulb_temperature = xr.DataArray(wet_bulb_4d, coords=coords, dims=['pressure', 'lat', 'lon', 'time'],
+                                    attrs={'standard_name': 'wet_bulb_temperature', 'units' :'K'})
+omega = xr.DataArray(omega_4d, coords=coords, dims = ['pressure', 'lat', 'lon', 'time'],
+                     attrs={'standard_name' : 'omega component of wind', 'units': 'pascal/s'})
+
 ds = xr.Dataset({'uwind': uwind,
                    'vwind': vwind,
                    'wwind': wwind,
@@ -206,8 +219,9 @@ ds = xr.Dataset({'uwind': uwind,
                    'winddir':winddir,
                    'sigma':sigma,
                    'geopotential':geopotential,
-                   'specific_humidity':specific_humidity}) 
-
+                   'specific_humidity':specific_humidity,
+                   'wet_bulb_temperature':wet_bulb_temperature, 
+                   'omega' : omega}) 
 
 # Step 1: Initialize encoding dict for data variables
 encoding = {

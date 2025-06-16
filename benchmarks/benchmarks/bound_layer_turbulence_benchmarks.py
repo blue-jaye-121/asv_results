@@ -22,14 +22,18 @@ class TimeSuite:
     
         
     def time_brunt_vaisala_frequency(self, timeSlice): 
-        """Benchmark Brunt Vaisala frequency calculation - on a grid"""
+        """Benchmark Brunt Vaisala frequency calculation on a cube"""
         mpcalc.brunt_vaisala_frequency(self.timeSlice.height, self.timeSlice.theta); 
         
     def time_gradient_richardson_number(self, timeSlice): 
-        """Benchmark Gradient Richardson Number on a grid"""
+        """Benchmark Gradient Richardson Number on a cube"""
         mpcalc.gradient_richardson_number(self.timeSlice.height, self.timeSlice.theta,
                                          self.timeSlice.uwind, self.timeSlice.vwind)
         
     def time_tke(self, ds): 
-        """Benchmarking turbulent kinetic energy calculation"""
+        """Benchmarking turbulent kinetic energy calculation on a cube"""
         mpcalc.tke(ds.uwind.values * units('m/s'), ds.vwind.values* units('m/s'), ds.wwind.values * units('m/s'))
+        
+    def time_brunt_vaisala_period(self, timeSlice):
+        """Benchmark Brunt Vaisala frequency calculation on a cube"""
+        mpcalc.brunt_vaisala_period(self.timeSlice.height, self.timeSlice.theta); 
