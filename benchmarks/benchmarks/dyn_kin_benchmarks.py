@@ -7,7 +7,7 @@ from metpy.units import units
 
 class TimeSuite: 
     #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
-    version = "2025.06.12"; 
+    version = "2025.06.16"; 
     
     
     def setup_cache(self):

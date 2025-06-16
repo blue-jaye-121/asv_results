@@ -21,19 +21,21 @@ class TimeSuite:
         self.parcelProfile = mpcalc.parcel_profile(self.profileSlice.pressure, 
                                                   self.profileSlice.temperature[0], 
                                                   self.profileSlice.dewpoint[0]); 
-        self.sbcape = mpcalc.surface_based_cape_cin(self.profileSlice.pressure,
+        self.sbcape, _ = mpcalc.surface_based_cape_cin(self.profileSlice.pressure,
                                                     self.profileSlice.temperature,
                                                     self.profileSlice.dewpoint)  
-        self.sblcl = mpcalc.lcl(self.profileSlice.pressure,
+        self.sblcl, _ = mpcalc.lcl(self.profileSlice.pressure,
                                 self.profileSlice.temperature,
                                 self.profileSlice.dewpoint) 
-        self.relhel = mpcalc.storm_relative_helicity(self.profileSlice.height, 
+        self.sblclheight = mpcalc.pressure_to_height_std(self.sblcl)
+        _, _, self.relhel = mpcalc.storm_relative_helicity(self.profileSlice.height, 
                                                      self.profileSlice.uwind,
                                                      self.profileSlice.vwind, 
                                                      1 * units('km'))
-        self.shear = mpcalc.bulk_shear(self.profileSlice.pressure,
+        self.shearu, self.shearv = mpcalc.bulk_shear(self.profileSlice.pressure,
                                        self.profileSlice.uwind,
                                        self.profileSlice.vwind); 
+        self.shear = mpcalc.wind_speed(self.shearu, self.shearv); 
     def time_bulk_shear(self, profileSlice): 
         """Benchmarking calculating the bulk shear of a profile"""
         mpcalc.bulk_shear(self.profileSlice.pressure, self.profileSlice.uwind, self.profileSlice.vwind); 
@@ -145,6 +147,6 @@ class TimeSuite:
         mpcalc.galvez_davison_index(self.timeSlice.pressure, self.timeSlice.temperature,
                                     self.timeSlice.mixing_ratio, self.timeSlice.pressure[0])
         
-    # def time_significant_tornado(self, profileSlice):
-    #     """Benchmarking significant tornado param for one profile"""
-    #     mpcalc.significant_tornado(self.sbcape * units('J/kg'), self.sblcl * units('km'), self.relhel * units('m^2/s^2'), self.shear * units('m/s')); 
+    def time_significant_tornado(self, profileSlice):
+        """Benchmarking significant tornado param for one profile"""
+        mpcalc.significant_tornado(self.sbcape, self.sblclheight, self.relhel, self.shear); 
