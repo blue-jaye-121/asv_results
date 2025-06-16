@@ -60,3 +60,7 @@ class TimeSuite:
         """Benchmarking adding height to pressure on a 3d cube"""
         mpcalc.add_height_to_pressure(self.timeSlice.pressure.values * units('hPa'), 
                                       self.timeSlice.height.values * units('km')); 
+        
+    def time_temperature_from_potential_temperature(self, timeSlice):
+        """Benchmarking calculating temperature from potential temperature on a 3d cube"""
+        mpcalc.temperature_from_potential_temperature(self.timeSlice.pressure, self.timeSlice.theta); 

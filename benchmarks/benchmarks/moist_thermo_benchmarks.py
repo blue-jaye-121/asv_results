@@ -127,3 +127,8 @@ class TimeSuite:
     def time_saturation_equivalent_potential_temperature(self, timeSlice):
         """Benchmarking saturation equivalent potential temperature on 3d cube"""
         mpcalc.saturation_equivalent_potential_temperature(self.timeSlice.pressure, self.timeSlice.temperature); 
+        
+    def time_virtual_potential_temperature(self, timeSlice):
+        """Benchmarking virtual potential temperature calculation on a 3d cube"""
+        mpcalc.virtual_potential_temperature(self.timeSlice.pressure, self.timeSlice.temperature,
+                                             self.timeSlice.mixing_ratio); 

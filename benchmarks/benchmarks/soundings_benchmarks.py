@@ -21,7 +21,19 @@ class TimeSuite:
         self.parcelProfile = mpcalc.parcel_profile(self.profileSlice.pressure, 
                                                   self.profileSlice.temperature[0], 
                                                   self.profileSlice.dewpoint[0]); 
-        
+        self.sbcape = mpcalc.surface_based_cape_cin(self.profileSlice.pressure,
+                                                    self.profileSlice.temperature,
+                                                    self.profileSlice.dewpoint)  
+        self.sblcl = mpcalc.lcl(self.profileSlice.pressure,
+                                self.profileSlice.temperature,
+                                self.profileSlice.dewpoint) 
+        self.relhel = mpcalc.storm_relative_helicity(self.profileSlice.height, 
+                                                     self.profileSlice.uwind,
+                                                     self.profileSlice.vwind, 
+                                                     1 * units('km'))
+        self.shear = mpcalc.bulk_shear(self.profileSlice.pressure,
+                                       self.profileSlice.uwind,
+                                       self.profileSlice.vwind); 
     def time_bulk_shear(self, profileSlice): 
         """Benchmarking calculating the bulk shear of a profile"""
         mpcalc.bulk_shear(self.profileSlice.pressure, self.profileSlice.uwind, self.profileSlice.vwind); 
@@ -117,3 +129,22 @@ class TimeSuite:
     def time_downdraft_cape(self, profileSlice):
         """Benchmarking downdraft cape calculation on one profile"""
         mpcalc.downdraft_cape(self.profileSlice.pressure, self.profileSlice.temperature, self.profileSlice.dewpoint); 
+        
+    def time_parcel_profile_with_lcl_as_dataset(self, profileSlice):
+        """Benchmarking parcel profile with lcl as dataset one on profile"""
+        mpcalc.parcel_profile_with_lcl_as_dataset(self.profileSlice.pressure, self.profileSlice.temperature, 
+                                                  self.profileSlice.dewpoint); 
+        
+    def time_showalter_index(self, profileSlice): 
+        """Benchmarking calculating the showalter index on one profiles"""
+        mpcalc.showalter_index(self.profileSlice.pressure, self.profileSlice.temperature,
+                               self.profileSlice.dewpoint); 
+        
+    def time_galvez_davison_index(self, timeSlice):
+        """Benchmarking calculating the galvez davison index on many profiles"""
+        mpcalc.galvez_davison_index(self.timeSlice.pressure, self.timeSlice.temperature,
+                                    self.timeSlice.mixing_ratio, self.timeSlice.pressure[0])
+        
+    # def time_significant_tornado(self, profileSlice):
+    #     """Benchmarking significant tornado param for one profile"""
+    #     mpcalc.significant_tornado(self.sbcape * units('J/kg'), self.sblcl * units('km'), self.relhel * units('m^2/s^2'), self.shear * units('m/s')); 

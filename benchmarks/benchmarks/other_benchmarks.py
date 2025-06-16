@@ -39,6 +39,7 @@ class TimeSuite:
         """Benchmarking calculating persistence of of maxima point in 3d"""
         mpcalc.peak_persistence(self.pressureSlice.dewpoint); 
         
-    def time_isentropic_interpolation_as_dataset(self, profileSlice):
-        """Benchmarking the isentropic interpolation as dataset calculation on a 3d grid"""
-        mpcalc.isentropic_interpolation_as_dataset(self.profileSlice.theta[0], self.profileSlice.temperature); 
+    # def time_isentropic_interpolation_as_dataset(self, profileSlice):
+    #     """Benchmarking the isentropic interpolation as dataset calculation on a 3d grid"""
+    #     mpcalc.isentropic_interpolation_as_dataset(self.profileSlice.theta[0], self.profileSlice.temperature); 
+
