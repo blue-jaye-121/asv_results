@@ -3,11 +3,12 @@ import xarray as xr
 
 import metpy.calc as mpcalc
 from metpy.units import units
+import metpy.interpolate as mpinter
 
 
 class TimeSuite: 
     #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
-    version = "2025.06.16"; 
+    version = "2025.06.17"; 
     
     
     def setup_cache(self):
@@ -15,12 +16,16 @@ class TimeSuite:
        file_path = os.path.join(base_path, "..", "data_array_compressed.nc");
        file_path = os.path.abspath(file_path)
        ds = xr.open_dataset(file_path)
+       ds = ds.metpy.parse_cf();
        return ds; 
     
     def setup(self, ds):
        self.pressureSlice = ds.isel(pressure = 0, time = 0)
        self.timeSlice = ds.isel(time = 0)
        self.profileSlice = ds.isel(time = 0, lat = 0, lon = 0)
+       start = (30., 260.)
+       end = (40., 270.)
+       self.cross = mpinter.cross_section(self.timeSlice, start, end).set_coords(('lat', 'lon'))
        
     
     def time_absolute_vorticity(self, pressureSlice): 
@@ -60,9 +65,9 @@ class TimeSuite:
         """Benchmarking shear vorticity on a 2d slice"""
         mpcalc.shear_vorticity(self.pressureSlice.uwind, self.pressureSlice.vwind); 
         
-    # def time_absolute_momentum(self, pressureSlice): 
-    #     """Benchmarking absolute momentum calculation on a 3d cube"""
-    #     mpcalc.absolute_momentum(self.timeSlice.uwind, self.timeSlice.vwind); 
+    def time_absolute_momentum(self, cross): 
+        """Benchmarking absolute momentum calculation"""
+        mpcalc.absolute_momentum(self.cross.uwind, self.cross.vwind); 
     
     def time_potential_vorticity_baroclinic(self, timeSlice):
         """Benchmarking potential vorticity baroclinic on a 3d cube"""
