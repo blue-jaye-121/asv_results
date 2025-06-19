@@ -94,3 +94,24 @@ class TimeSuite:
     def time_wind_components(self, timeSlice):
         """Benchmarking the wind components calculation on a 3d cube"""
         mpcalc.wind_components(self.timeSlice.windspeed, self.timeSlice.winddir)
+        
+    def time_divergence(self, timeSlice):
+        """Benchmarking divergence on a 3d cube"""
+        mpcalc.divergence(self.timeSlice.uwind, self.timeSlice.vwind); 
+        
+    def time_stretching_deformation(self, timeSlice):
+        """Benchmarking stretching deformation on a 3d cube"""
+        mpcalc.stretching_deformation(self.timeSlice.uwind, self.timeSlice.vwind); 
+        
+    def time_shearing_deformation(self, timeSlice):
+        """Benchmarking shearing deformation on a 3d cube"""
+        mpcalc.shearing_deformation(self.timeSlice.uwind, self.timeSlice.vwind); 
+        
+    def time_geostrophic_wind(self, timeSlice):
+        """Benchmarking the geostrophic wind calculation on a 3d cube"""
+        mpcalc.geostrophic_wind(self.timeSlice.height, latitude = self.timeSlice.lat)
+        
+    def time_coriolis_parameter(self, timeSlice): 
+        """Benchmarking coriolis parameter calculation on a 3d cube"""
+        mpcalc.coriolis_parameter(self.timeSlice.lat); 
+        

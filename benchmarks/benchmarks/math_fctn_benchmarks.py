@@ -7,7 +7,7 @@ import metpy.interpolate as mpinter;
  
 class TimeSuite:
     #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
-    version = "2025.06.17"; 
+    version = "2025.06.19"; 
     
     def setup_cache(self):
        base_path = os.path.dirname(__file__) # path to current file
@@ -47,5 +47,8 @@ class TimeSuite:
     def time_cross_section_components(self, cross):
         """Benchmarking the cross section components of a wind grid"""
         mpcalc.cross_section_components(self.cross.uwind, self.cross.vwind)
-    
+        
+    def time_normal_component(self, cross):
+        """Benchmarking the calculating normal components times"""
+        mpcalc.normal_component(self.cross.uwind, self.cross.vwind); 
     
