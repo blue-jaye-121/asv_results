@@ -8,7 +8,7 @@ import metpy.interpolate as mpinter
 
 class TimeSuite: 
     #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
-    version = "2025.06.17"; 
+    version = "2025.06.19"; 
     
     
     def setup_cache(self):
@@ -114,4 +114,8 @@ class TimeSuite:
     def time_coriolis_parameter(self, timeSlice): 
         """Benchmarking coriolis parameter calculation on a 3d cube"""
         mpcalc.coriolis_parameter(self.timeSlice.lat); 
+        
+    def time_wind_speed(self, timeSlice):
+        """Benchmarking wind speed calculation on a 3d cube"""
+        mpcalc.wind_speed(self.timeSlice.uwind, self.timeSlice.vwind); 
         

@@ -132,3 +132,32 @@ class TimeSuite:
         """Benchmarking virtual potential temperature calculation on a 3d cube"""
         mpcalc.virtual_potential_temperature(self.timeSlice.pressure, self.timeSlice.temperature,
                                              self.timeSlice.mixing_ratio); 
+        
+    def time_psychrometric_vapor_pressure_wet(self, timeSlice):
+        """Benchmarking psychrometric vapor pressure calculation on a 3d cube"""
+        mpcalc.psychrometric_vapor_pressure_wet(self.timeSlice.pressure, self.timeSlice.temperature,
+                                            self.timeSlice.wet_bulb_temperature); 
+        
+    def time_mixing_ratio_from_relative_humidity(self, timeSlice):
+        """Benchmarking mixing ratio from relative humidity calculation on a 3d cube"""
+        mpcalc.mixing_ratio_from_relative_humidity(self.timeSlice.pressure, self.timeSlice.temperature,
+                                                   self.timeSlice.relative_humidity); 
+        
+    def time_mixing_ratio_from_specific_humidity(self, timeSlice):
+        """Benchmarking calculating mixing rato from specific humidity on a 3d cube"""
+        mpcalc.mixing_ratio_from_specific_humidity(self.timeSlice.specific_humidity); 
+        
+    def time_relative_humidity_from_mixing_ratio(self, timeSlice):
+        """Benchmarking relative humidity from mixing ratio calculation on a 3d cube"""
+        mpcalc.relative_humidity_from_mixing_ratio(self.timeSlice.pressure, self.timeSlice.temperature,
+                                                   self.timeSlice.mixing_ratio); 
+        
+    def time_equivalent_potential_temperature(self, timeSlice):
+        """Benchmarking equivalent potential temperature calculation on 3d cube"""
+        mpcalc.equivalent_potential_temperature(self.timeSlice.pressure, self.timeSlice.temperature,
+                                                self.timeSlice.dewpoint)
+        
+    def time_virtual_temperature_from_dewpoint(self, timeSlice):
+        """Benchmarking virtual temperature from dewpoint calculation on 3d cube"""
+        mpcalc.virtual_temperature_from_dewpoint(self.timeSlice.pressure, self.timeSlice.temperature,
+                                                 self.timeSlice.dewpoint);

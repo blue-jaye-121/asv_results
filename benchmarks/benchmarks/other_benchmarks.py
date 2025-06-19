@@ -41,4 +41,8 @@ class TimeSuite:
     def time_isentropic_interpolation_as_dataset(self, timeSlice):
         """Benchmarking the isentropic interpolation as dataset calculation on a 3d cube"""
         mpcalc.isentropic_interpolation_as_dataset([265.] * units.kelvin, self.timeSlice.temperature); 
+        
+    def time_isentropic_interpolation(self, timeSlice):
+        """Bencharking the isentropic interpolation calculation on a 3d cube"""
+        mpcalc.isentropic_interpolation([265.] * units.kelvin, self.timeSlice.pressure, self.timeSlice.temperature); 
 

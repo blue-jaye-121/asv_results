@@ -19,6 +19,7 @@ class TimeSuite:
     def setup(self, ds):
        self.pressureSlice = ds.isel(pressure = 0, time = 0)
        self.timeSlice = ds.isel(time = 0)
+       self.profileSlice = ds.isel(time = 0, lat = 0, lon = 0)
         
     def time_density(self, pressureSlice): 
         """Benchmarking density calculation on a 2d surface"""
@@ -64,3 +65,15 @@ class TimeSuite:
     def time_temperature_from_potential_temperature(self, timeSlice):
         """Benchmarking calculating temperature from potential temperature on a 3d cube"""
         mpcalc.temperature_from_potential_temperature(self.timeSlice.pressure, self.timeSlice.theta); 
+        
+    def time_mean_pressure_weighted(self, profileSlice):
+        """Benchmarking calculating weighted mean of pressure with temp on one profile"""
+        mpcalc.mean_pressure_weighted(self.profileSlice.pressure, self.profileSlice.temperature); 
+        
+    def time_weighted_continuous_average(self, profileSlice):
+        """Bencharmking calculating weighted continuous average on one profile"""
+        mpcalc.weighted_continuous_average(self.profileSlice.pressure, self.profileSlice.temperature); 
+    
+    def time_dry_static_energy(self, timeSlice):
+        """Benchmarking dry static energy calculation on a 3d cube"""
+        mpcalc.dry_static_energy(self.timeSlice.height, self.timeSlice.temperature); 

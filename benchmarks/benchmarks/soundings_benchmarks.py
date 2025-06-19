@@ -150,3 +150,15 @@ class TimeSuite:
     def time_significant_tornado(self, profileSlice):
         """Benchmarking significant tornado param for one profile"""
         mpcalc.significant_tornado(self.sbcape, self.sblclheight, self.relhel, self.shear); 
+        
+    def time_total_totals_index(self, timeSlice):
+        """Benchmarking total totals index for many profiles"""
+        mpcalc.total_totals_index(self.timeSlice.pressure, self.timeSlice.temperature, self.timeSlice.dewpoint); 
+        
+    def time_lfc(self, profileSlice):
+        """Benchmarking level of free convection calculation for one profile"""
+        mpcalc.lfc(self.profileSlice.pressure, self.profileSlice.temperature, self.profileSlice.dewpoint); 
+        
+    def time_mixed_parcel(self, profileSlice):
+        """Benchmarking mixed parcel for one profile"""
+        mpcalc.mixed_parcel(self.profileSlice.pressure, self.profileSlice.temperature, self.profileSlice.dewpoint);
