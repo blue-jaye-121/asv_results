@@ -17,6 +17,7 @@ class TimeSuite:
    
     def setup(self, ds):
         self.timeSlice = ds.isel(time = 0)
+        self.pressureSlice = ds.isel(time = 0, pressure = 0); 
         self.profileSlice = ds.isel(lat = 25, lon = 25, time = 0)
         self.parcelProfile = mpcalc.parcel_profile(self.profileSlice.pressure, 
                                                   self.profileSlice.temperature[0], 
@@ -58,7 +59,7 @@ class TimeSuite:
     
     def time_lcl(self, timeSlice):
         """Benchmarks lcl on a 3d cube - many profiles"""
-        mpcalc.lcl(self.timeSlice.pressure, self.timeSlice.temperature, self.timeSlice.dewpoint); 
+        mpcalc.lcl(self.pressureSlice.pressure, self.pressureSlice.temperature, self.pressureSlice.dewpoint); 
     
     def time_el(self, profileSlice): 
         """Benchmarks el calculation on one profile"""
