@@ -1,6 +1,6 @@
 # Set repo info
 REPO_URL="https://github.com/Unidata/MetPy.git" #metpy repo to clone from
-CLONE_DIR="temp_repo" #temporary repo to clone to 
+CLONE_DIR="temp_repo" #temporary repo to clone to - deleted at the end of the script
 
 # clone metpy and fetch tags
 git clone --depth=100 --no-tags "$REPO_URL" "$CLONE_DIR" #shallow clone metpy repo
