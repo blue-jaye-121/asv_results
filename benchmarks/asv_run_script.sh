@@ -28,7 +28,7 @@ asv machine --yes
 
 #Run asv
 #TODO: Make this everything & also a does not exist 
-asv run HASHFILE:no_bot_merge_commits.txt -q -b other_benchmarks
+asv run -q -b other_benchmarks
    
 #Commit and push benchmark results to results repo
 #if [ -d "$CLONE_DIR"/results ]; then #if the results_asv_results repo exits
