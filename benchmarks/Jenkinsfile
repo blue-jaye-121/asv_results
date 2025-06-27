@@ -1,10 +1,29 @@
 pipeline {
 	agent  { label 'main' }
+	environment {
+		CLONE_DIR = "temp_repo_results"
+	}
 	stages {
+		stage('Checkout results repo') {
+			steps {
+				sh 'bash ./benchmarks/checkout_results.sh'
+			}
+		}
 		stage('Run ASV') {
 			steps {
 				sh 'bash ./benchmarks/asv_run_script.sh'
 			}
+		}
+		stage('Push to results') {
+			steps {
+				sh 'push_results.sh'
+			}
+		}
+	}
+	post {
+		always {
+			echo "---Cleaning up temporary repo---"
+			sh 'rm -rf "${CLONE_DIR}"'
 		}
 	}
 }

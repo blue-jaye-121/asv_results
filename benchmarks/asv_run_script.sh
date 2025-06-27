@@ -4,19 +4,6 @@ RESULTS_REPO_URL="https://github.com/blue-jaye-121/results_asv_results.git" #res
 ASV_RESULTS_PATH="./asv/results" #the path of the asv results folder in the main repo
 CLONE_DIR="temp_repo_asv_run" # A temporary repo to clone to - deleted at the end of the script
 
-
-#Checkout results repo
-#git clone "$RESULTS_REPO_URL" "$CLONE_DIR" TODO: Add this to Jenkinsfile
-
-#If the results folder exists, copy it into our main repo for asv running
-#if [ -d "$CLONE_DIR"/results ]; then 
-#    echo "copying results"
-#    cp -r "$CLONE_DIR"/results/* "$ASV_RESULTS_PATH"
-#else 
-#    echo "cannot copy results"
-#    exit 1
-#fi
-
 #Call on the script to generate the commit hashes
 echo "----------------executing generate_hashes-------------------------"
 sh ./generate_hashes.sh #TODO: make this not an absolute path
