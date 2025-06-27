@@ -22,8 +22,6 @@ echo "----------------executing generate_hashes-------------------------"
 sh ./generate_hashes.sh #TODO: make this not an absolute path
 echo "----------------generate_hashes complete -------------------------"
 
-#Install asv
-pip install asv virtualenv
 
 #Set up asv machine
 asv machine --yes
