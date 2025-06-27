@@ -15,6 +15,8 @@ git config --local user.email "script@noreply.com"
 git config --local user.name "ASV Script [bot]"
 git add results
 git commit -m "Update benchmark results"
+git config --local --unset user.email
+git config --local --unset user.name
 
 git push "$RESULTS_REPO_URL" main:main
     
