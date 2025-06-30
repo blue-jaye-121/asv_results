@@ -11,7 +11,8 @@ pipeline {
 		}
 		stage('Run ASV') {
 			steps {
-				sh 'bash ./benchmarks/asv_run_script.sh'
+				docker build -t metpy-benchmarks:latest .
+				docker run --rm -v .:/container-benchmarks --hostname Docker_Container -e DUID=$(id -u) -e DGID=$(id -g) metpy-benchmarks:latest benchmark
 			}
 		}
 		stage('Push to results') {
