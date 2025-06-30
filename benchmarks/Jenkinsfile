@@ -6,7 +6,9 @@ pipeline {
 	stages {
 		stage('Checkout results repo') {
 			steps {
-				checkout scmGit(branches: [[name: '*/main']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'temp_repo_results'], cloneOption(depth: 1, noTags: false, reference: '', shallow: true)], userRemoteConfigs: [[url: 'https://github.com/blue-jaye-121/results_asv_results.git']])
+				sh 'git config --global credential.helper cache'
+				sh 'git config --global push.default simple'
+				checkout scmGit(branches: [[name: '*/main']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'temp_repo_results'], cloneOption(depth: 1, noTags: false, reference: '', shallow: true)], userRemoteConfigs: [[credentialsId: 'ASV_RESULTS_REPO_PAT', url: 'https://github.com/blue-jaye-121/results_asv_results.git']])
 			}
 		}
 		stage('Copy past results') {
@@ -25,6 +27,23 @@ pipeline {
 				docker run --rm -v .:/container-benchmarks --hostname Docker_Container -e DUID=$(id -u) -e DGID=$(id -g) metpy-benchmarks:latest benchmark
 				'''
    			}
+		}
+		stage('Copy results') {
+			steps{
+				sh '''
+    				cp -r benchmarks/asv/results/* ${CLONE_DIR}/results
+				'''
+			}
+		}
+		stage('Update results repo') {
+			steps {
+				sh '''
+    				cd ${CLONE_DIR} 
+				git add --all
+    				git commit -m "Jenkins Updating Benchmark Results BUILD-NUMBER:${BUILD_NUMBER}"
+				git push
+    				'''
+			}
 		}
 	}
 	post {
