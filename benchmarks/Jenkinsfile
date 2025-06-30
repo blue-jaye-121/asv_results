@@ -9,7 +9,7 @@ pipeline {
 				sh 'git config --global credential.helper cache'
 				sh 'git config --global push.default simple'
 			  	sh 'git config --global user.email "jenkinsbot@noreply.com"'
-				  git config --global user.name "JenkinsBot"
+				sh 'git config --global user.name "JenkinsBot"'
 				checkout scmGit(branches: [[name: '*/main']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'temp_repo_results'], cloneOption(depth: 1, noTags: false, reference: '', shallow: true)], userRemoteConfigs: [[credentialsId: 'ASV_RESULTS_REPO_PAT', url: 'https://github.com/blue-jaye-121/results_asv_results.git']])
 			}
 		}
