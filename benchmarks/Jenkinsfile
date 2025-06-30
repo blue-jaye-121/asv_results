@@ -12,7 +12,7 @@ pipeline {
 		stage('Copy past results') {
 			steps {
 				sh '''
-    				cp -r ${CLONE_DIR}/results benchmarks/asv/results
+    				cp -r ${CLONE_DIR}/results/* benchmarks/asv/results
 				'''
 			}
 		}
