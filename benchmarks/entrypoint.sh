@@ -29,8 +29,7 @@ if [[ "$1" == "$RUN_BENCHMARKS" || "$1" == "$BENCHMARK_USER_LOGIN" ]]; then
     usermod -s /bin/bash $(id -u -n $USER_ID) -d /temp-home
 
     sync
-    
-    exec pysu $(id -u -n $USER_ID) "git config --global --add safe.directory /container-benchmarks"
+
     
     if [[ "$1" == "$RUN_BENCHMARKS" ]]; then
       # step-down from root and run benchmarks as benchmark user
