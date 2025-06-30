@@ -16,7 +16,10 @@ pipeline {
 		stage('Copy past results') {
 			steps {
 				sh '''
-    				cp -r ${CLONE_DIR}/results/* benchmarks/asv/results
+    				if [ -d ${CLONE_DIR}/results ]; then 
+					echo "-------Copying results--------"
+    					cp -r ${CLONE_DIR}/results/* benchmarks/asv/results
+    				fi
 				'''
 			}
 		}
@@ -33,19 +36,25 @@ pipeline {
 		stage('Copy results') {
 			steps{
 				sh '''
+    				if [ -d "${CLONE_DIR}/results ]; then 
+				else 
+    					mkdir ${CLONE_DIR}/results
+	 			fi
     				cp -r benchmarks/asv/results/* ${CLONE_DIR}/results
 				'''
 			}
 		}
 		stage('Update results repo') {
 			steps {
-				withCredentials([gitUsernamePassword(credentialsId: 'ASV_RESULTS_REPO_PAT', gitToolName: 'Default')]) {
-					sh '''
-	    				cd ${CLONE_DIR} 
-					git add --all
-	    				git commit -m "Jenkins Updating Benchmark Results BUILD-NUMBER:${BUILD_NUMBER}"
-					git push origin HEAD:main
-	    				'''
+				if [ -n "$(git status --porcelain)" ]; then 
+					withCredentials([gitUsernamePassword(credentialsId: 'ASV_RESULTS_REPO_PAT', gitToolName: 'Default')]) {
+						sh '''
+		    				cd ${CLONE_DIR} 
+						git add --all
+		    				git commit -m "Jenkins Updating Benchmark Results BUILD-NUMBER:${BUILD_NUMBER}"
+						git push origin HEAD:main
+		    				'''
+				fi
 				}
 			}
 		}
