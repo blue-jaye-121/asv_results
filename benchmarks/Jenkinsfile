@@ -36,7 +36,7 @@ pipeline {
 		stage('Copy results') {
 			steps{
 				sh '''
-    				if [ -d "${CLONE_DIR}/results ]; then 
+    				if [ -d "${CLONE_DIR}/results" ]; then 
 				else 
     					mkdir ${CLONE_DIR}/results
 	 			fi
