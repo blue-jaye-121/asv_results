@@ -7,8 +7,8 @@ RUN_BENCHMARKS="benchmark"
 BENCHMARK_USER_LOGIN="peek"
 
 if [[ "$1" == "$RUN_BENCHMARKS" || "$1" == "$BENCHMARK_USER_LOGIN" ]]; then
-    USER_ID=${DUID:1000}
-    GROUP_ID=${DGUI:1000}
+    USER_ID=${DUID:-1000}
+    GROUP_ID=${DGUI:-1000}
     GROUP_NAME="benchmark"
     USER_NAME=$GROUP_NAME
 
