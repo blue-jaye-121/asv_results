@@ -23,7 +23,7 @@ if [[ "$1" == "$RUN_BENCHMARKS" || "$1" == "$BENCHMARK_USER_LOGIN" ]]; then
     fi
 
     # modify benchmark user to have /bin/bash as shell
-    usermod -s /bin/bash $(id -u -n $USER_ID)
+    usermod -s /bin/bash $(id -u -n $USER_ID) -d /temp-home -m 
 
     sync
 
