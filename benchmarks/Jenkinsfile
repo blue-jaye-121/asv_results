@@ -46,15 +46,15 @@ pipeline {
 		}
 		stage('Update results repo') {
 			steps {
-				if [ -n "$(git status --porcelain)" ]; then 
-					withCredentials([gitUsernamePassword(credentialsId: 'ASV_RESULTS_REPO_PAT', gitToolName: 'Default')]) {
-						sh '''
-		    				cd ${CLONE_DIR} 
+				withCredentials([gitUsernamePassword(credentialsId: 'ASV_RESULTS_REPO_PAT', gitToolName: 'Default')]) {
+					sh '''
+				   	if [ -n "$(git status --porcelain)" ]; then 
+						cd ${CLONE_DIR} 
 						git add --all
-		    				git commit -m "Jenkins Updating Benchmark Results BUILD-NUMBER:${BUILD_NUMBER}"
+						git commit -m "Jenkins Updating Benchmark Results BUILD-NUMBER:${BUILD_NUMBER}"
 						git push origin HEAD:main
-		    				'''
-				fi
+					fi
+					'''
 				}
 			}
 		}
