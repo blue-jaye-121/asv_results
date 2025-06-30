@@ -6,18 +6,15 @@ pipeline {
 	stages {
 		stage('Checkout results repo') {
 			steps {
-				sh 'bash ./benchmarks/checkout_results.sh'
+				checkout scmGit(branches: [[name: '*/main']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'temp_repo_results']], userRemoteConfigs: [[url: 'https://github.com/blue-jaye-121/asv_results.git']])
 			}
 		}
 		stage('Run ASV') {
 			steps {
+				cd benchmarks 
 				docker build -t metpy-benchmarks:latest .
+				cd ..
 				docker run --rm -v .:/container-benchmarks --hostname Docker_Container -e DUID=$(id -u) -e DGID=$(id -g) metpy-benchmarks:latest benchmark
-			}
-		}
-		stage('Push to results') {
-			steps {
-				sh 'push_results.sh'
 			}
 		}
 	}
