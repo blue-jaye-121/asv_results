@@ -23,7 +23,7 @@ if [[ "$1" == "$RUN_BENCHMARKS" || "$1" == "$BENCHMARK_USER_LOGIN" ]]; then
     fi
 
     mkdir /temp-home
-    chmod -R $USER_ID:$GROUP_ID /temp-home
+    chown -R $USER_ID:$GROUP_ID /temp-home
     
     # modify benchmark user to have /bin/bash as shell
     usermod -s /bin/bash $(id -u -n $USER_ID) -d /temp-home
