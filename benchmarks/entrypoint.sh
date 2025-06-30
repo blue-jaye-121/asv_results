@@ -32,8 +32,7 @@ if [[ "$1" == "$RUN_BENCHMARKS" || "$1" == "$BENCHMARK_USER_LOGIN" ]]; then
 
     if [[ "$1" == "$RUN_BENCHMARKS" ]]; then
       # step-down from root and run benchmarks as benchmark user
-      cd container-benchmarks/
-      exec pysu $(id -u -n $USER_ID) benchmarks/runner.sh
+      exec pysu $(id -u -n $USER_ID) container-benchmarks/benchmarks/runner.sh
     else
       # step-down from root and run bash (for exploration in interactive mode)
       exec pysu $(id -u -n $USER_ID) /bin/bash
