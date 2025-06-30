@@ -30,7 +30,7 @@ if [[ "$1" == "$RUN_BENCHMARKS" || "$1" == "$BENCHMARK_USER_LOGIN" ]]; then
 
     sync
     
-    exec pysu $(id -u -n $USER_ID) git config --global --add safe.directory /container-benchmarks
+    exec pysu $(id -u -n $USER_ID) "git config --global --add safe.directory /container-benchmarks"
     
     if [[ "$1" == "$RUN_BENCHMARKS" ]]; then
       # step-down from root and run benchmarks as benchmark user
