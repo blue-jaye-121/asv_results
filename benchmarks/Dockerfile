@@ -1,7 +1,5 @@
 FROM python:3.12
 
-RUN echo "{}" >> /.asv-machine.json && chmod 777 /.asv-machine.json
-
 RUN pip install --no-cache-dir matplotlib netcdf4 numpy pandas pint pooch pyproj scipy traitlets xarray asv pysu
 
 COPY --chmod=700 entrypoint.sh /
