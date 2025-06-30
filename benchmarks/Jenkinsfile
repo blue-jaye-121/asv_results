@@ -6,7 +6,14 @@ pipeline {
 	stages {
 		stage('Checkout results repo') {
 			steps {
-				checkout scmGit(branches: [[name: '*/main']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'temp_repo_results']], userRemoteConfigs: [[url: 'https://github.com/blue-jaye-121/asv_results.git']])
+				checkout scmGit(branches: [[name: '*/main']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'temp_repo_results'], cloneOption(depth: 1, noTags: false, reference: '', shallow: true)], userRemoteConfigs: [[url: 'https://github.com/blue-jaye-121/results_asv_results.git']])
+			}
+		
+		stage('Copy past results') {
+			steps {
+				sh '''
+    				cp -r ${CLONE_DIR}/results benchmarks/asv/results
+				'''
 			}
 		}
 		stage('Run ASV') {
