@@ -37,6 +37,7 @@ pipeline {
 			steps{
 				sh '''
     				if [ -d "${CLONE_DIR}/results" ]; then 
+					echo "--------results repo exist-------"
 				else 
     					mkdir ${CLONE_DIR}/results
 	 			fi
