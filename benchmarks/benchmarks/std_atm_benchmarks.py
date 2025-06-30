@@ -1,33 +1,35 @@
 import os
 import xarray as xr
 
-import metpy.calc as mpcalc; 
-from metpy.units import units; 
- 
+import metpy.calc as mpcalc
+from metpy.units import units
+
+
 class TimeSuite:
-    #NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
-    version = "2025.06.11"; 
-    
+    # NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
+    version = "2025.06.11"
+
     def setup_cache(self):
-       base_path = os.path.dirname(__file__) # path to current file
-       file_path = os.path.join(base_path, "..", "data_array_compressed.nc");
-       file_path = os.path.abspath(file_path)
-       ds = xr.open_dataset(file_path)
-       return ds; 
-   
+        base_path = os.path.dirname(__file__)  # path to current file
+        file_path = os.path.join(base_path, "..", "data_array_compressed.nc")
+        file_path = os.path.abspath(file_path)
+        ds = xr.open_dataset(file_path)
+        return ds
+
     def setup(self, ds):
-       self.pressureSlice = ds.isel(pressure = 0, time = 0)
-       self.timeSlice = ds.isel(time = 0)
-       
-    def time_height_to_pressure_std(self, timeSlice): 
-        """Benchmarking the height to pressure calculation in a standard atmosphere on a 3d cube"""
+        self.pressureSlice = ds.isel(pressure=0, time=0)
+        self.timeSlice = ds.isel(time=0)
+
+    def time_height_to_pressure_std(self, timeSlice):
+        """Benchmarking the height to pressure calculation in a std atm on a 3d cube"""
         mpcalc.height_to_pressure_std(self.timeSlice.height)
-      
-    def time_pressure_to_height_std(self, timeSlice): 
-        """Benchmarking the pressure to height calculation in a standard atmosphere on a 3d cube"""
+
+    def time_pressure_to_height_std(self, timeSlice):
+        """Benchmarking the pressure to height calculation in a std atm on a 3d cube"""
         mpcalc.pressure_to_height_std(self.timeSlice.pressure)
-        
+
     def time_altimeter_to_sea_level_pressure(self, timeSlice):
         """Benchmarking altimeter to slp on a 3d cube"""
-        mpcalc.altimeter_to_sea_level_pressure(self.timeSlice.pressure.values * units('hPa'), self.timeSlice.height.values * units('km'),
-                                               self.timeSlice.temperature * units('K')); 
+        mpcalc.altimeter_to_sea_level_pressure(self.timeSlice.pressure.values * units('hPa'),
+                                               self.timeSlice.height.values * units('km'),
+                                               self.timeSlice.temperature * units('K'))
