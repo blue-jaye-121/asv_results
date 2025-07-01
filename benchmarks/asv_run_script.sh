@@ -15,22 +15,4 @@ asv machine --yes
 
 #Run asv
 #TODO: Make this everything & also a does not exist 
-asv run 9f59838^! -b other_benchmarks
-   
-#Commit and push benchmark results to results repo
-#if [ -d "$CLONE_DIR"/results ]; then #if the results_asv_results repo exits
-#    rm -r "$CLONE_DIR"/results       #delete it 
-#fi 
-#cp -r "$ASV_RESULTS_PATH" "$CLONE_DIR"/results #copy the results to the results_asv_results repo
-#cd "$CLONE_DIR"                                #move into the results repo
-#git config --local user.email "script@noreply.com"
-#git config --local user.name "ASV Script [bot]"
-#git add results                                #TODO: Add following to Jenkinsfile
-#git commit -m "Update benchmark results"
-
-#git push "$RESULTS_REPO_URL" main:main
-    
-
-#cd .. # Leave temporary repo
-#CLEANUP: remove temp_repo
-#rm -rf "$CLONE_DIR"
+asv run HASHFILE:no_bot_merge_commits.txt
