@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:07.797** total execution time for 3 files **from examples/formats**:
+**00:07.808** total execution time for 3 files **from examples/formats**:
 
 .. container::
 
@@ -39,5 +39,5 @@ Computation times
      - 00:01.599
      - 0.0
    * - :ref:`sphx_glr_examples_formats_GINI_Water_Vapor.py` (``GINI_Water_Vapor.py``)
-     - 00:01.063
+     - 00:01.074
      - 0.0
