@@ -23,14 +23,21 @@ pipeline {
 				'''
 			}
 		}
+        stage('Setup for ASV run') {
+            steps {
+                sh 'benchmarks/asv_setup.sh'
+            }
+        }
 		stage('Run ASV') {
 			steps {
-				sh '''
-				cd benchmarks 
-				docker build -t metpy-benchmarks:latest .
-				cd ..
-				docker run --rm -v .:/container-benchmarks --hostname Docker_Container -e DUID=$(id -u) -e DGID=$(id -g) metpy-benchmarks:latest benchmark
-				'''
+                catchError(buildResult: 'SUCCESS') {
+                    sh '''
+                    cd benchmarks 
+                    docker build -t metpy-benchmarks:latest .
+                    cd ..
+                    docker run --rm -v .:/container-benchmarks --hostname Docker_Container -e DUID=$(id -u) -e DGID=$(id -g) metpy-benchmarks:latest benchmark
+                    '''
+                }
    			}
 		}
 		stage('Copy results') {
