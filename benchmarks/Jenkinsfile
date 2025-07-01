@@ -25,7 +25,7 @@ pipeline {
 		}
         stage('Setup for ASV run') {
             steps {
-                sh 'benchmarks/asv_setup.sh'
+                sh 'benchmarks/generate_hashes.sh'
             }
         }
 		stage('Run ASV') {
