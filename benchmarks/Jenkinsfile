@@ -25,14 +25,16 @@ pipeline {
 		}
         stage('Setup for ASV run') {
             steps {
-                sh 'benchmarks/generate_hashes.sh'
+                sh '''
+                    cd benchmarks
+                    generate_hashes.sh
+                '''
             }
         }
 		stage('Run ASV') {
 			steps {
                 catchError(buildResult: 'SUCCESS') {
                     sh '''
-                    cd benchmarks 
                     docker build -t metpy-benchmarks:latest .
                     cd ..
                     docker run --rm -v .:/container-benchmarks --hostname Docker_Container -e DUID=$(id -u) -e DGID=$(id -g) metpy-benchmarks:latest benchmark
