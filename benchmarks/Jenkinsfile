@@ -4,6 +4,7 @@ pipeline {
 		CLONE_DIR = "temp_repo_results"
 	}
 	stages {
+        // checks out the results repo using secret stored in Jenkins
 		stage('Checkout results repo') {
 			steps {
 				sh 'git config --global credential.helper cache'
@@ -13,6 +14,7 @@ pipeline {
 				checkout scmGit(branches: [[name: '*/main']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'temp_repo_results'], cloneOption(depth: 1, noTags: false, reference: '', shallow: true)], userRemoteConfigs: [[credentialsId: 'ASV_RESULTS_REPO_PAT', url: 'https://github.com/blue-jaye-121/results_asv_results.git']])
 			}
 		}
+        // copies past results into the asv/results folder on the main repo
 		stage('Copy past results') {
 			steps {
 				sh '''
@@ -23,6 +25,7 @@ pipeline {
 				'''
 			}
 		}
+        // generates the hashes to run and stores them in a text file
         stage('Setup for ASV run') {
             steps {
                 sh '''
@@ -32,6 +35,8 @@ pipeline {
                 '''
             }
         }
+        // Runs ASV in the docker container
+        // The catch error ensures that the build works even if some ASV fail
 		stage('Run ASV') {
 			steps {
                 catchError(buildResult: 'SUCCESS') {
@@ -44,6 +49,7 @@ pipeline {
                 }
    			}
 		}
+        // Copies results from the asv/results into the results repo
 		stage('Copy results') {
 			steps{
 				sh '''
@@ -56,6 +62,7 @@ pipeline {
 				'''
 			}
 		}
+        // Pushes to the git repo if there have been changes
 		stage('Update results repo') {
 			steps {
 				withCredentials([gitUsernamePassword(credentialsId: 'ASV_RESULTS_REPO_PAT', gitToolName: 'Default')]) {
@@ -72,6 +79,7 @@ pipeline {
 		}
 	}
 	post {
+        // always removes the temporary repo regardless of build status
 		always {
 			echo "---Cleaning up temporary repo---"
 			sh 'rm -rf "${CLONE_DIR}"'
