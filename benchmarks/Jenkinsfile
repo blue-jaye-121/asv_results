@@ -27,7 +27,7 @@ pipeline {
             steps {
                 sh '''
                     cd benchmarks
-                    generate_hashes.sh
+                    bash generate_hashes.sh
                 '''
             }
         }
