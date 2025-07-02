@@ -1,11 +1,13 @@
 # Copyright (c) 2025 MetPy Developers.
 # Distributed under the terms of the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
-"""Benchmarks the functions in the moist thermo section of metpy's calc module. Uses Airspeed
-Velocity for benchmarking and uses artifical dataset to ensure consistent and reliable data
-for results.
+"""Benchmark the functions in the moist thermo section of metpy's calc module.
+
+Uses Airspeed Velocity for benchmarking and uses artificial dataset to ensure consistent and
+reliable data for results.
 
 """
+
 import os
 import xarray as xr
 
@@ -14,19 +16,21 @@ from metpy.units import units
 
 
 class TimeSuite:
-    """Benchmarks the moist thermo functions in time using Airspeed Velocity and xarray
-    datsets."""
+    """Benchmark the moist thermo functions in time using Airspeed Velocity and xarray
+    datasets.
+
+    """
 
     # NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
     version = '2025.06.16'
 
     def setup_cache(self):
-        """Collects the sample dataset from the filepath and opens it as an xarray.
+        """Collect the sample dataset from the filepath and opens it as an xarray.
 
         Returns
         -------
         ds
-            Dataset with artifical meteorology data for testing
+            Dataset with artificial meteorology data for testing
         """
         base_path = os.path.dirname(__file__)  # path to current file
         file_path = os.path.join(base_path, '..', 'data_array_compressed.nc')
@@ -35,14 +39,14 @@ class TimeSuite:
         return ds
 
     def setup(self, ds):
-        """Sets up the appropriate slices from the sample dataset for testing.
+        """Set up the appropriate slices from the sample dataset for testing.
 
         Parameters
         ----------
         ds : dataset
             The dataset made in setup_cache which contains the testing data
         """
-        self.pressureSlice = ds.isel(pressure=0, time=0)
+        self.pressureslice = ds.isel(pressure=0, time=0)
         self.timeslice = ds.isel(time=0)
         self.upperslice = ds.isel(pressure=49, time=0)
         self.profileslice = ds.isel(time=0, lat=25, lon=25)
@@ -70,15 +74,15 @@ class TimeSuite:
         """Benchmarking precipitable water calculation for one column."""
         mpcalc.precipitable_water(self.timeslice.pressure, self.timeslice.dewpoint[0][0])
 
-    def time_wet_bulb_temperature(self, pressureSlice):
+    def time_wet_bulb_temperature(self, pressureslice):
         """Benchmarking wet bulb temperature calculation on on a slice."""
-        mpcalc.wet_bulb_temperature(self.pressureSlice.pressure,
-                                    self.pressureSlice.temperature,
-                                    self.pressureSlice.dewpoint)
+        mpcalc.wet_bulb_temperature(self.pressureslice.pressure,
+                                    self.pressureslice.temperature,
+                                    self.pressureslice.dewpoint)
 
-    def time_scale_height(self, pressureSlice):
+    def time_scale_height(self, pressureslice):
         """Benchmarking the calculation for the scale height of a layer for 2 surfaces."""
-        mpcalc.scale_height(self.upperslice.temperature, self.pressureSlice.temperature)
+        mpcalc.scale_height(self.upperslice.temperature, self.pressureslice.temperature)
 
     def time_moist_lapse(self, profileslice):
         """Benchmarking the calculation for the moist lapse rate for one profile."""
