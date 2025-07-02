@@ -5,11 +5,12 @@
 
 The generated dataset is used as consistent data for benchmarking
 """
-
 import os
-import xarray as xr
+
 import numpy as np
 import pandas as pd
+import xarray as xr
+
 import metpy.calc as mpcalc
 from metpy.units import units
 

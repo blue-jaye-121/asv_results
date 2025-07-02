@@ -8,13 +8,12 @@ reliable data for results.
 
 """
 
-import metpy.calc as mpcalc
-
-import numpy as np
-
 import os
 
+import numpy as np
 import xarray as xr
+
+import metpy.calc as mpcalc
 
 
 class TimeSuite:

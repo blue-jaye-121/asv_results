@@ -10,9 +10,9 @@ reliable data for results.
 
 import os
 
-import metpy.calc as mpcalc
-
 import xarray as xr
+
+import metpy.calc as mpcalc
 
 
 class TimeSuite:
