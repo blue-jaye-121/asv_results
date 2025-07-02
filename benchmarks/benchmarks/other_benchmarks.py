@@ -55,7 +55,7 @@ class TimeSuite:
         self.profileslice = ds.isel(time=0, lat=0, lon=0)
 
     def time_find_intersections(self, lineslice):
-        """benchmarking finding intersections calculation."""
+        """Benchmarking finding intersections calculation."""
         mpcalc.find_intersections(self.lineslice.lon, self.lineslice.temperature,
                                   self.lineslice.dewpoint)
 
