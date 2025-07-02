@@ -48,7 +48,7 @@ for i, p in enumerate(pressure):
 
 w_3d = np.zeros((len(pressure), 50, 50))
 for i in enumerate(pressure):
-    w_3d[i, :, :] = w * np.random.rand()
+    w_3d[i, :, :] = w * np.random.Generator.random()
 
 # Then make them 4D
 u_4d = np.zeros((50, 50, 50, len(times)))
@@ -110,7 +110,7 @@ w_profile = a * pressure + b
 
 mixingratio_3d = np.zeros((50, len(lats), len(lons)))
 for i in enumerate(lats):
-    for j, ln in enumerate(lons):
+    for j in enumerate(lons):
         mixingratio_3d[:, i, j] = w_profile
 
 mixingratio_4d = np.zeros((50, 50, 50, len(times)))
@@ -178,7 +178,7 @@ pressure_level = xr.DataArray(pressure.magnitude, dims='pressure',
                               attrs={'standard_name': 'pressure', 'units': 'hPa'})
 time_da = xr.DataArray(times, dims='time', attrs={'standard name': 'time'})
 
-coords = {"lat": lat_da, "lon": lon_da, "pressure": pressure_level, "time": time_da}
+coords = {'lat': lat_da, 'lon': lon_da, 'pressure': pressure_level, 'time': time_da}
 
 
 uwind = xr.DataArray(u_4d, coords=coords, dims=['pressure', 'lat', 'lon', 'time'],
