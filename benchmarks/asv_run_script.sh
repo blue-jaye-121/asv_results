@@ -5,4 +5,4 @@
 asv machine --yes
 
 # Runs asv on the commits in the hash file but skips ones that already have results
-asv run --skip-existing HASHFILE:no_bot_merge_commits.txt
+asv run --skip-existing-commits HASHFILE:no_bot_merge_commits.txt
