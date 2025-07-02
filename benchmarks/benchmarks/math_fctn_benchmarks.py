@@ -39,6 +39,7 @@ class TimeSuite:
         file_path = os.path.join(base_path, '..', 'data_array_compressed.nc')
         file_path = os.path.abspath(file_path)
         ds = xr.open_dataset(file_path)
+        ds = ds.metpy.parse_cf()
         return ds
 
     def setup(self, ds):

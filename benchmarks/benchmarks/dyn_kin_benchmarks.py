@@ -39,6 +39,7 @@ class TimeSuite:
         file_path = os.path.join(base_path, '..', 'data_array_compressed.nc')
         file_path = os.path.abspath(file_path)
         ds = xr.open_dataset(file_path)
+        ds = ds.metpy.parse_cf()
         return ds
 
     def setup(self, ds):
@@ -54,8 +55,8 @@ class TimeSuite:
         self.profileslice = ds.isel(time=0, lat=0, lon=0)
         start = (30., 260.)
         end = (40., 270.)
-        self.cross = mpinter.cross_section(self.timeslice,
-                                           start, end).set_coords(('lat', 'lon'))
+        self.cross = mpinter.cross_section(self.timeslice, start, end).set_coords(('lat', 'lon'
+                                                                                   ))
 
     def time_absolute_vorticity(self, pressureslice):
         """Benchmarking absolute momentum calculation on a 2d surface."""
