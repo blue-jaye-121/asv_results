@@ -48,7 +48,7 @@ class TimeSuite:
         ds : dataset
             The dataset made in setup_cache which contains the testing data
         """
-        self.pressureSlice = ds.isel(pressure=0, time=0)
+        self.pressureslice = ds.isel(pressure=0, time=0)
         self.timeslice = ds.isel(time=0)
         self.profileslice = ds.isel(time=0, lat=0, lon=0)
         start = (30., 260.)
@@ -56,46 +56,46 @@ class TimeSuite:
         self.cross = mpinter.cross_section(self.timeslice, start, end).set_coords(('lat', 'lon'
                                                                                    ))
 
-    def time_absolute_vorticity(self, pressureSlice):
+    def time_absolute_vorticity(self, pressureslice):
         """Benchmarking absolute momentum calculation on a 2d surface."""
-        mpcalc.absolute_vorticity(self.pressureSlice.uwind, self.pressureSlice.vwind)
+        mpcalc.absolute_vorticity(self.pressureslice.uwind, self.pressureslice.vwind)
 
     def time_advection(self, timeslice):
         """Benchmarking the advection calculation of t on a 3d cube."""
         mpcalc.advection(self.timeslice.temperature, self.timeslice.uwind,
                          self.timeslice.vwind)
 
-    def time_ageostrophic_wind(self, pressureSlice):
+    def time_ageostrophic_wind(self, pressureslice):
         """Benchmarking ageostrophic wind calculation on a 2d surface."""
-        mpcalc.ageostrophic_wind(self.pressureSlice.height, self.pressureSlice.uwind,
-                                 self.pressureSlice.vwind)
+        mpcalc.ageostrophic_wind(self.pressureslice.height, self.pressureslice.uwind,
+                                 self.pressureslice.vwind)
 
-    def time_frontogenesis(self, pressureSlice):
+    def time_frontogenesis(self, pressureslice):
         """Benchmarking the calculation of frontogenesis of a 2d field."""
-        mpcalc.frontogenesis(self.pressureSlice.theta, self.pressureSlice.uwind,
-                             self.pressureSlice.vwind)
+        mpcalc.frontogenesis(self.pressureslice.theta, self.pressureslice.uwind,
+                             self.pressureslice.vwind)
 
     def time_potential_vorticity_barotropic(self, timeslice):
         """Benchmarking the barotropic potential vorticity calculation on a cube."""
         mpcalc.potential_vorticity_barotropic(self.timeslice.height, self.timeslice.uwind,
                                               self.timeslice.vwind)
 
-    def time_q_vector(self, pressureSlice):
+    def time_q_vector(self, pressureslice):
         """Benchmarking q vector calculation on a 2d slice."""
-        mpcalc.q_vector(self.pressureSlice.uwind, self.pressureSlice.vwind,
-                        self.pressureSlice.temperature, self.pressureSlice.pressure)
+        mpcalc.q_vector(self.pressureslice.uwind, self.pressureslice.vwind,
+                        self.pressureslice.temperature, self.pressureslice.pressure)
 
-    def time_total_deformation(self, pressureSlice):
+    def time_total_deformation(self, pressureslice):
         """Benchmarking total deformation calculation on a 2d slice."""
-        mpcalc.total_deformation(self.pressureSlice.uwind, self.pressureSlice.vwind)
+        mpcalc.total_deformation(self.pressureslice.uwind, self.pressureslice.vwind)
 
-    def time_vorticity(self, pressureSlice):
+    def time_vorticity(self, pressureslice):
         """Benchmarking vorticity calculation on a 2d slice."""
-        mpcalc.vorticity(self.pressureSlice.uwind, self.pressureSlice.vwind)
+        mpcalc.vorticity(self.pressureslice.uwind, self.pressureslice.vwind)
 
-    def time_shear_vorticity(self, pressureSlice):
+    def time_shear_vorticity(self, pressureslice):
         """Benchmarking shear vorticity on a 2d slice."""
-        mpcalc.shear_vorticity(self.pressureSlice.uwind, self.pressureSlice.vwind)
+        mpcalc.shear_vorticity(self.pressureslice.uwind, self.pressureslice.vwind)
 
     def time_absolute_momentum(self, cross):
         """Benchmarking absolute momentum calculation."""
@@ -115,10 +115,10 @@ class TimeSuite:
         """Benchmarking the curvature vorticity calculation on a 3d cube."""
         mpcalc.curvature_vorticity(self.timeslice.uwind, self.timeslice.vwind)
 
-    def time_montgomery_streamfunction(self, pressureSlice):
+    def time_montgomery_streamfunction(self, pressureslice):
         """Benchmarking the montgomery streamfunction calculation on a 2d grid."""
-        mpcalc.montgomery_streamfunction(self.pressureSlice.height,
-                                         self.pressureSlice.temperature)
+        mpcalc.montgomery_streamfunction(self.pressureslice.height,
+                                         self.pressureslice.temperature)
 
     def time_wind_direction(self, timeslice):
         """Benchmarking the wind direction calculation on a 3d cube."""
