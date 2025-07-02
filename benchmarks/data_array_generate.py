@@ -105,18 +105,18 @@ b = surface_w - a * pressure[49]
 w_profile = a * pressure + b
 
 
-mixingRatio_3d = np.zeros((50, len(lats), len(lons)))
+mixingratio_3d = np.zeros((50, len(lats), len(lons)))
 for i, l in enumerate(lats):
     for j, ln in enumerate(lons):
-        mixingRatio_3d[:, i, j] = w_profile
+        mixingratio_3d[:, i, j] = w_profile
 
-mixingRatio_4d = np.zeros((50, 50, 50, len(times)))
+mixingratio_4d = np.zeros((50, 50, 50, len(times)))
 for i, tm in enumerate(times):
-    mixingRatio_4d[:, :, :, i] = mixingRatio_3d
+    mixingratio_4d[:, :, :, i] = mixingratio_3d
 
 
 # Generate vapor pressure
-vapor_pressure_4d = mpcalc.vapor_pressure(p, mixingRatio_4d)
+vapor_pressure_4d = mpcalc.vapor_pressure(p, mixingratio_4d)
 
 # Generate dewpoint
 td_sfc = (np.linspace(10, 0, 50) * np.ones((50, 50)))
@@ -153,7 +153,7 @@ for i, tm in enumerate(times):
     geopotential_4d[:, :, :, i] = geopotential_3d[:, :, :]
 
 # generate specific humidity values
-q = mpcalc.specific_humidity_from_mixing_ratio(mixingRatio_4d)
+q = mpcalc.specific_humidity_from_mixing_ratio(mixingratio_4d)
 
 # generate wet bulb temperature
 wet_bulb_4d = np.zeros((50, 50, 50, len(times)))
@@ -162,7 +162,7 @@ for i, tm in enumerate(times):
                                                           td_4d[:, :, :, i])
 
 # generate omega
-omega_4d = mpcalc.vertical_velocity_pressure(w_4d * units('m/s'), p_3d, t_4d, mixingRatio_4d)
+omega_4d = mpcalc.vertical_velocity_pressure(w_4d * units('m/s'), p_3d, t_4d, mixingratio_4d)
 
 # place data into an xarray dataset object
 lat_da = xr.DataArray(lats, dims='lat', attrs={'standard_name': 'latitude',
