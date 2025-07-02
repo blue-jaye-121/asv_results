@@ -57,7 +57,7 @@ class TimeSuite:
                                                                                    ))
 
     def time_absolute_vorticity(self, pressureSlice):
-        """benchmarking absolute momentum calculation on a 2d surface."""
+        """Benchmarking absolute momentum calculation on a 2d surface."""
         mpcalc.absolute_vorticity(self.pressureSlice.uwind, self.pressureSlice.vwind)
 
     def time_advection(self, timeslice):
