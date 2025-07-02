@@ -16,8 +16,7 @@ from metpy.units import units
 
 
 class TimeSuite:
-    """Benchmark the moist thermo functions in time using Airspeed Velocity
-    and xarray datasets.
+    """Benchmark moist thermo functions in time using Airspeed Velocity and xarray datasets.
 
     Uses ASV's benchmarking format to load in data and run benchmarks to measure time
      performance
