@@ -25,7 +25,7 @@ class TimeSuite:
     """
 
     # NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
-    version = '2025.07.02'
+    version = '2025.07.03'
 
     def setup_cache(self):
         """Collect the sample dataset from the filepath and opens it as an xarray.
@@ -54,8 +54,8 @@ class TimeSuite:
         self.profileslice = ds.isel(time=0, lat=0, lon=0)
         start = (30., 260.)
         end = (40., 270.)
-        self.cross = mpinter.cross_section(self.timeslice, start, end).set_coords(('lat', 'lon'
-                                                                                   ))
+        self.cross = mpinter.cross_section(self.timeslice,
+                                           start, end).set_coords(('lat', 'lon'))
 
     def time_absolute_vorticity(self, pressureslice):
         """Benchmarking absolute momentum calculation on a 2d surface."""

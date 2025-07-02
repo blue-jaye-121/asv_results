@@ -25,7 +25,7 @@ class TimeSuite:
     """
 
     # NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
-    version = '2025.07.02'
+    version = '2025.07.03'
 
     def setup_cache(self):
         """Collect the sample dataset from the filepath and opens it as an xarray.
@@ -53,8 +53,8 @@ class TimeSuite:
         self.timeslice = ds.isel(time=0)
         start = (30., 260.)
         end = (40., 270.)
-        self.cross = mpinter.cross_section(self.timeslice, start, end).set_coords(('lat', 'lon'
-                                                                                   ))
+        self.cross = mpinter.cross_section(self.timeslice,
+                                           start, end).set_coords(('lat', 'lon'))
 
     def time_geospatial_gradient(self, pressureslice):
         """Benchmarking calculating the geospatial gradient of temp on a 2d array."""
