@@ -24,7 +24,7 @@ class TimeSuite:
     """
 
     # NOTE: I'm using CalVer https://calver.org/ YYYY.MM.DD
-    version = '2025.06.16'
+    version = '2025.07.02'
 
     def setup_cache(self):
         """Collect the sample dataset from the filepath and opens it as an xarray.
