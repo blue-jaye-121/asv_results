@@ -3,9 +3,6 @@ pipeline {
 	environment {
 		CLONE_DIR = "temp_repo_results"
 	}
-    triggers {
-        githubPush()
-    }
 	stages {
         // checks out the results repo using secret stored in Jenkins
 		stage('Checkout results repo') {
