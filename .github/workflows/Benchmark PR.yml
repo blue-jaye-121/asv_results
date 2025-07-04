@@ -28,5 +28,5 @@ jobs:
           - run: pip install asv virtualenv  #install asv
           - run: python -m asv machine --yes  #setup the asv machine settings with device-given defaults
           - name: Run ASV
-            run: python -m asv continuous ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} # run ASV on the PR comparing to main
-            continue-on-error: true #Tells GHA that a failed benchmark is ok, continue to run
+            # Runs asv on the PR's base sha (should always be main) and the PR branch's sha 
+            run: python -m asv continuous ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} 
