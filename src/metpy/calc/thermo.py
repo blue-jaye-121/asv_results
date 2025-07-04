@@ -17,6 +17,8 @@ import scipy.optimize as so
 from scipy.special import lambertw
 import xarray as xr
 
+import time
+
 from .exceptions import InvalidSoundingError
 from .tools import (_greater_or_close, _less_or_close, _remove_nans, find_bounding_indices,
                     find_intersections, first_derivative, get_layer)
@@ -1750,6 +1752,7 @@ def dewpoint(vapor_pressure):
        Renamed ``e`` parameter to ``vapor_pressure``
 
     """
+    time.sleep(2)
     val = np.log(vapor_pressure / mpconsts.nounit.sat_pressure_0c)
     return mpconsts.nounit.zero_degc + 243.5 * val / (17.67 - val)
 
