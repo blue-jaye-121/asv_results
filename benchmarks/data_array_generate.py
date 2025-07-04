@@ -22,7 +22,7 @@ p_3d = pressure[:, np.newaxis, np.newaxis]
 
 times = pd.date_range('2024/01/01', '2024/06/01', freq='ME')
 
-# Initalize a random number generator
+# Initialize a random number generator
 rng = np.random.default_rng()
 
 # Adding height
