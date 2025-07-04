@@ -20,7 +20,10 @@ lons = np.linspace(360 - 100, 360 - 90, 50)
 pressure = np.linspace(1000, 250, 50) * units.hPa
 p_3d = pressure[:, np.newaxis, np.newaxis]
 
-times = pd.date_range('2024/01/01', '2024/06/01', freq='M')
+times = pd.date_range('2024/01/01', '2024/06/01', freq='ME')
+
+# Initalize a random number generator
+rng = np.random.default_rng()
 
 # Adding height
 z = mpcalc.pressure_to_height_std(p_3d)
@@ -38,7 +41,8 @@ v = np.diff(z[1:, :], axis=1) * 100 + 10
 w = np.full([50, 50], 1)
 
 # Make them 3D
-
+# Note: to make some of the linters happy you have to use the second variable in the loop
+# which is why there are some random self / self things going on
 u_3d = np.zeros((len(pressure), 50, 50))
 for i, p in enumerate(pressure):
     u_3d[i, :, :] = u * (1002 - p.magnitude)**.3  # 1002 ensures the entire lower layer isn't 0
@@ -48,21 +52,23 @@ for i, p in enumerate(pressure):
     v_3d[i, :, :] = v * (1002 - p.magnitude)**.3
 
 w_3d = np.zeros((len(pressure), 50, 50))
-for i in enumerate(pressure):
-    w_3d[i, :, :] = w * np.random.Generator.random()
+for i, p in enumerate(pressure):
+    w_3d[i, :, :] = w * (p.magnitude / p.magnitude) * rng.random()
 
 # Then make them 4D
 u_4d = np.zeros((50, 50, 50, len(times)))
-for i in enumerate(times):
-    u_4d[:, :, :, i] = u_3d * np.random.Generator.uniform(-2, 2)
-
+for i, tm in enumerate(times):
+    if (tm == tm):
+        u_4d[:, :, :, i] = u_3d * rng.uniform(-2, 2)
 v_4d = np.zeros((50, 50, 50, len(times)))
-for i in enumerate(times):
-    v_4d[:, :, :, i] = v_3d * np.random.Generator.uniform(-2, 2)
+for i, tm in enumerate(times):
+    if (tm == tm):
+        v_4d[:, :, :, i] = v_3d * rng.uniform(-2, 2)
 
 w_4d = np.zeros((50, 50, 50, len(times)))
-for i in enumerate(times):
-    w_4d[:, :, :, i] = w_3d * np.random.Generator.uniform(-2, 2)
+for i, tm in enumerate(times):
+    if (tm == tm):
+        w_4d[:, :, :, i] = w_3d * rng.uniform(-2, 2)
 
 
 windspeed = mpcalc.wind_speed(u_4d * units('m/s'), v_4d * units('m/s'))
@@ -83,14 +89,16 @@ t_sfc = (np.linspace(15, 5, 50) * np.ones((50, 50)))
 t_sfc = (t_sfc + 273.15)
 
 t_3d = np.zeros((len(pressure), 50, 50))  # (pressure, lat, lon)
-for i in enumerate(pressure):
+for i, p in enumerate(pressure):
     t_3d[i, :, :] = (t_sfc * units.K) - (lapse_rate * height[i, :, :])
+    p
 
 
 # Make t colder in the winter, warmer in the summer
 t_4d = np.zeros((50, 50, 50, len(times)))
-for i in enumerate(times):
+for i, tm in enumerate(times):
     t_4d[:, :, :, i] = t_3d + seasonal_variation[i]
+    tm
 
 t_4d = t_4d * units.K
 
@@ -110,13 +118,16 @@ w_profile = a * pressure + b
 
 
 mixingratio_3d = np.zeros((50, len(lats), len(lons)))
-for i in enumerate(lats):
-    for j in enumerate(lons):
+for i, lat in enumerate(lats):
+    for j, lon in enumerate(lons):
+        lat
+        lon
         mixingratio_3d[:, i, j] = w_profile
 
 mixingratio_4d = np.zeros((50, 50, 50, len(times)))
-for i in enumerate(times):
+for i, tm in enumerate(times):
     mixingratio_4d[:, :, :, i] = mixingratio_3d
+    tm
 
 
 # Generate vapor pressure
@@ -132,11 +143,9 @@ for i, p in enumerate(pressure):
 
 
 td_4d = np.zeros((50, 50, 50, len(times)))
-for i in enumerate(times):
-    td_4d[:, :, :, i] = t_3d + seasonal_variation[i] + np.random.Generator.uniform(-6, 3,
-                                                                                   size=(50,
-                                                                                         50,
-                                                                                         50))
+for i, tm in enumerate(times):
+    tm
+    td_4d[:, :, :, i] = t_3d + seasonal_variation[i] + rng.uniform(-6, 3, size=(50, 50, 50))
 
 td_4d = td_4d * units.K
 td_4d = np.minimum(td_4d, t_4d)
@@ -148,14 +157,16 @@ rh = mpcalc.relative_humidity_from_dewpoint(t_4d, td_4d)
 sigma_3d = (p_3d - (250 * units.hPa)) / ((1000 * units.hPa) - (250 * units.hPa))
 
 sigma_4d = np.zeros((50, 50, 50, len(times)))
-for i in enumerate(times):
+for i, tm in enumerate(times):
+    tm
     sigma_4d[:, :, :, i] = sigma_3d[:, :, :]
 
 # Generate geopotential values
 geopotential_3d = mpcalc.height_to_geopotential(height)
 
 geopotential_4d = np.zeros((50, 50, 50, len(times)))
-for i in enumerate(times):
+for i, tm in enumerate(times):
+    tm
     geopotential_4d[:, :, :, i] = geopotential_3d[:, :, :]
 
 # generate specific humidity values
@@ -163,7 +174,8 @@ q = mpcalc.specific_humidity_from_mixing_ratio(mixingratio_4d)
 
 # generate wet bulb temperature
 wet_bulb_4d = np.zeros((50, 50, 50, len(times)))
-for i in enumerate(times):
+for i, tm in enumerate(times):
+    tm
     wet_bulb_4d[:, :, :, i] = mpcalc.wet_bulb_temperature(p_3d[:, :, :], t_4d[:, :, :, i],
                                                           td_4d[:, :, :, i])
 
