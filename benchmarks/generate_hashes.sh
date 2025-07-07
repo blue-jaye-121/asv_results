@@ -14,10 +14,10 @@ grep -v -i "github-actions" | \
 awk '{print $1}'  > ../no_bot_merge_commits.txt #print output to this file in the benchmarks dir
 
 
-#Get the commit hashes for each minor version after 1.0
+#Get the commit hashes for each minor version after 1.
 git for-each-ref --sort=version:refname \
   --format='%(refname:short) %(objectname)' refs/tags | \
-  grep -E '^v[1-9][0-9]*\..*' |
+  grep -E '^v[1-9].[4-9]*\..*' |
   awk '{print $2}' >> ../no_bot_merge_commits.txt #append these results to same file 
   
 cd .. #leave temp_repo
