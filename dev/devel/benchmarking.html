@@ -473,8 +473,8 @@
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="CONTRIBUTING.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="roadmap.html">MetPy Roadmap</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Performance Benchmarking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infrastructureguide.html">Infrastructure Guide</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Performance Benchmarking</a></li>
 </ul>
 </div>
 </nav></div>
@@ -535,8 +535,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="performative-benchmarking">
-<h1>Performative Benchmarking<a class="headerlink" href="#performative-benchmarking" title="Link to this heading">#</a></h1>
+  <section id="performance-benchmarking">
+<h1>Performance Benchmarking<a class="headerlink" href="#performance-benchmarking" title="Link to this heading">#</a></h1>
 <p>This guide includes information on the implementation and management of benchmarking in MetPy.</p>
 <section id="airspeed-velocity">
 <h2>Airspeed Velocity<a class="headerlink" href="#airspeed-velocity" title="Link to this heading">#</a></h2>
@@ -561,6 +561,15 @@ exist for the requested commit hash, ASV will skip it and maintain the previous 
 where a GitHub Action uses an ASV command to generate and deploy the html files.
 </p>
 </section>
+<section id="comparative-benchmarking">
+<h2>Comparative Benchmarking<a class="headerlink" href="#comparative-benchmarking" title="Link to this heading">#</a></h2>
+<p>For benchmarking potential merges into Metpy's source code, comparative benchmarking is run on each pull request by a Github Actions workflow. This workflow compares
+the most recent commit hash from <code class="docutils literal notranslate"><span class="pre">main</span></code> to the most recent commit hash on the pull request.
+In the event that the pull request has one or more functions that are 10% slower than MetPy's current preformance, the check will fail. Just because you fail this check does not mean
+that your changes are not going to be merged, but it is a handy tool to see if any implementations need to be reviewed. 
+MetPy's maintainers will work with each pull request on a case-by-case basis during code review. 
+</p>
+</section>
 <section id="benchmark-functions">
 <h2>Benchmark Functions<a class="headerlink" href="#benchmark-functions" title="Link to this heading">#</a></h2>
 <p> Located within the <code class="docutils literal notranslate"><span class="pre">benchmarks/benchmarks</span></code> directory are 
@@ -571,16 +580,8 @@ with the name scheme <code class="docutils literal notranslate"><span class="pre
  and prepares the dataset for use by the benchmarks. The <code class="docutils literal notranslate"><span class="pre">setup</span></code> function "slices" the 4D dataset into the appropriate dimensions to create variables that can be passed to and used by the benchmark 
  functions. Each benchmarking function then recieves one of these slices or the dataset, and runs the code inside the function as a benchmark, timing the performance and saving the results. 
 </section>
-<section id="comparative-benchmarking">
-<h2>Comparative Benchmarking<a class="headerlink" href="#comparative-benchmarking" title="Link to this heading">#</a></h2>
-<p>For benchmarking potential merges into Metpy's source code, comparative benchmarking is run on each pull request by a Github Actions workflow. This workflow compares
-the most recent commit hash from <code class="docutils literal notranslate"><span class="pre">main</span></code> to the most recent commit hash on the pull request.
-In the event that the pull request has one or more functions that are 10% slower than MetPy's current preformance, the check will fail. Just because you fail this check does not mean
-that your changes are not going to be merged, but it is a handy tool to see if any implementations need to be reviewed. 
-MetPy's maintainers will work with each pull request on a case-by-case basis during code review. 
-</p>
-<section id="local-benchmarks">
-<h3>Local Benchmarking<a class="headerlink" href="#local-benchmarks" title="Link to this heading">#</a></h3>
+<section id="local-benchmarking">
+<h2>Local Benchmarking<a class="headerlink" href="#local-benchmarks" title="Link to this heading">#</a></h3>
 <p>If you would like to run the benchmarking suite on your own development branch, follow these steps:
 <ol class="arabic simple">
 <li><p>Install asv on your <code class="docutils literal notranslate"><span class="pre">devel</span></code></p></li> environment using 
@@ -613,20 +614,20 @@ heavy and can take several hours depending on the specs of your machine. </li></
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="roadmap.html"
+       href="infrastructureguide.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">MetPy Roadmap</p>
+        <p class="prev-next-title">Infrastructure Guide</p>
       </div>
     </a>
     <a class="right-next"
-       href="infrastructureguide.html"
+       href="../examples/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Infrastructure Guide</p>
+        <p class="prev-next-title">Example Gallery</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -649,12 +650,11 @@ heavy and can take several hours depending on the specs of your machine. </li></
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#versioning">Versioning</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-tools">Other Tools</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#releasing">Releasing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pypi">PyPI</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conda">Conda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#airspeed-velocity">Airspeed Velocity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#historical-performance">Historical Performance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparative-benchmarking">Comparative Benchmarking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benchmark-functions">Benchmark Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="local-benchmarking">Local Benchmarking</a></li>
 </ul>
 </li>
 </ul>
