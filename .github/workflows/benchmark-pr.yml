@@ -26,6 +26,7 @@ jobs:
             uses: actions/checkout@v4  #checks out repository
             with:
               fetch-depth: 0  # Fetch full history
+          - run: pip install os, numpy, pandas, xarray, metpy
           - name: Create data array
             run: python data_array_generate.py
           - run: pip install asv virtualenv  #install asv
