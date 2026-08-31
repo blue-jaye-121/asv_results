@@ -6,6 +6,8 @@ from inspect import Parameter, Signature, signature
 
 import numpy as np
 
+import time
+
 # Can drop fallback once we rely on numpy>=2
 try:
     from numpy import trapezoid
@@ -5170,6 +5172,7 @@ def scale_height(temperature_bottom, temperature_top):
     <Quantity(7556.2307, 'meter')>
 
     """
+    time.sleep(2)
     t_bar = 0.5 * (temperature_bottom + temperature_top)
     return (mpconsts.nounit.Rd * t_bar) / mpconsts.nounit.g
 
